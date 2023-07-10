@@ -1,0 +1,59 @@
+$menuHeight: 60px;
+
+$bgLightTheme02: #E3D7CD;
+$textLightFont: #000000;
+$lightGreenTheme: #036D3B;
+
+.topMenu {
+    height: $menuHeight;
+    z-index: 10;
+    color: $textLightFont;
+    font-family: 'Dosis';
+    font-size: 18px;
+    text-decoration: none;
+
+    #topMenuContainer {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+
+        background-color: $bgLightTheme02;
+        border-bottom: 1px solid black;
+
+        height: $menuHeight;
+    
+        .signin, .signup, .dashboard {
+            margin-right: 20px;
+
+            :hover {
+                cursor: pointer;
+
+                a {
+                    color: $lightGreenTheme;
+                }
+            }
+        }
+    }
+  
+    &.dark {
+        color: $textDarkFont;
+
+        #topMenuContainer {
+            background-color: $bgDarkTheme02;
+
+            .signin, .signup, .dashboard {
+                :hover {
+                    a {
+                        color: $darkGreenTheme;
+                    }
+                }
+            }
+        }
+    }
+}
