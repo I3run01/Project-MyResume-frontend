@@ -3,7 +3,7 @@ import { RootState } from '@/redux/store';
 import { fetchUser } from '@/redux/slice/userSlice';
 import Link from 'next/link';
 import { useEffect } from 'react';
-import styles from './TopMenu.module.scss';
+import './TopMenu.module.scss';
 
 export const TopMenu = () => {
     const isDark = useSelector((state: RootState) => state.theme.isDark);
