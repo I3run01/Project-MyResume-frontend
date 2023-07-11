@@ -1,11 +1,9 @@
-import { NoSignedLayout } from '@/layout/noSignedLayout'
+import { NoSignedLayout } from '@/layouts/noSignedLayout'
 
 export default function Home() {
   return (
-    <>
-      <div>
-        hello world
-      </div>
-    </>
+    <NoSignedLayout>
+      <div></div>
+    </NoSignedLayout>
   )
 }

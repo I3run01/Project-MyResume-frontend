@@ -3,7 +3,8 @@ import { RootState } from '@/redux/store';
 import { fetchUser } from '@/redux/slice/userSlice';
 import Link from 'next/link';
 import { useEffect } from 'react';
-import './TopMenu.module.scss';
+import { TopMenuDiv } from './topMenuDiv.module'
+import { changeTheme } from '@/redux/slice/themeSlice';
 
 export const TopMenu = () => {
     const isDark = useSelector((state: RootState) => state.theme.isDark);
@@ -14,28 +15,35 @@ export const TopMenu = () => {
         dispatch(fetchUser());
     }, []);
 
-    //TODO: connect the style here
     return (
-        <div className='topMenu'>
+        <TopMenuDiv
+            isDark={isDark}
+        >
             <div id='topMenuContainer'>
-                {!user &&
-                    <>
-                        <div className='signin'>
-                            <Link href={'/signin'}>Sign In</Link>
-                        </div>
-                        <div className='signup'>
-                            <Link href={'/signup'}>Sign Up {user}</Link>
-                        </div>
-                    </>
-                }
-                {user &&
-                    <>
-                        <div className='dashboard'>
-                            <Link href={'/dashboard'}>Dashboard</Link>
-                        </div>
-                    </>
-                }
+                <div className='theme' onClick={() => dispatch(changeTheme())}>
+                    change theme
+                </div>
+                <div className='options'>
+                    {!user &&
+                        <>
+                            <div className='signin'>
+                                <Link href={'/signin'}>Sign In</Link>
+                            </div>
+                            <div className='signup'>
+                                <Link href={'/signup'}>Sign Up {user}</Link>
+                            </div>
+                        </>
+                    }
+                    {user &&
+                        <>
+                            <div className='dashboard'>
+                                <Link href={'/dashboard'}>Dashboard</Link>
+                            </div>
+                        </>
+                    }
+
+                </div>
             </div>
-        </div>
+        </TopMenuDiv>
     );
 }
