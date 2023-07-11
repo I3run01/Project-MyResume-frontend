@@ -24,7 +24,7 @@ export const GoogleButton = () => {
     
         try {
             let response = JSON.parse(await new User().googleSignIn(user.access_token))
-            return router.push('/')
+            return router.push('/dashboard')
         } catch (err: any) {          
             if (err.data?.message) return alert(err.data?.message)
 
