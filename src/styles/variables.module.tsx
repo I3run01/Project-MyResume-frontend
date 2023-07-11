@@ -1,7 +1,10 @@
 export const themes = {
+    global: {
+      colorTheme: '#5b5b93'
+    },
     light: {
       backgroundOne: '#d5d4d4',
-      backgroundTwo: '#cecdcd',
+      backgroundTwo: '#b8b7b7',
       fontColor: 'black',
     },
     dark: {

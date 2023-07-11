@@ -40,7 +40,7 @@ export const TopMenuDiv = styled.div<Props>`
         }
 
         .theme:hover {
-            border-color: #3b72b9;
+            border-color: ${themes.global.colorTheme};
             border-radius: 6px;
             cursor: pointer;
         }
@@ -57,7 +57,7 @@ export const TopMenuDiv = styled.div<Props>`
           }
 
           :hover {
-            border-color: #3b72b9;
+            border-color: ${themes.global.colorTheme};
             border-radius: 6px;
           }
         }
