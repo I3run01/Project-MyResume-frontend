@@ -7,13 +7,14 @@ import Link from 'next/link'
 import Image from 'next/image'
 import backButton from '.././../public/images/icons/backButton.svg'
 import { useQuery } from 'react-query';
+import { Loading } from '@/components/loading'
 
 const SignIn = () => {
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const router = useRouter()
 
-    const { data, error, refetch } = useQuery(['signin'], async () => {
+    const { data, error, refetch, isFetching } = useQuery(['signin'], async () => {
         let response = await new User().signIn(email, password)
         let json = JSON.parse(response)
         return json
@@ -34,6 +35,9 @@ const SignIn = () => {
     }, [error])
 
     return (
+        <>
+            {isFetching && <Loading/>}
+
             <SigninDiv>
                 <form id='container'>
                     <Link href={'/'} className='backButton'>
@@ -56,6 +60,7 @@ const SignIn = () => {
                     <GoogleButton/>
                 </form>
             </SigninDiv>
+        </>
     )
 }
 

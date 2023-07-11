@@ -9,7 +9,7 @@ api.interceptors.response.use(function (response) {
     return response;
 }, function (error) {
     console.log(error)
-    if (error.response.data.message) throw error.response.data.message;
+    if (error.response) throw error.response.data.message;
 
     if (error.message) throw error.message;
     

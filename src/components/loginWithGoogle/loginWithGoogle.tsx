@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import GoogleLogo from '../../../public/images/icons/googleLogo.svg'
 import Image from 'next/image'
 import { useQuery } from 'react-query';
+import { Loading } from '@/components/loading'
 
 export const GoogleButton = () => {
     const [ user, setUser ] = useState<any>();
@@ -16,7 +17,7 @@ export const GoogleButton = () => {
         onError: (error: unknown) => console.log('Login Failed:', error)
     });
 
-    const { data, error, refetch } = useQuery(['googleLogin'], async () => {
+    const { data, error, refetch, isFetching } = useQuery(['googleLogin'], async () => {
 
         let response = await new User().googleSignIn(user.access_token)
         let json = JSON.parse(response)
@@ -43,15 +44,19 @@ export const GoogleButton = () => {
     }, [error])
 
     return (
-        <GoogleButtonDiv onClick={() => login()}>
-            <Image
-                src={GoogleLogo}
-                alt='logo of google'
+        <>
+            {isFetching && <Loading/>}
+            
+            <GoogleButtonDiv onClick={() => login()}>
+                <Image
+                    src={GoogleLogo}
+                    alt='logo of google'
 
-                className='googleLogo'
-            />
-            <p>Continue with google</p>
-        </GoogleButtonDiv>  
+                    className='googleLogo'
+                />
+                <p>Continue with google</p>
+            </GoogleButtonDiv>  
+        </>
         
     )
 }

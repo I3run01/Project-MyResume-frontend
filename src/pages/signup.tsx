@@ -6,6 +6,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import backButton from '../../public/images/icons/backButton.svg'
 import { useQuery } from 'react-query';
+import { Loading } from '@/components/loading'
 
 const SignUp = () => {
     const [email, setEmail] = useState<string>('')
@@ -14,7 +15,7 @@ const SignUp = () => {
     const [corretEmail, setCorrectEmail] = useState<boolean>(false)
     const [mathPassword, setMathPassword] = useState<boolean>(false)
 
-    const { data, error, refetch } = useQuery(['signin'], async () => {
+    const { data, error, refetch, isFetching } = useQuery(['signin'], async () => {
         if(!corretEmail && !mathPassword) return
         
         let response = await new User().signUp(email, password)
@@ -51,37 +52,42 @@ const SignUp = () => {
         password === confirmPassword && password ? setMathPassword(true) : setMathPassword(false)
     }
 
+
     return (
-        <SignupDiv
-            correctEmail={corretEmail}
-            mathPassword={mathPassword}
-        >
-            <form id='container'>
-                <Link href={'/'} className='backButton'>
-                    <Image
-                        src={backButton}
-                        alt='back button' 
-                    />
-                </Link>
+        <>
+            {isFetching && <Loading/>}
+            
+            <SignupDiv
+                correctEmail={corretEmail}
+                mathPassword={mathPassword}
+            >
+                <form id='container'>
+                    <Link href={'/'} className='backButton'>
+                        <Image
+                            src={backButton}
+                            alt='back button' 
+                        />
+                    </Link>
 
-                <input type="text" placeholder='Email' name='Email'               onChange={(event)=>{setEmail(event.target.value)}}/>
-                <p className='corretEmail'>{corretEmail ? 'Email is correct' : 'Email is incorrect'}</p>
+                    <input type="text" placeholder='Email' name='Email'               onChange={(event)=>{setEmail(event.target.value)}}/>
+                    <p className='corretEmail'>{corretEmail ? 'Email is correct' : 'Email is incorrect'}</p>
 
-                <input type="password" placeholder='Password' 
-                onChange={(event)=>{setPassword(event.target.value)}}/>
-                <p className='mathPassword'>{mathPassword ? "Password match" : "Passwords do not match"}</p>
+                    <input type="password" placeholder='Password' 
+                    onChange={(event)=>{setPassword(event.target.value)}}/>
+                    <p className='mathPassword'>{mathPassword ? "Password match" : "Passwords do not match"}</p>
 
 
-                <input type="password" placeholder='Confirm password' 
-                onChange={(event)=>{setConfirmPassword(event.target.value)}}/>
-                <p className='mathPassword'>{mathPassword ? "Password match" : "Passwords do not match"}</p>
+                    <input type="password" placeholder='Confirm password' 
+                    onChange={(event)=>{setConfirmPassword(event.target.value)}}/>
+                    <p className='mathPassword'>{mathPassword ? "Password match" : "Passwords do not match"}</p>
 
-                <div id='submit' onClick={() => refetch()}>Submit</div>
-                
-                <GoogleButton/>
+                    <div id='submit' onClick={() => refetch()}>Submit</div>
+                    
+                    <GoogleButton/>
 
-            </form>
-        </SignupDiv>
+                </form>
+            </SignupDiv>
+        </>
     )
 }
 
