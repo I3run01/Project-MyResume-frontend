@@ -11,13 +11,8 @@ export default function Home() {
         isDark={isDark}
       >
         <div className='container'>
-          <div className='text'>
-            <h1>Resume</h1>
-            <p>The easiest way to have the best resume and share yours skills</p>
-          </div>
-          <div className='image'>
-            <img src="/images/curriculumPhoto.png" alt="" />
-          </div>
+          <h1>Resume</h1>
+          <p>The easiest way to have the best resume and share yours skills</p>
         </div>
       </HomeDiv>
     </NoSignedLayout>

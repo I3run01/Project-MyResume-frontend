@@ -13,15 +13,8 @@ export const NoSignedLayoutDiv = styled.div<props>`
     background-color: ${props => props.isDark ? themes.dark.backgroundOne: themes.light.backgroundOne};
 
     .children {
-        height: 90px;
-
-        display: flex;
-        justify-content: center;
-
-        * {
-            max-width: 1200px;
-            width: 90%;
-        }
+        width: 100%;
+        overflow-y: auto;
     }
 
 `

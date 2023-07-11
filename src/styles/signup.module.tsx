@@ -1,9 +1,22 @@
-import styled from "styled-components";
+import styled, { keyframes } from 'styled-components';
+
 
 type props = {
     correctEmail: boolean
     mathPassword: boolean
 }
+
+const Gradient = keyframes`
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+`;
 
 export const SignupDiv = styled.div<props>`
     * {
@@ -18,9 +31,10 @@ export const SignupDiv = styled.div<props>`
 
     height: 100vh;
 
-    background-image: url('/images/bgImages/bgLogin.png');
-    background-position: center center;
-    background-size: cover;
+    background: linear-gradient(-45deg, #000428, #013b6d, #021661, #570091);
+    background-size: 400% 400%;
+    animation: ${Gradient} 10s ease infinite;
+
 
     #container {
         display: flex;
@@ -42,7 +56,7 @@ export const SignupDiv = styled.div<props>`
 
             filter: brightness(0%);
 
-            :hover {
+            &:hover {
                 filter: brightness(100%);
             }
         }
@@ -86,7 +100,7 @@ export const SignupDiv = styled.div<props>`
 
             width: 200px;
 
-            :hover {
+            &:hover {
                 cursor: pointer;
                 background-color: #f3f3f3;
             }
@@ -102,7 +116,7 @@ export const SignupDiv = styled.div<props>`
 
             margin-bottom: 40px;
 
-            :hover {
+            &:hover {
                 cursor: pointer;
 
                 background-color: #b2fcb278;

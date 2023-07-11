@@ -1,29 +1,26 @@
-import { SigninDiv } from '../../styles/Signin.module'
+import { SigninDiv } from '@/styles/signin.module'
 import { useState } from 'react'
-import { Auth } from '../../Auth/request'
+import { User } from '@/requests/user'
 import { useRouter } from 'next/router';
-import { GoogleButton } from '../../components/googlesButton'
-import { Loading } from '../../components/loading'
+import { GoogleButton } from '@/components/loginWithGoogle/loginWithGoogle'
 import Link from 'next/link'
 import Image from 'next/image'
-import backButton from '../../../public/images/icons/backButton.svg'
+import backButton from '.././../public/images/icons/backButton.svg'
 
 const SignIn = () => {
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
-    const [isLoading, setIsLoanding] = useState<boolean>(false)
     const router = useRouter()
 
     const signinRequest = async () => {
 
         try {
-            let response = JSON.parse(await new Auth().signIn(email, password))
+            let response = JSON.parse(await new User().signIn(email, password))
             
             if (response.status == 200) {
                 return router.push('/dashboard')
             } 
         } catch (err: any) {
-            setIsLoanding(false)
 
             if(err.data?.message) return alert(err.data.message)
 
@@ -34,9 +31,6 @@ const SignIn = () => {
     }
 
     return (
-        <>
-            {isLoading === true && <Loading/>}
-        
             <SigninDiv>
                 <form id='container'>
                     <Link href={'/'} className='backButton'>
@@ -59,7 +53,6 @@ const SignIn = () => {
                     <GoogleButton/>
                 </form>
             </SigninDiv>
-        </>
     )
 }
 

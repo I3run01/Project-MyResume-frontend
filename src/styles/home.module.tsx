@@ -1,12 +1,36 @@
-import { styled } from "styled-components";
+import styled, { keyframes } from 'styled-components';
 import { themes } from '@/styles/Variables.module'
 
 type props = {
     isDark: boolean
 }
 
+const Gradient = keyframes`
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+`;
+
 export const HomeDiv = styled.div<props>`
     padding-top: 20px;
+    min-height: calc(100vh - 60px);
+
+    display: flex;
+    justify-content: center;
+
+    background: ${props => props.isDark ? 
+    'linear-gradient(-45deg, #000428, #013b6d, #021661, #570091)' :
+    'linear-gradient(-45deg, #E0EAFC, #CFDEF3, #E0C3FC, #B4ACFF)'
+    };
+    
+    background-size: 400% 400%;
+    animation: ${Gradient} 10s ease infinite;
 
     * {
         font-weight: lighter;
@@ -15,36 +39,21 @@ export const HomeDiv = styled.div<props>`
     }
 
     .container {
-        display: flex;
-        flex-direction: row-reverse;
-        align-items: center;
 
-        
-
-        .text, .image {           
-            img {
-                margin-top: 20px;
-                border: 1px solid ${props => props.isDark ? themes.dark.fontColor : themes.light.fontColor};
-                box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.3);
-            }
-    
+        width: 1200px;
             h1 {
                 font-family: 'Dosis';
-                font-family: 36px;
+                font-family: 48px;
                 color: ${themes.global.colorTheme};
+                font-weight: bolder;
             }
             
             p {
+                margin-top: 20px;
                 font-size: 16px;
             }
         }
-    }
 
-    @media screen and (max-width: 800px) { 
-        .container {
-            flex-wrap: wrap;
-        }
-    }
     
 
     
