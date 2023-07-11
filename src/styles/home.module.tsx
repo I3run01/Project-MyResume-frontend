@@ -1,12 +1,12 @@
 import { styled } from "styled-components";
-import { themes } from '@/styles/variables.module'
+import { themes } from '@/styles/Variables.module'
 
 type props = {
     isDark: boolean
 }
 
 export const HomeDiv = styled.div<props>`
-padding-top: 20px;
+    padding-top: 20px;
 
     * {
         font-weight: lighter;
@@ -19,7 +19,9 @@ padding-top: 20px;
         flex-direction: row-reverse;
         align-items: center;
 
-        .text, .image {        
+        
+
+        .text, .image {           
             img {
                 margin-top: 20px;
                 border: 1px solid ${props => props.isDark ? themes.dark.fontColor : themes.light.fontColor};

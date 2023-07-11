@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { themes } from '@/styles/variables.module'
+import { themes } from '@/styles/Variables.module'
 
 type Props = {
     isDark: boolean
