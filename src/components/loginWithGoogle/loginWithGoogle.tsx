@@ -3,7 +3,7 @@ import { useGoogleLogin} from '@react-oauth/google';
 import { useEffect, useState } from 'react'
 import { User } from '@/requests/user'
 import { useRouter } from 'next/router';
-import GoogleLogo from '../../../public/images/logos/googleLogo.svg'
+import GoogleLogo from '../../../public/images/icons/googleLogo.svg'
 import Image from 'next/image'
 
 export const GoogleButton = () => {
