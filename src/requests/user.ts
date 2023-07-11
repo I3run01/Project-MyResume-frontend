@@ -8,9 +8,11 @@ const api = axios.create({
 api.interceptors.response.use(function (response) {
     return response;
 }, function (error) {
-    if (error.response) {
-        throw error.response;
-    }
+    console.log(error)
+    if (error.response.data.message) throw error.response.data.message;
+
+    if (error.message) throw error.message;
+    
     throw error;
 });
 
@@ -20,7 +22,7 @@ export class User {
         const apiRoute = '/signup';
         try {
             const response = await api.post(apiRoute, { "email": email, "password": password });
-            return response.data;
+            return JSON.stringify(response.data);
         } catch (error: any) {
             throw error;
         }
@@ -30,7 +32,7 @@ export class User {
         const apiRoute = '/signin';
         try {
             const response = await api.post(apiRoute, { "email": email, "password": password });
-            return response.data;
+            return JSON.stringify(response.data);
         } catch (error: any) {
             throw error;
         }
@@ -40,7 +42,7 @@ export class User {
         const apiRoute = '/signout';
         try {
             const response = await api.get(apiRoute);
-            return response.data;
+            return JSON.stringify(response.data);
         } catch (error) {
             throw error;
         }
@@ -49,7 +51,7 @@ export class User {
     async user() {
         try {
             const response = await api.get('');
-            return response.data;
+            return JSON.stringify(response.data);
         } catch (error) {
             throw error;
         }
@@ -59,7 +61,7 @@ export class User {
         const apiRoute = '/google-signin';
         try {
             const response = await api.post(apiRoute, { "googleToken": email });
-            return response.data;
+            return JSON.stringify(response.data);
         } catch (error) {
             throw error;
         }
@@ -69,7 +71,7 @@ export class User {
         const apiRoute = `/confirm-email/${token}`;
         try {
             const response = await api.get(apiRoute);
-            return response.data;
+            return JSON.stringify(response.data);
         } catch (error) {
             throw error;
         }
@@ -79,7 +81,7 @@ export class User {
         const apiRoute = '/forgot-password';
         try {
             const response = await api.post(apiRoute, { email });
-            return response.data;
+            return JSON.stringify(response.data);
         } catch (error) {
             throw error;
         }
@@ -89,7 +91,7 @@ export class User {
         const apiRoute = `/reset-password/${token}`;
         try {
             const response = await api.post(apiRoute, { password });
-            return response.data;
+            return JSON.stringify(response.data);
         } catch (error) {
             throw error;
         }
@@ -98,7 +100,7 @@ export class User {
     async deleteAccount() {
         try {
             const response = await api.delete('');
-            return response.data;
+            return JSON.stringify(response.data);
         } catch (error) {
             throw error;
         }

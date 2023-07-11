@@ -5,6 +5,7 @@ import { User } from '@/requests/user'
 import { useRouter } from 'next/router';
 import GoogleLogo from '../../../public/images/icons/googleLogo.svg'
 import Image from 'next/image'
+import { useQuery } from 'react-query';
 
 export const GoogleButton = () => {
     const [ user, setUser ] = useState<any>();
@@ -15,25 +16,31 @@ export const GoogleButton = () => {
         onError: (error: unknown) => console.log('Login Failed:', error)
     });
 
+    const { data, error, refetch } = useQuery(['googleLogin'], async () => {
+
+        let response = await new User().googleSignIn(user.access_token)
+        let json = JSON.parse(response)
+        return json
+        },
+        {
+            enabled: false,
+        }
+    );
+    
     useEffect(() => {
-        userRequest()
+        if(!user) return
+        refetch()
     }, [user])
 
-    const userRequest = async () => {
-        if(!user) return
-    
-        try {
-            let response = JSON.parse(await new User().googleSignIn(user.access_token))
-            return router.push('/dashboard')
-        } catch (err: any) {          
-            if (err.data?.message) return alert(err.data?.message)
+    useEffect(() => {
+        if(!data) return
+        router.push('./dashboard')
+    }, [data])
 
-            else if (err.message) return alert(err.message)
-
-            alert('something wrong happened')
-
-        }     
-    }
+    useEffect(() => {
+        if(!error) return
+        alert(error)
+    }, [error])
 
     return (
         <GoogleButtonDiv onClick={() => login()}>

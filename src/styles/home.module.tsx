@@ -39,6 +39,10 @@ export const HomeDiv = styled.div<props>`
     }
 
     .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
 
         width: 1200px;
             h1 {
@@ -51,6 +55,21 @@ export const HomeDiv = styled.div<props>`
             p {
                 margin-top: 20px;
                 font-size: 16px;
+            }
+        }
+
+        .avatar {
+            
+            margin-top: 40px;
+            border: 1px solid ${props => props.isDark ? themes.dark.fontColor : themes.light.fontColor};
+            border-radius: 10px;
+            background-color: ${props => props.isDark ? themes.dark.backgroundTwo : themes.light.backgroundTwo};
+
+            box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.16), -3px -3px 6px rgba(0, 0, 0, 0.23);
+            width: 50%;
+
+            img {
+                width: 80%;
             }
         }
 
