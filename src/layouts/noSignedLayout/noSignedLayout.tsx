@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { TopMenu } from '../components/topMenu/topMenu';
+import { TopMenu } from '@/components/topMenu/topMenu';
 import { NoSignedLayoutDiv } from './noSignedLayout.module'
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';

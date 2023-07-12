@@ -1,4 +1,4 @@
-import { NoSignedLayout } from '@/layouts/noSignedLayout'
+import { NoSignedLayout } from '@/layouts/noSignedLayout/noSignedLayout'
 import { RootState } from '@/redux/store'
 import { HomeDiv } from '@/styles/home.module'
 import { useSelector } from 'react-redux'
