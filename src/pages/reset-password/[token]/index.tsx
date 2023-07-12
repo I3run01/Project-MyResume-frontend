@@ -7,13 +7,15 @@ import Link from 'next/link'
 import Image from 'next/image'
 import backButton from '../../../../public/images/icons/backButton.svg'
 import { useQuery } from 'react-query';
-
+import { useDispatch } from 'react-redux';
+import { changeUser } from '@/redux/slice/userSlice'
 
 const ResetPassword = () => {
     const [password, setPassword] = useState<string>('')
     const [repeatPassword, setRepeatPasswordPassword] = useState<string>('')
     const [mathPassword, setMatchPassword] = useState<boolean>(false)
     const router = useRouter()
+    const dispatch = useDispatch()
 
     const { token } = router.query
 
@@ -31,7 +33,8 @@ const ResetPassword = () => {
 
     useEffect(() => {
         if(!data) return
-        alert('A link to confirm your email has been sent to your inbox.')
+        dispatch(changeUser(data))
+        router.push('./dashboard')
     }, [data])
 
     useEffect(() => {

@@ -8,11 +8,14 @@ import Image from 'next/image'
 import backButton from '.././../public/images/icons/backButton.svg'
 import { useQuery } from 'react-query';
 import { Loading } from '@/components/loading'
+import { useDispatch } from 'react-redux';
+import { changeUser } from '@/redux/slice/userSlice'
 
 const SignIn = () => {
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const router = useRouter()
+    const dispatch = useDispatch()
 
     const { data, error, refetch, isFetching } = useQuery(['signin'], async () => {
         let response = await new User().signIn(email, password)
@@ -26,6 +29,7 @@ const SignIn = () => {
 
     useEffect(() => {
         if(!data) return
+        dispatch(changeUser(data))
         router.push('./dashboard')
     }, [data])
 

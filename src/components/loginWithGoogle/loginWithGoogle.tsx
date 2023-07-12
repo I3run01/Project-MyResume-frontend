@@ -7,10 +7,13 @@ import GoogleLogo from '../../../public/images/icons/googleLogo.svg'
 import Image from 'next/image'
 import { useQuery } from 'react-query';
 import { Loading } from '@/components/loading'
+import { useDispatch } from 'react-redux';
+import { changeUser } from '@/redux/slice/userSlice';
 
 export const GoogleButton = () => {
     const [ user, setUser ] = useState<any>();
     const router = useRouter()
+    const dispatch = useDispatch()
 
     const login = useGoogleLogin({
         onSuccess: (codeResponse: any) => setUser(codeResponse),
@@ -35,6 +38,7 @@ export const GoogleButton = () => {
 
     useEffect(() => {
         if(!data) return
+        dispatch(changeUser(data))
         router.push('./dashboard')
     }, [data])
 

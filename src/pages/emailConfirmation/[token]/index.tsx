@@ -6,6 +6,8 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import styled from 'styled-components'
 import { Loading } from '@/components/loading'
+import { useDispatch } from 'react-redux';
+import { changeUser } from '@/redux/slice/userSlice'
 
 const Container = styled.div<{isDark: boolean}>`
     position: absolute;
@@ -20,6 +22,7 @@ const EmailConfirmation = () => {
     const router = useRouter()
     const isDark = useSelector((state: RootState) => state.theme.isDark )
     const { token } = router.query
+    const dispatch = useDispatch()
 
     const { data, error, isFetching } = useQuery(['corfirm-email'], async () => {
         let response = await new User().confirmationEmail(token as string)
@@ -37,6 +40,7 @@ const EmailConfirmation = () => {
 
     useEffect(() => {
         if(!data) return
+        dispatch(changeUser(data))
         router.push('./dashboard')
     }, [data])
 
