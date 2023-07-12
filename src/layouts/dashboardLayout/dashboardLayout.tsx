@@ -11,7 +11,9 @@ export const DashboardLayout = ({children}: props) => {
     return (
         <DashboardLayoutDiv>  
             <LeftMenu/>
-            {children}
+            <div className="children">
+                {children}
+            </div>
         </DashboardLayoutDiv>
     )
 }

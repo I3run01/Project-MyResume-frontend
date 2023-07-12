@@ -7,6 +7,7 @@ import { DashboardDiv } from '@/styles/dashboard.module'
 
 const Dashboard = () => {
     const user = useSelector((state: RootState) => state.user.user)
+    const isDark = useSelector((state: RootState) => state.theme.isDark)
     const router = useRouter()
 
     useEffect(() => {
@@ -15,7 +16,9 @@ const Dashboard = () => {
     
     return (
         <DashboardLayout>
-            <DashboardDiv>
+            <DashboardDiv
+                isDark = {isDark}
+            >
                 dashboard 
             </DashboardDiv>
         </DashboardLayout>
