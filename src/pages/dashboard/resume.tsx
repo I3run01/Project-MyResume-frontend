@@ -3,29 +3,27 @@ import { useEffect } from "react"
 import { useSelector } from "react-redux"
 import { useRouter } from "next/router"
 import { DashboardLayout } from "@/layouts/dashboardLayout/dashboardLayout"
-import { DashboardDiv } from '@/styles/dashboard.module'
-import { Loading } from '@/components/loading'
+import { ResumeDiv } from '@/styles/resume.module'
 
-const Dashboard = () => {
+const Resume = () => {
     const user = useSelector((state: RootState) => state.user.user)
     const isDark = useSelector((state: RootState) => state.theme.isDark)
     const router = useRouter()
 
-    useEffect(() => {
-        if(!user) router.push('./middlewarePage')
 
-        router.push('./dashboard/resume')
+    useEffect(() => {
+        if(!user) router.push('../middlewarePage')
     }, [])
     
     return (
         <DashboardLayout>
-            <DashboardDiv
+            <ResumeDiv
                 isDark = {isDark}
             >
-                <Loading/> 
-            </DashboardDiv>
+                <h1>Resume</h1>
+            </ResumeDiv>
         </DashboardLayout>
     )
 }
 
-export default Dashboard
+export default Resume
