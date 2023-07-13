@@ -26,10 +26,11 @@ export const LeftMenuDiv = styled.div<props>`
     }
 
     .options  {
-        .openAndCloseMenuButton {
-            height: 40px;
+        .menu {
             width: 100%;
-            background-color: yellow;
+            display: flex;
+            justify-content: flex-end;
+            background-color: #88ff00;
         }
 
         div {

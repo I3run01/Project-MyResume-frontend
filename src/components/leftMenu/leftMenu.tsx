@@ -14,7 +14,7 @@ export const LeftMenu = () => {
         <LeftMenuDiv
         isDark = {isDark}
         >
-            <div className='options'>            
+            <div className='options'>         
                 <div>Curriculum</div>
                 <div>Project</div>
             </div>
