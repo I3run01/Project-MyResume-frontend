@@ -1,11 +1,11 @@
-import { styled } from "styled-components";
+import styled from "styled-components";
 import { themes } from '@/styles/variables.module'
 
-type props = {
+type Props = {
     isDark: boolean
 }
 
-export const ResumeDiv = styled.div <props>`
+export const ResumeDiv = styled.div<Props>`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -24,7 +24,18 @@ export const ResumeDiv = styled.div <props>`
         padding-top: 20px;
     }
 
+    .content {
+        width: 1200px;
 
+        h2 {
+            font-size: 16px;
+            margin-top: 40px;
+            align-self: flex-start;
+        }
 
+        .textArea {
+            align-self: flex-start;
+        }
 
+    }
 `
