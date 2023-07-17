@@ -6,10 +6,9 @@ import { useSelector } from 'react-redux';
 
 type props = {
   initialTXT: string
-  onDataReceived?: (data:string) => void
 }
 
-const MyEditor = ({initialTXT, onDataReceived}: props) => {
+const Resume = ({initialTXT}: props) => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const isDark = useSelector((state: RootState) => state.theme.isDark)
 
@@ -20,22 +19,20 @@ const MyEditor = ({initialTXT, onDataReceived}: props) => {
   }, [initialTXT]);
   
   const handleChange = (state: EditorState) => {
-    if(!onDataReceived) return 
 
     setEditorState(state);
-
     const contentState: ContentState = state.getCurrentContent();
     const text: string = contentState.getPlainText();
+
+    // TODO: send the text do database
     
-    onDataReceived(text)
   }  
 
   return (
     <MyEditorContainer isDark={isDark}>
-      <label>Write here a resume of your career</label><br />
       <Editor editorState={editorState} onChange={handleChange} />
     </MyEditorContainer>
   );
 };
 
-export default MyEditor;
+export default Resume;

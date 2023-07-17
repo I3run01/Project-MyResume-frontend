@@ -3,26 +3,19 @@ import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import { useRouter } from "next/router"
 import { DashboardLayout } from "@/layouts/dashboardLayout/dashboardLayout"
-import { ResumeDiv } from '@/styles/resume.module'
-import TextArea from '@/components/textArea/textArea'
+import { ResumeDiv } from '@/styles/curriculum.module'
+import Resume from '@/components/textArea/textArea'
+import PersonalDatas from '@/components/personalDatas/personalDatas'
 
-const Resume = () => {
+const Curriculum = () => {
     const user = useSelector((state: RootState) => state.user.user)
     const isDark = useSelector((state: RootState) => state.theme.isDark)
     const router = useRouter()
 
-    const [resume, setResume] = useState<string>('') 
-
     useEffect(() => {
         if(!user) router.push('../middlewarePage')
-    }, [])
+    }, [user])
 
-    useEffect(() => {
-        if(!resume) return
-
-        //TODO: put the resume in a redux and upload the file in the database
-    }, [resume])
-    
     return (
         <DashboardLayout>
             <ResumeDiv
@@ -31,18 +24,26 @@ const Resume = () => {
                 <h1>Curriculum</h1>
 
                 <div className="content">
-                    <div id="resume">
-                        <TextArea
-                            //TODO: when we connect the db, the initialTXT will be the text from the database
+
+                    <div id="personalDatas" className="steps">
+                        <h2>Personal datas</h2><br />
+                        <PersonalDatas/>
+                    </div>
+
+                    <div id="personalDatas" className="steps">
+                        <h2>social medias</h2><br />
+                    </div>
+                    
+                    <div id="resume" className="steps">
+                        <h2>Write here a RESUME of your career</h2><br />
+                        <Resume
                             initialTXT={''}
-                            onDataReceived={setResume}
                         />
                     </div>
                 </div>
-
             </ResumeDiv>
         </DashboardLayout>
     )
 }
 
-export default Resume
+export default Curriculum

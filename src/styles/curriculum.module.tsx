@@ -12,7 +12,9 @@ export const ResumeDiv = styled.div<Props>`
 
     background-color: ${props => props.isDark ? themes.dark.backgroundOne : themes.light.backgroundOne};
 
-    min-height: 100vh;
+    height: 100vh;
+    overflow-y: auto;
+
 
     * {
         color: ${props => props.isDark ? themes.dark.fontColor : themes.light.fontColor};
@@ -24,8 +26,19 @@ export const ResumeDiv = styled.div<Props>`
         padding-top: 20px;
     }
 
+    h2 {
+        font-weight: lighter;
+        font-size: 24px;
+        text-transform: uppercase;
+    }
+
+
+    .steps {
+        min-height: 95vh;
+    }
+
     .content {
-        width: 1200px;
+        max-width: 1200px;
 
         h2 {
             font-size: 16px;
@@ -38,4 +51,12 @@ export const ResumeDiv = styled.div<Props>`
         }
 
     }
+
+    @media screen and (max-width: 1100px) {
+        .content {
+            width: 95%;
+        }
+    }
+
+    
 `
