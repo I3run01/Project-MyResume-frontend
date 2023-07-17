@@ -17,8 +17,7 @@ export const PersonalDatasDiv = styled.div<props>`
         font-family: 'Merriweather';
         font-size: 16px;
     }
-    
-    min-height: 100vh;
+
 
     div {
         margin-top: 30px;

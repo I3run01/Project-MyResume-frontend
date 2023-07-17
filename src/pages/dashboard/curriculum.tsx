@@ -6,6 +6,7 @@ import { DashboardLayout } from "@/layouts/dashboardLayout/dashboardLayout"
 import { ResumeDiv } from '@/styles/curriculum.module'
 import Resume from '@/components/textArea/textArea'
 import PersonalDatas from '@/components/personalDatas/personalDatas'
+import SocialMedias from '@/components/socialMedias/socialMedias'
 
 const Curriculum = () => {
     const user = useSelector((state: RootState) => state.user.user)
@@ -32,6 +33,8 @@ const Curriculum = () => {
 
                     <div id="personalDatas" className="steps">
                         <h2>social medias</h2><br />
+
+                        <SocialMedias/>
                     </div>
                     
                     <div id="resume" className="steps">
