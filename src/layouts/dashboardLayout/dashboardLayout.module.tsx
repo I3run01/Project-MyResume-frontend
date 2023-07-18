@@ -31,6 +31,8 @@ export const DashboardLayoutDiv = styled.div<props>`
         flex-direction: column;
         align-items: center;
 
+        overflow-y: auto;
+
         .content {
             width: 1200px;
         }
