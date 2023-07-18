@@ -4,7 +4,7 @@ import { useSelector } from "react-redux"
 import { useRouter } from "next/router"
 import { DashboardLayout } from "@/layouts/dashboardLayout/dashboardLayout"
 import { ResumeDiv } from '@/styles/curriculum.module'
-import Resume from '@/components/textArea/textArea'
+import Resume from '@/components/Resume/textArea'
 import PersonalDatas from '@/components/personalDatas/personalDatas'
 import SocialMedias from '@/components/socialMedias/socialMedias'
 
@@ -18,10 +18,11 @@ const Curriculum = () => {
     }, [user])
 
     return (
-        <DashboardLayout>
-            <ResumeDiv
+        <DashboardLayout
+            main={
+                <ResumeDiv
                 isDark = {isDark}
-            >
+                >
                 <h1>Curriculum</h1>
 
                 <div className="content">
@@ -45,7 +46,8 @@ const Curriculum = () => {
                     </div>
                 </div>
             </ResumeDiv>
-        </DashboardLayout>
+            }
+        />
     )
 }
 

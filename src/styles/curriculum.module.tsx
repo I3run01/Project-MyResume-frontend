@@ -34,7 +34,7 @@ export const ResumeDiv = styled.div<Props>`
 
 
     .steps {
-        min-height: 95vh;
+        min-height: 90vh;
     }
 
     .content {

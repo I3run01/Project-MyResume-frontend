@@ -18,13 +18,15 @@ const Dashboard = () => {
     }, [])
     
     return (
-        <DashboardLayout>
-            <DashboardDiv
-                isDark = {isDark}
-            >
-                <Loading/> 
-            </DashboardDiv>
-        </DashboardLayout>
+        <DashboardLayout
+            main={
+                <DashboardDiv
+                    isDark = {isDark}
+                >
+                    <Loading/> 
+                </DashboardDiv>
+            }
+        />
     )
 }
 

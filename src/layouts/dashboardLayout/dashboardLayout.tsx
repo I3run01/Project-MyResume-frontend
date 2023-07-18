@@ -3,17 +3,34 @@ import { LeftMenu } from '@/components/leftMenu/leftMenu'
 import { DashboardLayoutDiv } from './dashboardLaout.module'
 
 type props = {
-    children: ReactElement
+    main: ReactElement
+    bottomMenu?: ReactElement
+    nextRouter?: string
+    previousRouter?:string
 }
 
-export const DashboardLayout = ({children}: props) => {
+export const DashboardLayout = ({main, bottomMenu, nextRouter, previousRouter}: props) => {
 
     return (
         <DashboardLayoutDiv>  
             <LeftMenu/>
             <div className="children">
-                {children}
+                {main}
             </div>
+
+            { bottomMenu &&
+                bottomMenu
+            }
+
+            { previousRouter &&
+                <div>back</div>
+            }
+
+            { nextRouter &&
+                <div>next</div>
+            }
+            
+
         </DashboardLayoutDiv>
     )
 }
