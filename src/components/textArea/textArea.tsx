@@ -6,9 +6,10 @@ import { useSelector } from 'react-redux';
 
 type props = {
   initialTXT: string
+  onDataReceived?: (text: string) => void
 }
 
-const Resume = ({initialTXT}: props) => {
+const TextArea = ({initialTXT, onDataReceived}: props) => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const isDark = useSelector((state: RootState) => state.theme.isDark)
 
@@ -24,8 +25,9 @@ const Resume = ({initialTXT}: props) => {
     const contentState: ContentState = state.getCurrentContent();
     const text: string = contentState.getPlainText();
 
-    // TODO: send the text do database
-    
+    if( !onDataReceived) return
+
+    onDataReceived(text)
   }  
 
   return (
@@ -35,4 +37,4 @@ const Resume = ({initialTXT}: props) => {
   );
 };
 
-export default Resume;
+export default TextArea;

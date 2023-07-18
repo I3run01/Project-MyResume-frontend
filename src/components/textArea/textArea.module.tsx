@@ -23,14 +23,6 @@ export const MyEditorContainer = styled.div<Props>`
         line-height: 1.8em;
     }
 
-    h1 {
-        color: ${ props => props.isDark ? themes.dark.fontColor : themes.light.fontColor};
-    }
-
-    p {
-        border: none;
-    }
-
     .public-DraftEditor-content {       
         min-height: 30px;
         border: 1px solid ${ props => props.isDark ? themes.dark.fontColor : themes.light.fontColor};
@@ -38,6 +30,8 @@ export const MyEditorContainer = styled.div<Props>`
         transition: all 0.5s ease-in-out;
         padding: 20px;
         text-align: justify;
+
+        margin-top: -40px;
 
         @media screen and (max-width: 1100px) {
             width: 70vw;

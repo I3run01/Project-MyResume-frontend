@@ -1,8 +1,9 @@
 import { ReactElement } from "react"
 import { LeftMenu } from '@/components/leftMenu/leftMenu'
-import { DashboardLayoutDiv } from './dashboardLaout.module'
+import { DashboardLayoutDiv } from './dashboardLayout.module'
 import { useSelector } from "react-redux"
 import { RootState } from "@/redux/store"
+import { useRouter } from "next/router"
 
 type props = {
     main: ReactElement
@@ -13,6 +14,7 @@ type props = {
 
 export const DashboardLayout = ({main, bottomMenu, nextRouter, previousRouter}: props) => {
     const isDark = useSelector((state: RootState) => state.theme.isDark)
+    const router = useRouter()
 
     return (
         <DashboardLayoutDiv
@@ -30,12 +32,19 @@ export const DashboardLayout = ({main, bottomMenu, nextRouter, previousRouter}: 
             }
 
             { previousRouter &&
-                <div>back</div>
+                <div className="back" onClick={() => router.push(previousRouter)}>
+                    back
+                </div>
             }
 
             { nextRouter &&
-                <div>next</div>
+                <div className="next" onClick={() => router.push(nextRouter)}>
+                    next
+                </div>
             }
+
+            
+            
             
 
         </DashboardLayoutDiv>
