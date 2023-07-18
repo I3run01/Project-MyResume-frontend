@@ -17,13 +17,21 @@ type languagesType = {
 
 const Skills = () => {
     const [college, setCollege] = useState<collegeType[]>([])
-    // const [languages, setLanguages] = useState<languagesType[]>()
+    const [languages, setLanguages] = useState<languagesType[]>([])
     const [abilities, setAbilities] = useState<string[]>([])
     const isDark = useSelector((state: RootState) => state.theme.isDark)
 
     useEffect(() => {
-        //TODO: send resume to database
+        //TODO: send college to database
     }, [college])
+
+    useEffect(() => {
+        //TODO: send languages to database
+    }, [languages])
+
+    useEffect(() => {
+        //TODO: send abilities to database
+    }, [abilities])
 
     const handleTrainningAreaChange = (e: React.ChangeEvent<HTMLInputElement>, key: number) => {
         const newCollege = [...college];
@@ -63,7 +71,17 @@ const Skills = () => {
         setAbilities(prevState => prevState.filter((item, index) => index !== key));
     };
 
-    
+    const addLanguage = () => {
+        setLanguages(prevState => [...prevState, {
+            language:'',
+            level:''
+        }]);
+    };
+
+    const deleteLanguage = (key: number) => {
+        setLanguages(prevState => prevState.filter((item, index) => index !== key));
+    };
+
 
     return (
         <DashboardLayout
@@ -130,32 +148,34 @@ const Skills = () => {
 
                     <h1>Languages</h1>
 
-                    {/* {
+                    {
                         languages.map((item, key) => {
                             return (
                                 <div key={key} >
                                     <input type="text"
                                         placeholder='Trainnning area'
-                                        onChange={(e) => handleTrainningAreaChange(e, key)}
+                                        // onChange={(e) => handleTrainningAreaChange(e, key)}
                                         value={item.language}
                                     />
 
                                     <input type="text" 
                                         placeholder='Education institution'
-                                        onChange={(e) => handleCollegeNameChange(e, key)}
+                                        // onChange={(e) => handleCollegeNameChange(e, key)}
                                         value={item.level}
                                     />
 
-                                    <div onClick={() => deleteCollege(key)} className='deleteButton'>
+                                    <div onClick={() => deleteLanguage(key)}
+                                        className='deleteButton'
+                                     >
                                         Delete
                                     </div>
 
                                 </div>
                             )
                         })
-                    } */}
-                    <div onClick={addNewCollege} className='addItem'>
-                        Add a new academic formation.
+                    }
+                    <div onClick={addLanguage} className='addItem'>
+                        Add a new language
                     </div>
                     
                 </SkillsDiv>
