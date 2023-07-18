@@ -65,26 +65,42 @@ const Skills = () => {
         }
     };
 
+    const abilitiesHandlers = {
+        addNewAbility: () => {
+            setAbilities(prevState => [...prevState, '']);
+        },
     
+        deleteAbility: (key: number) => {
+            setAbilities(prevState => prevState.filter((item, index) => index !== key));
+        },
 
-    const addNewAbility = () => {
-        setAbilities(prevState => [...prevState, '']);
-    };
+        handleAbilityChange: (e: React.ChangeEvent<HTMLInputElement>, key: number) => {
+            const newAbilities = [...abilities];
+            newAbilities[key] = e.target.value;
+            setAbilities(newAbilities);
+        },
+    }
 
-    const deleteAbility = (key: number) => {
-        setAbilities(prevState => prevState.filter((item, index) => index !== key));
-    };
+    const languageHandlers = {
+        addLanguage: () => {
+            setLanguages(prevState => [...prevState, {
+                language:'',
+                level:''
+            }]);
+        },
+    
+        deleteLanguage: (key: number) => {
+            setLanguages(prevState => prevState.filter((item, index) => index !== key));
+        },
 
-    const addLanguage = () => {
-        setLanguages(prevState => [...prevState, {
-            language:'',
-            level:''
-        }]);
-    };
+        handleLanguageName: (e: React.ChangeEvent<HTMLInputElement>, key: number) => {
+            const newLanguageName = [...languages];
+            newLanguageName[key].language = e.target.value;
+            setLanguages(newLanguageName);
+          }
+    }
 
-    const deleteLanguage = (key: number) => {
-        setLanguages(prevState => prevState.filter((item, index) => index !== key));
-    };
+    
 
 
     return (
@@ -137,7 +153,7 @@ const Skills = () => {
                                         placeholder='abilities or technologies'
                                         value={item}
                                     />
-                                    <div onClick={() => deleteAbility(key)} className='deleteButton'>
+                                    <div onClick={() => abilitiesHandlers.deleteAbility(key)} className='deleteButton'>
                                         Delete
                                     </div>
                                 </div>
@@ -145,7 +161,7 @@ const Skills = () => {
                         })
                     }
 
-                    <div className='addItem' onClick={addNewAbility}>
+                    <div className='addItem' onClick={() => abilitiesHandlers.addNewAbility()}>
                         Add a new ability or technology
                     </div>
 
@@ -165,7 +181,7 @@ const Skills = () => {
                                         value={item.level}
                                     />
 
-                                    <div onClick={() => deleteLanguage(key)}
+                                    <div onClick={() => languageHandlers.deleteLanguage(key)}
                                         className='deleteButton'
                                      >
                                         Delete
@@ -175,7 +191,7 @@ const Skills = () => {
                             )
                         })
                     }
-                    <div onClick={addLanguage} className='addItem'>
+                    <div onClick={()=> languageHandlers.addLanguage()} className='addItem'>
                         Add a new language
                     </div>
                     
