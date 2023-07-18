@@ -33,35 +33,39 @@ const Skills = () => {
         //TODO: send abilities to database
     }, [abilities])
 
-    const handleTrainningAreaChange = (e: React.ChangeEvent<HTMLInputElement>, key: number) => {
-        const newCollege = [...college];
-        newCollege[key].trainningArea = e.target.value;
-        setCollege(newCollege);
-    };
-
-    const handleCollegeNameChange = (e: React.ChangeEvent<HTMLInputElement>, key: number) => {
-        const newCollege = [...college];
-        newCollege[key].collegeName = e.target.value;
-        setCollege(newCollege);
-    };
-
-    const handleGraduationYearChange = (e: React.ChangeEvent<HTMLInputElement>, key: number) => {
-        const newCollege = [...college];
-        newCollege[key].graduationYear = e.target.value;
-        setCollege(newCollege);
-    };
-
-    const addNewCollege = () => {
-        setCollege(prevState => [...prevState, {
+    const collegeHandlers = {
+        handleTrainningAreaChange: (e: React.ChangeEvent<HTMLInputElement>, key: number) => {
+            const newCollege = [...college];
+            newCollege[key].trainningArea = e.target.value;
+            setCollege(newCollege);
+        },
+    
+        handleCollegeNameChange: (e: React.ChangeEvent<HTMLInputElement>, key: number) => {
+            const newCollege = [...college];
+            newCollege[key].collegeName = e.target.value;
+            setCollege(newCollege);
+        },
+    
+        handleGraduationYearChange: (e: React.ChangeEvent<HTMLInputElement>, key: number) => {
+            const newCollege = [...college];
+            newCollege[key].graduationYear = e.target.value;
+            setCollege(newCollege);
+        },
+    
+        addNewCollege: () => {
+            setCollege(prevState => [...prevState, {
                 trainningArea: '',
                 collegeName: '', 
                 graduationYear: '' 
-        }]);
+            }]);
+        },
+
+        deleteCollege: (key: number) => {
+            setCollege(prevState => prevState.filter((item, index) => index !== key));
+        }
     };
 
-    const deleteCollege = (key: number) => {
-        setCollege(prevState => prevState.filter((item, index) => index !== key));
-    };
+    
 
     const addNewAbility = () => {
         setAbilities(prevState => [...prevState, '']);
@@ -95,23 +99,23 @@ const Skills = () => {
                                 <div key={key} >
                                     <input type="text"
                                         placeholder='Trainnning area'
-                                        onChange={(e) => handleTrainningAreaChange(e, key)}
+                                        onChange={(e) => collegeHandlers.handleTrainningAreaChange(e, key)}
                                         value={item.trainningArea}
                                     />
 
                                     <input type="text" 
                                         placeholder='Education institution'
-                                        onChange={(e) => handleCollegeNameChange(e, key)}
+                                        onChange={(e) => collegeHandlers.handleCollegeNameChange(e, key)}
                                         value={item.collegeName}
                                     />
 
                                     <input type="text" 
                                         placeholder='Year of graduation'
-                                        onChange={(e) => handleGraduationYearChange(e, key)}
+                                        onChange={(e) => collegeHandlers.handleGraduationYearChange(e, key)}
                                         value={item.graduationYear}
                                     />
 
-                                    <div onClick={() => deleteCollege(key)} className='deleteButton'>
+                                    <div onClick={() => collegeHandlers.deleteCollege(key)} className='deleteButton'>
                                         Delete
                                     </div>
 
@@ -119,7 +123,7 @@ const Skills = () => {
                             )
                         })
                     }
-                    <div onClick={addNewCollege} className='addItem'>
+                    <div onClick={()=> collegeHandlers.addNewCollege()} className='addItem'>
                         Add a new academic formation.
                     </div>
 
@@ -131,7 +135,6 @@ const Skills = () => {
                                 <div key={key} >
                                     <input type="text"
                                         placeholder='abilities or technologies'
-                                        onChange={(e) => handleTrainningAreaChange(e, key)}
                                         value={item}
                                     />
                                     <div onClick={() => deleteAbility(key)} className='deleteButton'>
@@ -154,13 +157,11 @@ const Skills = () => {
                                 <div key={key} >
                                     <input type="text"
                                         placeholder='Trainnning area'
-                                        // onChange={(e) => handleTrainningAreaChange(e, key)}
                                         value={item.language}
                                     />
 
                                     <input type="text" 
                                         placeholder='Education institution'
-                                        // onChange={(e) => handleCollegeNameChange(e, key)}
                                         value={item.level}
                                     />
 
