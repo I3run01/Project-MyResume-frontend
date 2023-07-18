@@ -3,12 +3,10 @@ import { useEffect } from "react"
 import { useSelector } from "react-redux"
 import { useRouter } from "next/router"
 import { DashboardLayout } from "@/layouts/dashboardLayout/dashboardLayout"
-import { DashboardDiv } from '@/styles/dashboard.module'
 import { Loading } from '@/components/loading'
 
 const Dashboard = () => {
     const user = useSelector((state: RootState) => state.user.user)
-    const isDark = useSelector((state: RootState) => state.theme.isDark)
     const router = useRouter()
 
     useEffect(() => {
@@ -20,11 +18,9 @@ const Dashboard = () => {
     return (
         <DashboardLayout
             main={
-                <DashboardDiv
-                    isDark = {isDark}
-                >
+                <div>
                     <Loading/> 
-                </DashboardDiv>
+                </div>
             }
         />
     )
