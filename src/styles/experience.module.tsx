@@ -12,6 +12,8 @@ export const ExperienceDiv = styled.div<props>`
         font-family: 'Merriweather'
     }
 
+    padding-bottom: 50px;
+
     input {
         margin-top: 20px;
         border: none;
@@ -37,7 +39,7 @@ export const ExperienceDiv = styled.div<props>`
 
     .deleteButton {
         background-color: #cd030362;
-        color: red;
+        color: #d12121b0;
         padding: 4px;
 
         width: fit-content;
@@ -53,6 +55,12 @@ export const ExperienceDiv = styled.div<props>`
     }
 
     .container {
+        margin-top: 50px;
+        margin-bottom: 50px;
+        padding: 20px;
+
+        border-left: 1px solid ${props => props.isDark ? themes.dark.fontColor : themes.light.fontColor};
+
         .jobName, .businessName, .date {
             font-size: 18px;
             margin-right: 10px;
@@ -62,9 +70,11 @@ export const ExperienceDiv = styled.div<props>`
         .date {
             width: 450px;
         }
+
+        
     }
 
-    .dutiesContainer {
+    .subContainer {
         margin-top: 20px;
         margin-left: 20px;
 
@@ -72,12 +82,24 @@ export const ExperienceDiv = styled.div<props>`
 
         border-left: 1px solid ${props => props.isDark ? themes.dark.fontColor : themes.light.fontColor};
 
-        .addDuty, .deleteDuty {
+        .addSubItem, .deleteSubItem {
             scale: 80%;
         }
 
-        .addDuty {
+        .addSubItem {
             margin-left: -20px;
+        }
+
+        .subItemInput {
+            width: 800px;
+            height: 30px;
+            font-size: 18px;
+        }
+
+        @media screen and (max-width: 1200px) {
+            .subItemInput {
+                width: 90%
+            }
         }
 
     }
