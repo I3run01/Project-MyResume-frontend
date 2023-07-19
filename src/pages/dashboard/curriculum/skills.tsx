@@ -23,6 +23,7 @@ const Skills = () => {
 
     useEffect(() => {
         //TODO: send college to database
+        console.log(college)
     }, [college])
 
     useEffect(() => {
@@ -97,11 +98,14 @@ const Skills = () => {
             const newLanguageName = [...languages];
             newLanguageName[key].language = e.target.value;
             setLanguages(newLanguageName);
-          }
+        },
+
+        handleLanguageLevel: (e: React.ChangeEvent<HTMLInputElement>, key: number) => {
+            const newLanguageName = [...languages];
+            newLanguageName[key].level = e.target.value;
+            setLanguages(newLanguageName);
+        },
     }
-
-    
-
 
     return (
         <DashboardLayout
@@ -151,6 +155,7 @@ const Skills = () => {
                                 <div key={key} >
                                     <input type="text"
                                         placeholder='abilities or technologies'
+                                        onChange={(e) => abilitiesHandlers.handleAbilityChange(e, key)}
                                         value={item}
                                     />
                                     <div onClick={() => abilitiesHandlers.deleteAbility(key)} className='deleteButton'>
@@ -172,12 +177,14 @@ const Skills = () => {
                             return (
                                 <div key={key} >
                                     <input type="text"
-                                        placeholder='Trainnning area'
+                                        placeholder='Language'
+                                        onChange={(e) => languageHandlers.handleLanguageName(e, key)}
                                         value={item.language}
                                     />
 
                                     <input type="text" 
-                                        placeholder='Education institution'
+                                        placeholder='Level'
+                                        onChange={(e) => languageHandlers.handleLanguageLevel(e, key)}
                                         value={item.level}
                                     />
 
@@ -198,7 +205,7 @@ const Skills = () => {
                 </SkillsDiv>
             }
 
-            nextRouter='./#'
+            nextRouter='./experience'
             previousRouter='./resume'
         />
     )

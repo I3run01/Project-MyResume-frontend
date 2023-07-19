@@ -6,10 +6,11 @@ import { useSelector } from 'react-redux';
 
 type props = {
   initialTXT: string
-  onDataReceived?: (text: string) => void
+  onDataReceived?: (text: string, index?:number) => void
+  index?: number
 }
 
-const TextArea = ({initialTXT, onDataReceived}: props) => {
+const TextArea = ({initialTXT, onDataReceived, index}: props) => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const isDark = useSelector((state: RootState) => state.theme.isDark)
 
@@ -25,9 +26,7 @@ const TextArea = ({initialTXT, onDataReceived}: props) => {
     const contentState: ContentState = state.getCurrentContent();
     const text: string = contentState.getPlainText();
 
-    if( !onDataReceived) return
-
-    onDataReceived(text)
+    if(onDataReceived) onDataReceived(text, index)
   }  
 
   return (
