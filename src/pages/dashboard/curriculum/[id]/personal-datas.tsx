@@ -44,6 +44,9 @@ const PersonalDatasPage = () => {
         <DashboardLayout
             main={
                 <PersonalDatasDiv id="personalDatas" className="steps" isDark={isDark}>
+
+                    <h1>Personal datas</h1>
+
                     <div>
                         <label>Your <b>full name</b>: </label>
                         <input type="text" name="fullName" value={personalDatas.fullName} onChange={handleInputChange} /> <br /><br />

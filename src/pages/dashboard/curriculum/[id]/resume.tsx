@@ -24,7 +24,8 @@ const Resume = () => {
             main={
                 <div id="resume" className="steps">
                         <div className='resume'>
-                            <h1>Write here a RESUME of your career</h1><br />
+                            <h1>Resume</h1>
+                            <h2>Write here a RESUME of your career</h2><br />
                             <TextArea
                                 // TODO: put the text received from db
                                 initialTXT={''}

@@ -3,7 +3,6 @@ import { LeftMenuDiv } from './leftMenu.module'
 import { RootState } from '@/redux/store'
 import { changeTheme } from '@/redux/slice/themeSlice'
 import { useDispatch } from 'react-redux'
-import { useState } from 'react'
 import { useRouter } from 'next/router'
 
 export const LeftMenu = () => {

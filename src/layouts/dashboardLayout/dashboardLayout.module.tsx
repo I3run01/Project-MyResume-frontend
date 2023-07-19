@@ -37,6 +37,8 @@ export const DashboardLayoutDiv = styled.div<props>`
 
         overflow-y: auto;
 
+        padding-bottom: 20px;
+
         .content {
             width: 1200px;
         }

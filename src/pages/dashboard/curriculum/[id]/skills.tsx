@@ -119,7 +119,8 @@ const Skills = () => {
         <DashboardLayout
             main={
                 <SkillsDiv isDark={isDark}>
-                    <h1>Academic formation</h1>
+                    <h1>Skills</h1>
+                    <h2>Academic formation</h2>
 
                     {
                         college.map((item, key) => {
@@ -155,7 +156,7 @@ const Skills = () => {
                         Add a new academic formation.
                     </div>
 
-                    <h1>Abilities and technology knowledge</h1>
+                    <h2>Abilities and technology knowledge</h2>
 
                     {
                         abilities.map((item, key) => {
@@ -178,7 +179,7 @@ const Skills = () => {
                         Add a new ability or technology
                     </div>
 
-                    <h1>Languages</h1>
+                    <h2>Languages</h2>
 
                     {
                         languages.map((item, key) => {

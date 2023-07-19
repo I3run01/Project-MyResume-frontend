@@ -49,7 +49,8 @@ const SocialMedias = () => {
         <DashboardLayout
             main={
                 <SocialMediasDiv isDark={isDark}>
-                    <h1>Please share your online profiles, such as GitHub, LinkedIn, portfolio, etc.</h1>
+                    <h1>Social Medias</h1>
+                    <h2>Please share your online profiles, such as GitHub, LinkedIn, portfolio, etc.</h2>
                     {socialMedias.map((item, key) => (
                         <div key={key} className='container'>
                             <input
