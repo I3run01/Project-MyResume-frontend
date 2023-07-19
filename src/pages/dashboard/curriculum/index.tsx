@@ -13,11 +13,11 @@ type cvsType = {
 const curriculums: cvsType = [
     {
         name: 'cv in portuguese',
-        _id: 'id_01'
+        _id: 'id01'
     },
     {
         name: 'cv in english',
-        _id: 'id_02'
+        _id: 'id02'
     }
 ]
 

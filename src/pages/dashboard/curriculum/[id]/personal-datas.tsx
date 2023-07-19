@@ -26,7 +26,7 @@ const PersonalDatasPage = () => {
     })
 
     useEffect(() => {
-        if(!user) router.push('../middlewarePage')
+        if(!user) router.push('/middlewarePage')
     }, [])
 
     useEffect(() => {
@@ -66,7 +66,8 @@ const PersonalDatasPage = () => {
                 </PersonalDatasDiv>
             }
             previousRouter='/dashboard/curriculum'
-            nextRouter={`./${id}/social-medias`}
+
+            nextRouter={`../${id}/social-medias`}
         />
     )
 }

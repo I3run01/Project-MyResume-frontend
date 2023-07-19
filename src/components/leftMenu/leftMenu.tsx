@@ -16,8 +16,8 @@ export const LeftMenu = () => {
         isDark = {isDark}
         >
             <div className='options'>         
-                <div onClick={() => router.push('./curriculum')}>Curriculum</div>
-                <div onClick={() => router.push('./project')}>Project</div>
+                <div onClick={() => router.push('/dashboard/curriculum')}>Curriculum</div>
+                <div onClick={() => router.push('/dashboard/project')}>Project</div>
             </div>
             <div className='settings' onClick={() => dispatch(changeTheme())}>
                 <p>change theme</p>

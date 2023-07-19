@@ -18,7 +18,7 @@ const SocialMedias = () => {
     const { id } = router.query;
 
     useEffect(() => {
-        if(!user) router.push('../middlewarePage')
+        if(!user) router.push('/middlewarePage')
     }, [])
 
     useEffect(() => {
@@ -80,8 +80,8 @@ const SocialMedias = () => {
                 </SocialMediasDiv>
             }
 
-            nextRouter={`./${id}/resume`}
-            previousRouter={`./${id}/personal-datas`}
+            nextRouter={`../${id}/resume`}
+            previousRouter={`../${id}/personal-datas`}
         />
     )
 }

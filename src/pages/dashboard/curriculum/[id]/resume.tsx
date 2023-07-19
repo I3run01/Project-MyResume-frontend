@@ -12,7 +12,7 @@ const Resume = () => {
     const { id } = router.query;
 
     useEffect(() => {
-        if(!user) router.push('../middlewarePage')
+        if(!user) router.push('/middlewarePage')
     }, [])
 
     useEffect(() => {
@@ -42,8 +42,8 @@ const Resume = () => {
                 </div>
             }
 
-            nextRouter={`./${id}/skills`}
-            previousRouter={`./${id}/social-medias`}
+            nextRouter={`../${id}/skills`}
+            previousRouter={`../${id}/social-medias`}
         />
     )
 }

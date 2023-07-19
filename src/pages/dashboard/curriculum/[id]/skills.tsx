@@ -26,7 +26,7 @@ const Skills = () => {
     const { id } = router.query;
 
     useEffect(() => {
-        if(!user) router.push('../middlewarePage')
+        if(!user) router.push('/middlewarePage')
     }, [])
 
     useEffect(() => {
@@ -213,8 +213,8 @@ const Skills = () => {
                 </SkillsDiv>
             }
 
-            nextRouter={`./${id}/experience`}
-            previousRouter={`./${id}/resume`}
+            nextRouter={`../${id}/experience`}
+            previousRouter={`../${id}/resume`}
         />
     )
 }
