@@ -3,6 +3,7 @@ import { RootState } from '@/redux/store'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { SocialMediasDiv } from '@/styles/social-mideas.module'
+import { useRouter } from 'next/router'
 
 type socialMediasType = {
     title: string
@@ -12,6 +13,13 @@ type socialMediasType = {
 const SocialMedias = () => {
     const [socialMedias, setSocialMedias] = useState<socialMediasType[]>([]);
     const isDark = useSelector((state: RootState) => state.theme.isDark);
+    const user = useSelector((state: RootState) => state.user.user);
+    const router = useRouter()
+    const { id } = router.query;
+
+    useEffect(() => {
+        if(!user) router.push('../middlewarePage')
+    }, [])
 
     useEffect(() => {
         //TODO: send the list to database
@@ -72,8 +80,8 @@ const SocialMedias = () => {
                 </SocialMediasDiv>
             }
 
-            nextRouter='./resume'
-            previousRouter='./personal-datas'
+            nextRouter={`./${id}/resume`}
+            previousRouter={`./${id}/personal-datas`}
         />
     )
 }

@@ -3,6 +3,7 @@ import { RootState } from '@/redux/store'
 import { SkillsDiv } from '@/styles/skills.module'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { useRouter } from 'next/router'
 
 type collegeType = {
     trainningArea: string
@@ -20,6 +21,13 @@ const Skills = () => {
     const [languages, setLanguages] = useState<languagesType[]>([])
     const [abilities, setAbilities] = useState<string[]>([])
     const isDark = useSelector((state: RootState) => state.theme.isDark)
+    const user = useSelector((state: RootState) => state.user.user);
+    const router = useRouter()
+    const { id } = router.query;
+
+    useEffect(() => {
+        if(!user) router.push('../middlewarePage')
+    }, [])
 
     useEffect(() => {
         //TODO: send college to database
@@ -205,8 +213,8 @@ const Skills = () => {
                 </SkillsDiv>
             }
 
-            nextRouter='./experience'
-            previousRouter='./resume'
+            nextRouter={`./${id}/experience`}
+            previousRouter={`./${id}/resume`}
         />
     )
 }

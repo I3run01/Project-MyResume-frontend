@@ -3,6 +3,7 @@ import { RootState } from '@/redux/store'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { PersonalDatasDiv } from '@/styles/personal-datas.module'
+import { useRouter } from 'next/router'
 
 type personalDatasType = {
     fullName: string,
@@ -13,6 +14,9 @@ type personalDatasType = {
 
 const PersonalDatasPage = () => {
     const isDark = useSelector((state: RootState)=> state.theme.isDark)
+    const router = useRouter()
+    const user = useSelector((state: RootState) => state.user.user);
+    const { id } = router.query;
 
     const [personalDatas, setPersonalData] = useState<personalDatasType>({
         fullName: "",
@@ -20,6 +24,10 @@ const PersonalDatasPage = () => {
         location: "",
         number: ""
     })
+
+    useEffect(() => {
+        if(!user) router.push('../middlewarePage')
+    }, [])
 
     useEffect(() => {
         //TODO: send the datas to backend
@@ -57,8 +65,8 @@ const PersonalDatasPage = () => {
                     </div>
                 </PersonalDatasDiv>
             }
-
-            nextRouter='./social-medias'
+            previousRouter='/dashboard/curriculum'
+            nextRouter={`./${id}/social-medias`}
         />
     )
 }

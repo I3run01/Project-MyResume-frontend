@@ -4,6 +4,7 @@ import { ExperienceDiv } from '@/styles/experience.module'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import TextArea from '@/components/textArea/textArea'
+import { useRouter } from 'next/router'
 
 type experienceType = {
     business: string
@@ -17,8 +18,14 @@ type experienceType = {
 
 const Experience = () => {
     const isDark = useSelector((state: RootState) => state.theme.isDark)
-
     const [experiences, setExperience] = useState<experienceType[]>([])
+    const router = useRouter()
+    const user = useSelector((state: RootState) => state.user.user);
+    const { id } = router.query;
+
+    useEffect(() => {
+        if(!user) router.push('../middlewarePage')
+    }, [])
 
     useEffect(() => {
         console.log(experiences)
@@ -357,7 +364,7 @@ const Experience = () => {
                 </ExperienceDiv>
             }
 
-            previousRouter='./skills'
+            previousRouter={`./${id}/skills`}
         />
     )
 }

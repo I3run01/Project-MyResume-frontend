@@ -1,9 +1,19 @@
 import {  DashboardLayout } from '@/layouts/dashboardLayout/dashboardLayout'
 import TextArea from '@/components/textArea/textArea'
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import { RootState } from '@/redux/store'
+import { useSelector } from 'react-redux'
 
 const Resume = () => {
     const [resume, setResume] = useState<string>('')
+    const router = useRouter()
+    const user = useSelector((state: RootState) => state.user.user);
+    const { id } = router.query;
+
+    useEffect(() => {
+        if(!user) router.push('../middlewarePage')
+    }, [])
 
     useEffect(() => {
         //TODO: send resume to database
@@ -32,8 +42,8 @@ const Resume = () => {
                 </div>
             }
 
-            nextRouter='./skills'
-            previousRouter='./social-medias'
+            nextRouter={`./${id}/skills`}
+            previousRouter={`./${id}/social-medias`}
         />
     )
 }

@@ -11,8 +11,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         if(!user) router.push('./middlewarePage')
-
-        router.push('./dashboard/curriculum/personal-datas')
+        router.push('./dashboard/curriculum')
     }, [])
     
     return (
