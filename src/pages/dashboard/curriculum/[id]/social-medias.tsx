@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { SocialMediasDiv } from '@/styles/social-mideas.module'
 import { useRouter } from 'next/router'
+import { useQueries } from 'react-query'
+import { Cvs } from '@/requests/cvs'
 
 type socialMediasType = {
     title: string
@@ -11,47 +13,96 @@ type socialMediasType = {
 };
 
 const SocialMedias = () => {
-    const [socialMedias, setSocialMedias] = useState<socialMediasType[]>([]);
+    const [socialMedias, setSocialMedias] = useState<socialMediasType[] | null>(null);
     const isDark = useSelector((state: RootState) => state.theme.isDark);
     const user = useSelector((state: RootState) => state.user.user);
     const router = useRouter()
     const { id } = router.query;
+
+    const [changeSocialMedias, retrievedSocialMedias] = useQueries([
+        {
+          queryKey: 'changeSocialMedias',
+          queryFn: async () => {
+            if(socialMedias == null) return
+
+            const response = await new Cvs().updateCvField(
+                "socialMedias", 
+                id as string, 
+                socialMedias
+            )
+
+            const json = JSON.parse(response)
+            return json
+
+          }, 
+          enabled: false
+        },
+        {
+            queryKey: 'getSocialMedias',
+            queryFn: async () => {
+                const response = await new Cvs().getSpecifFieldOfASpecificCv(
+                    "socialMedias", 
+                    id as string
+                )
+
+                const json = JSON.parse(response)
+                return json
+            }, enabled: !!id
+          },
+    ])
 
     useEffect(() => {
         if(!user) router.push('/middlewarePage')
     }, [])
 
     useEffect(() => {
-        //TODO: send the list to database
+
+    }, [])
+
+    useEffect(() => {
+        changeSocialMedias.refetch()
     }, [socialMedias])
 
     const addNewItem = () => {
-        setSocialMedias(prevState => [...prevState, { title: '', link: '' }]);
+        setSocialMedias(prevState => {
+            if (prevState === null) {
+                return null
+            }
+
+            return [...prevState, { title: '', link: '' }];
+        });
     };
 
     const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>, key: number) => {
+        if(!socialMedias) return
+
         const newSocialMedias = [...socialMedias];
         newSocialMedias[key].title = e.target.value;
         setSocialMedias(newSocialMedias);
     };
 
     const handleLinkChange = (e: React.ChangeEvent<HTMLInputElement>, key: number) => {
+        if(!socialMedias) return
+
         const newSocialMedias = [...socialMedias];
         newSocialMedias[key].link = e.target.value;
         setSocialMedias(newSocialMedias);
     };
 
     const deleteItem = (key: number) => {
-        setSocialMedias(prevState => prevState.filter((item, index) => index !== key));
+        setSocialMedias(prevState => {
+            if(prevState === null) return null;
+    
+            return prevState.filter((item, index) => index !== key);
+        });
     };
-
     return (
         <DashboardLayout
             main={
                 <SocialMediasDiv isDark={isDark}>
                     <h1>Social Medias</h1>
                     <h2>Please share your online profiles, such as GitHub, LinkedIn, portfolio, etc.</h2>
-                    {socialMedias.map((item, key) => (
+                    {socialMedias?.map((item, key) => (
                         <div key={key} className='container'>
                             <input
 
