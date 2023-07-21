@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { PersonalDatasDiv } from '@/styles/personal-datas.module'
 import { useRouter } from 'next/router'
+import { useQueries } from 'react-query'
+import { Cvs } from '@/requests/cvs'
 
 type personalDatasType = {
     fullName: string,
@@ -18,22 +20,57 @@ const PersonalDatasPage = () => {
     const user = useSelector((state: RootState) => state.user.user);
     const { id } = router.query;
 
-    const [personalDatas, setPersonalData] = useState<personalDatasType>({
-        fullName: "",
-        birthday: "",
-        location: "",
-        number: ""
-    })
+    const [personalDatas, setPersonalData] = useState<personalDatasType | null>(null)
+
+    const [changePersonalDatas, retreivedPersonalDatas] = useQueries([
+        {
+          queryKey: 'changePersonalDatas',
+          queryFn: async () => {
+            if(personalDatas == null) return
+
+            const response = await new Cvs().updateCvField("personalDatas", id as string, personalDatas)
+            const json = JSON.parse(response)
+            return json
+
+          }, 
+          enabled: false
+        },
+        {
+            queryKey: 'getPersonalDatas',
+            queryFn: async () => {
+                const response = await new Cvs().getSpecifFieldOfASpecificCv("personalDatas", id as string)
+                const json = JSON.parse(response)
+                return json
+            }, enabled: !!id
+          },
+    ])
 
     useEffect(() => {
         if(!user) router.push('/middlewarePage')
     }, [])
 
     useEffect(() => {
-        //TODO: send the datas to backend
+        if(!retreivedPersonalDatas.data) return
+
+        let personalDatasReceived = retreivedPersonalDatas.data[0]    
+
+        setPersonalData(personalDatasReceived)       
+
+    }, [retreivedPersonalDatas.data])
+
+    useEffect(() => {
+        changePersonalDatas.refetch()
     }, [personalDatas])
 
+    useEffect(() => {
+        if(!changePersonalDatas.error) return
+
+        alert(changePersonalDatas.error)
+    }, [changePersonalDatas.error])
+
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if(personalDatas === null) return
+
         setPersonalData({
             ...personalDatas,
             [e.target.name]: e.target.value,
@@ -49,22 +86,22 @@ const PersonalDatasPage = () => {
 
                     <div>
                         <label>Your <b>full name</b>: </label>
-                        <input type="text" name="fullName" value={personalDatas.fullName} onChange={handleInputChange} /> <br /><br />
+                        <input type="text" name="fullName" value={personalDatas?.fullName} onChange={handleInputChange} /> <br /><br />
                     </div>
 
                     <div>
                         <label>Your <b>birthday</b>: </label>
-                        <input type="date" name="birthday" value={personalDatas.birthday} onChange={handleInputChange} /> <br /><br />
+                        <input type="date" name="birthday" value={personalDatas?.birthday} onChange={handleInputChange} /> <br /><br />
                     </div>
 
                     <div>
                         <label><b>City, state or province, and country</b> where you live: </label>
-                        <input type="text" name="location" value={personalDatas.location} onChange={handleInputChange} />  <br /><br />
+                        <input type="text" name="location" value={personalDatas?.location} onChange={handleInputChange} />  <br /><br />
                     </div>
 
                     <div>
                         <label>Contact <b>number</b>: </label>
-                        <input type="tel" name="number" value={personalDatas.number} onChange={handleInputChange} />  <br /><br />
+                        <input type="tel" name="number" value={personalDatas?.number} onChange={handleInputChange} />  <br /><br />
                     </div>
                 </PersonalDatasDiv>
             }

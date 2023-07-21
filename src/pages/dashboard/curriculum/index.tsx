@@ -7,19 +7,21 @@ import { CurriculumDiv } from '@/styles/curriculum.module'
 import { useQueries } from 'react-query'
 import { Cvs } from '@/requests/cvs'
 
-type cvsType = {
+type cvType = {
     name: string
     _id: string
-}[]
+}
+
 
 const Curriculum = () => {
-    const [cvs, setCvs] = useState<cvsType>([])
+    const [cvs, setCvs] = useState<cvType[]>([])
     const [deleteCvId, setDeleteCvid] = useState<string>()
+    const [cvNameChanging, setCvNameChanging] = useState<cvType>()
     const user = useSelector((state: RootState) => state.user.user)
     const isDark = useSelector((state: RootState) => state.theme.isDark)
     const router = useRouter()
 
-    const [getCvs, newCv, deleteCv] = useQueries([
+    const [getCvs, newCv, deleteCv, setCvName] = useQueries([
         {
           queryKey: 'getCvs',
           queryFn: async () => {
@@ -32,6 +34,7 @@ const Curriculum = () => {
             queryKey: 'newCv',
             queryFn: async () => {
                 const response = await new Cvs().newCv()
+                getCvs.refetch()
                 const json = JSON.parse(response)
                 return json.data
             },
@@ -40,8 +43,20 @@ const Curriculum = () => {
         {
             queryKey: ['deleteCv', deleteCvId],
             queryFn: async ({queryKey}:any) => {
-                console.log(queryKey[1])
                 const response = await new Cvs().deleteCv(queryKey[1])
+                const json = JSON.parse(response)
+                return json.data
+            },
+            enabled: false
+        },
+        {
+            queryKey: ['changeCvName', cvNameChanging],
+            queryFn: async ({queryKey}:any) => {
+                const response = await new Cvs().updateCvField(
+                    'name',
+                    cvNameChanging?._id as string,
+                    cvNameChanging?.name
+                )
                 const json = JSON.parse(response)
                 return json.data
             },
@@ -54,30 +69,32 @@ const Curriculum = () => {
     }, [])
 
     useEffect(() => {
+        if(!deleteCvId) return
+
         deleteCv.refetch()
+        deleteCvState(deleteCvId)
     }, [deleteCvId])
     
     useEffect(() => {
         if(!getCvs.data) return
-
-        console.log(getCvs.data)
-
         setCvs(getCvs.data)
     }, [getCvs.data])
 
     useEffect(() => {
-        //TODO: send the new name to db
-    }, [cvs])
+        setCvName.refetch()
+    }, [cvNameChanging])
 
     const changeCvName = (index: number, name: string) => {
         const newCv = [...cvs]
 
         newCv[index].name = name
         setCvs(newCv)
+
+        setCvNameChanging({name: name, _id: newCv[index]._id})
     }
 
-    const deleteCvState = (cvId: number) => {
-        // TODO: should delete the cv in cvs state of the _id is equal to cvId
+    const deleteCvState = (cvId: string) => {
+        setCvs(prevCvs => prevCvs.filter(cv => cv._id !== cvId));
     }
 
     return (
@@ -85,7 +102,7 @@ const Curriculum = () => {
             main={
                 <CurriculumDiv isDark={isDark}>
                     <p className='text'>
-                        Those are your CVs. Please <b>double-click to open it</b>, or <b>single-click to edit its name.</b>
+                        Those are your CVs. Please , or <b>single-click to edit its name.</b> <b>double-click to open it</b>
                     </p>
 
                     {cvs.map((cv, index) => (

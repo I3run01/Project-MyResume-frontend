@@ -28,6 +28,16 @@ export class Cvs {
         }
     }
 
+    async getSpecifFieldOfASpecificCv(field: string, cvId: string) {
+        const apiRoute = `/${field}/${cvId}`;
+        try {
+            const response = await api.get(apiRoute);
+            return JSON.stringify(response.data);
+        } catch (error: any) {
+            throw error;
+        }
+    }
+
     async newCv() {
         const apiRoute = '';
         try {
@@ -42,6 +52,16 @@ export class Cvs {
         const apiRoute = `/${cvId}`;
         try {
             const response = await api.delete(apiRoute);
+            return JSON.stringify(response.data);
+        } catch (error: any) {
+            throw error;
+        }
+    }
+
+    async updateCvField(field: string, cvId: string, body: any) {
+        const apiRoute = `/${field}/${cvId}`;
+        try {
+            const response = await api.post(apiRoute, {body} );
             return JSON.stringify(response.data);
         } catch (error: any) {
             throw error;
