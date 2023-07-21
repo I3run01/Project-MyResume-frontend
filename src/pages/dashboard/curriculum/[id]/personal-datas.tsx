@@ -11,7 +11,7 @@ type personalDatasType = {
     fullName: string,
     birthday: string,
     location: string,
-    number: string,
+    phone: string,
 }
 
 const PersonalDatasPage = () => {
@@ -26,7 +26,7 @@ const PersonalDatasPage = () => {
         {
           queryKey: 'changePersonalDatas',
           queryFn: async () => {
-            if(personalDatas == null) return
+            if(!personalDatas) return
 
             const response = await new Cvs().updateCvField("personalDatas", id as string, personalDatas)
             const json = JSON.parse(response)
@@ -40,6 +40,7 @@ const PersonalDatasPage = () => {
             queryFn: async () => {
                 const response = await new Cvs().getSpecifFieldOfASpecificCv("personalDatas", id as string)
                 const json = JSON.parse(response)
+
                 return json
             }, enabled: !!id
           },
@@ -52,9 +53,7 @@ const PersonalDatasPage = () => {
     useEffect(() => {
         if(!retreivedPersonalDatas.data) return
 
-        let personalDatasReceived = retreivedPersonalDatas.data[0]    
-
-        setPersonalData(personalDatasReceived)       
+        setPersonalData(retreivedPersonalDatas.data)       
 
     }, [retreivedPersonalDatas.data])
 
@@ -69,7 +68,7 @@ const PersonalDatasPage = () => {
     }, [changePersonalDatas.error])
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if(personalDatas === null) return
+        if(!personalDatas) return
 
         setPersonalData({
             ...personalDatas,
@@ -101,7 +100,7 @@ const PersonalDatasPage = () => {
 
                     <div>
                         <label>Contact <b>number</b>: </label>
-                        <input type="tel" name="number" value={personalDatas?.number} onChange={handleInputChange} />  <br /><br />
+                        <input type="tel" name="number" value={personalDatas?.phone} onChange={handleInputChange} />  <br /><br />
                     </div>
                 </PersonalDatasDiv>
             }

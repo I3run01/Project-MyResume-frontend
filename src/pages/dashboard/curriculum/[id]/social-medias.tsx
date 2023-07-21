@@ -57,10 +57,7 @@ const SocialMedias = () => {
     }, [])
 
     useEffect(() => {
-        if(
-            retrievedSocialMedias.data == null || 
-            retrievedSocialMedias.data === textChangeRangeIsUnchanged
-        ) return
+        if(!retrievedSocialMedias.data) return
 
         setSocialMedias(retrievedSocialMedias.data)
 
@@ -112,7 +109,6 @@ const SocialMedias = () => {
                     {socialMedias?.map((item, key) => (
                         <div key={key} className='container'>
                             <input
-
                                 type="text"
                                 value={item.title}
                                 placeholder="social media"
