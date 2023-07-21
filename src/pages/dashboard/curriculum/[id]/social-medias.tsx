@@ -6,6 +6,7 @@ import { SocialMediasDiv } from '@/styles/social-mideas.module'
 import { useRouter } from 'next/router'
 import { useQueries } from 'react-query'
 import { Cvs } from '@/requests/cvs'
+import { textChangeRangeIsUnchanged } from 'typescript'
 
 type socialMediasType = {
     title: string
@@ -56,8 +57,14 @@ const SocialMedias = () => {
     }, [])
 
     useEffect(() => {
+        if(
+            retrievedSocialMedias.data == null || 
+            retrievedSocialMedias.data === textChangeRangeIsUnchanged
+        ) return
 
-    }, [])
+        setSocialMedias(retrievedSocialMedias.data)
+
+    }, [retrievedSocialMedias.data])
 
     useEffect(() => {
         changeSocialMedias.refetch()
