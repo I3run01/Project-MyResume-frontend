@@ -47,7 +47,6 @@ const Skills = () => {
 
                 return json
             },
-            enabled: false
         },  
         {
             queryKey: 'getAbilitiesDatas',
@@ -60,7 +59,6 @@ const Skills = () => {
                 const json = JSON.parse(response)
                 return json
             }, 
-            enabled: false
         }, 
         {
             queryKey: 'getLanguagesDatas',
@@ -74,7 +72,6 @@ const Skills = () => {
                 
                 return json
             }, 
-            enabled: false
         }, 
         {
             queryKey: 'sendColleges',
