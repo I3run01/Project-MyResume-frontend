@@ -125,9 +125,6 @@ const Skills = () => {
 
     useEffect(() => {
         if(!user) router.push('/middlewarePage')
-        collegeQuery.refetch()
-        languagesQuery.refetch()
-        abilitiesQuery.refetch()
     }, [])
 
     useEffect(() => {
