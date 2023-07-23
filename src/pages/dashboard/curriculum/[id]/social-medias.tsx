@@ -36,7 +36,6 @@ const SocialMedias = () => {
             return json
 
           }, 
-          enabled: false
         },
         {
             queryKey: 'getSocialMedias',
