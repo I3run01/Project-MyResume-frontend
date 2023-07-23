@@ -142,8 +142,6 @@ const Skills = () => {
     useEffect(() => {
         if(!languagesQuery.data) return
 
-        console.log(languagesQuery.data)
-
         setLanguages(languagesQuery.data)
     }, [languagesQuery.data])
 
