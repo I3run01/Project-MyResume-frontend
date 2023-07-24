@@ -6,6 +6,7 @@ import { PersonalDatasDiv } from '@/styles/personal-datas.module'
 import { useRouter } from 'next/router'
 import { useQueries } from 'react-query'
 import { Cvs } from '@/requests/cvs'
+import { Loading } from '@/components/loading'
 
 type personalDatasType = {
     fullName: string,
@@ -40,6 +41,8 @@ const PersonalDatasPage = () => {
             queryFn: async () => {
                 const response = await new Cvs().getSpecifFieldOfASpecificCv("personalDatas", id as string)
                 const json = JSON.parse(response)
+
+                console.log(json)
 
                 return json
             }, enabled: !!id
@@ -79,30 +82,36 @@ const PersonalDatasPage = () => {
     return (
         <DashboardLayout
             main={
-                <PersonalDatasDiv id="personalDatas" className="steps" isDark={isDark}>
+                <>
+                    { retreivedPersonalDatas.isLoading && 
+                        <Loading/> 
+                    }
 
-                    <h1>Personal datas</h1>
+                    <PersonalDatasDiv id="personalDatas" className="steps" isDark={isDark}>
 
-                    <div>
-                        <label>Your <b>full name</b>: </label>
-                        <input type="text" name="fullName" value={personalDatas?.fullName} onChange={handleInputChange} /> <br /><br />
-                    </div>
+                        <h1>Personal datas</h1>
 
-                    <div>
-                        <label>Your <b>birthday</b>: </label>
-                        <input type="date" name="birthday" value={personalDatas?.birthday} onChange={handleInputChange} /> <br /><br />
-                    </div>
+                        <div>
+                            <label>Your <b>full name</b>: </label>
+                            <input type="text" name="fullName" value={personalDatas?.fullName} onChange={handleInputChange} /> <br /><br />
+                        </div>
 
-                    <div>
-                        <label><b>City, state or province, and country</b> where you live: </label>
-                        <input type="text" name="location" value={personalDatas?.location} onChange={handleInputChange} />  <br /><br />
-                    </div>
+                        <div>
+                            <label>Your <b>birthday</b>: </label>
+                            <input type="date" name="birthday" value={personalDatas?.birthday} onChange={handleInputChange} /> <br /><br />
+                        </div>
 
-                    <div>
-                        <label>Contact <b>number</b>: </label>
-                        <input type="tel" name="number" value={personalDatas?.phone} onChange={handleInputChange} />  <br /><br />
-                    </div>
-                </PersonalDatasDiv>
+                        <div>
+                            <label><b>City, state or province, and country</b> where you live: </label>
+                            <input type="text" name="location" value={personalDatas?.location} onChange={handleInputChange} />  <br /><br />
+                        </div>
+
+                        <div>
+                            <label>Contact <b>number</b>: </label>
+                            <input type="tel" name="phone" value={personalDatas?.phone} onChange={handleInputChange} />  <br /><br />
+                        </div>
+                    </PersonalDatasDiv>
+                </>
             }
             previousRouter='/dashboard/curriculum'
 

@@ -6,6 +6,7 @@ import { RootState } from '@/redux/store'
 import { useSelector } from 'react-redux'
 import { useQueries } from 'react-query'
 import { Cvs } from '@/requests/cvs'
+import { Loading } from '@/components/loading'
 
 const Resume = () => {
     const [resume, setResume] = useState<string | null>(null)
@@ -103,24 +104,29 @@ const Resume = () => {
     return (
         <DashboardLayout
             main={
-                <div id="resume" className="steps">
-                        <div className='resume'>
-                            <h1>Resume</h1>
-                            <h2>Write here a RESUME of your career</h2><br />
-                            <TextArea
-                                initialTXT={String(resumeQuery.data)}
-                                onDataReceived={setResume}
-                            />
-                        </div>
+                <>
+                    { (resumeQuery.isLoading || objectivesQuery.isLoading)  && 
+                        <Loading/> 
+                    }
+                    <div id="resume" className="steps">
+                            <div className='resume'>
+                                <h1>Resume</h1>
+                                <h2>Write here a RESUME of your career</h2><br />
+                                <TextArea
+                                    initialTXT={String(resumeQuery.data)}
+                                    onDataReceived={setResume}
+                                />
+                            </div>
 
-                        <div className='objective'>
-                            <h1>Write here your OBJECTIVES</h1><br />
-                            <TextArea
-                                initialTXT={String(objectivesQuery.data)}
-                                onDataReceived={setObjectives}
-                            />
-                        </div>
-                </div>
+                            <div className='objective'>
+                                <h1>Write here your OBJECTIVES</h1><br />
+                                <TextArea
+                                    initialTXT={String(objectivesQuery.data)}
+                                    onDataReceived={setObjectives}
+                                />
+                            </div>
+                    </div>
+                </>
             }
 
             nextRouter={`../${id}/skills`}

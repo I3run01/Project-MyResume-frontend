@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import { useQueries } from 'react-query'
 import { Cvs } from '@/requests/cvs'
+import { Loading } from '@/components/loading'
 
 type collegeType = {
     trainningArea: string
@@ -104,23 +105,23 @@ const Skills = () => {
                     return json
                 }, 
                 enabled:false
-            }, 
-            {
-                queryKey: 'sendLanguages',
-                queryFn: async () => {
-                    if(languages === null) return
+        }, 
+        {
+            queryKey: 'sendLanguages',
+            queryFn: async () => {
+                if(languages === null) return
 
-                    const response = await new Cvs().updateCvField(
-                        "languages",
-                        id as string,
-                        languages
-                    )
-    
-                    const json = JSON.parse(response)
-                    return json
-                }, 
-                enabled:false
+                const response = await new Cvs().updateCvField(
+                    "languages",
+                    id as string,
+                    languages
+                )
+
+                const json = JSON.parse(response)
+                return json
             }, 
+            enabled:false
+        }, 
     ])
 
     useEffect(() => {
@@ -281,100 +282,106 @@ const Skills = () => {
     return (
         <DashboardLayout
             main={
-                <SkillsDiv isDark={isDark}>
-                    <h1>Skills</h1>
-                    <h2>Academic formation</h2>
-
-                    {
-                        college?.map((item, key) => {
-                            return (
-                                <div key={key} >
-                                    <input type="text"
-                                        placeholder='Trainnning area'
-                                        onChange={(e) => collegeHandlers.handleTrainningAreaChange(e, key)}
-                                        value={item.trainningArea}
-                                    />
-
-                                    <input type="text" 
-                                        placeholder='Education institution'
-                                        onChange={(e) => collegeHandlers.handleCollegeNameChange(e, key)}
-                                        value={item.collegeName}
-                                    />
-
-                                    <input type="text" 
-                                        placeholder='Year of graduation'
-                                        onChange={(e) => collegeHandlers.handleGraduationYearChange(e, key)}
-                                        value={item.graduationYear}
-                                    />
-
-                                    <div onClick={() => collegeHandlers.deleteCollege(key)} className='deleteButton'>
-                                        Delete
-                                    </div>
-
-                                </div>
-                            )
-                        })
+                <>
+                    { (collegeQuery.isLoading || abilitiesQuery.isLoading || languagesQuery.isLoading)  && 
+                        <Loading/> 
                     }
-                    <div onClick={()=> collegeHandlers.addNewCollege()} className='addItem'>
-                        Add a new academic formation.
-                    </div>
+                
+                    <SkillsDiv isDark={isDark}>
+                        <h1>Skills</h1>
+                        <h2>Academic formation</h2>
 
-                    <h2>Abilities and technology knowledge</h2>
+                        {
+                            college?.map((item, key) => {
+                                return (
+                                    <div key={key} >
+                                        <input type="text"
+                                            placeholder='Trainnning area'
+                                            onChange={(e) => collegeHandlers.handleTrainningAreaChange(e, key)}
+                                            value={item.trainningArea}
+                                        />
 
-                    {
-                        abilities?.map((item, key) => {
-                            return (
-                                <div key={key} >
-                                    <input type="text"
-                                        placeholder='abilities or technologies'
-                                        onChange={(e) => abilitiesHandlers.handleAbilityChange(e, key)}
-                                        value={item}
-                                    />
-                                    <div onClick={() => abilitiesHandlers.deleteAbility(key)} className='deleteButton'>
-                                        Delete
+                                        <input type="text" 
+                                            placeholder='Education institution'
+                                            onChange={(e) => collegeHandlers.handleCollegeNameChange(e, key)}
+                                            value={item.collegeName}
+                                        />
+
+                                        <input type="text" 
+                                            placeholder='Year of graduation'
+                                            onChange={(e) => collegeHandlers.handleGraduationYearChange(e, key)}
+                                            value={item.graduationYear}
+                                        />
+
+                                        <div onClick={() => collegeHandlers.deleteCollege(key)} className='deleteButton'>
+                                            Delete
+                                        </div>
+
                                     </div>
-                                </div>
-                            )
-                        })
-                    }
+                                )
+                            })
+                        }
+                        <div onClick={()=> collegeHandlers.addNewCollege()} className='addItem'>
+                            Add a new academic formation.
+                        </div>
 
-                    <div className='addItem' onClick={() => abilitiesHandlers.addNewAbility()}>
-                        Add a new ability or technology
-                    </div>
+                        <h2>Abilities and technology knowledge</h2>
 
-                    <h2>Languages</h2>
-
-                    {
-                        languages?.map((item, key) => {
-                            return (
-                                <div key={key} >
-                                    <input type="text"
-                                        placeholder='Language'
-                                        onChange={(e) => languageHandlers.handleLanguageName(e, key)}
-                                        value={item.language}
-                                    />
-
-                                    <input type="text" 
-                                        placeholder='Level'
-                                        onChange={(e) => languageHandlers.handleLanguageLevel(e, key)}
-                                        value={item.level}
-                                    />
-
-                                    <div onClick={() => languageHandlers.deleteLanguage(key)}
-                                        className='deleteButton'
-                                     >
-                                        Delete
+                        {
+                            abilities?.map((item, key) => {
+                                return (
+                                    <div key={key} >
+                                        <input type="text"
+                                            placeholder='abilities or technologies'
+                                            onChange={(e) => abilitiesHandlers.handleAbilityChange(e, key)}
+                                            value={item}
+                                        />
+                                        <div onClick={() => abilitiesHandlers.deleteAbility(key)} className='deleteButton'>
+                                            Delete
+                                        </div>
                                     </div>
+                                )
+                            })
+                        }
 
-                                </div>
-                            )
-                        })
-                    }
-                    <div onClick={()=> languageHandlers.addLanguage()} className='addItem'>
-                        Add a new language
-                    </div>
-                    
-                </SkillsDiv>
+                        <div className='addItem' onClick={() => abilitiesHandlers.addNewAbility()}>
+                            Add a new ability or technology
+                        </div>
+
+                        <h2>Languages</h2>
+
+                        {
+                            languages?.map((item, key) => {
+                                return (
+                                    <div key={key} >
+                                        <input type="text"
+                                            placeholder='Language'
+                                            onChange={(e) => languageHandlers.handleLanguageName(e, key)}
+                                            value={item.language}
+                                        />
+
+                                        <input type="text" 
+                                            placeholder='Level'
+                                            onChange={(e) => languageHandlers.handleLanguageLevel(e, key)}
+                                            value={item.level}
+                                        />
+
+                                        <div onClick={() => languageHandlers.deleteLanguage(key)}
+                                            className='deleteButton'
+                                        >
+                                            Delete
+                                        </div>
+
+                                    </div>
+                                )
+                            })
+                        }
+                        <div onClick={()=> languageHandlers.addLanguage()} className='addItem'>
+                            Add a new language
+                        </div>
+                        
+                    </SkillsDiv>
+                </>
             }
 
             nextRouter={`../${id}/experience`}

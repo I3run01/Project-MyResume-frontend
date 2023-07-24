@@ -6,7 +6,7 @@ import { SocialMediasDiv } from '@/styles/social-mideas.module'
 import { useRouter } from 'next/router'
 import { useQueries } from 'react-query'
 import { Cvs } from '@/requests/cvs'
-import { textChangeRangeIsUnchanged } from 'typescript'
+import { Loading } from '@/components/loading'
 
 type socialMediasType = {
     title: string
@@ -103,36 +103,42 @@ const SocialMedias = () => {
     return (
         <DashboardLayout
             main={
-                <SocialMediasDiv isDark={isDark}>
-                    <h1>Social Medias</h1>
-                    <h2>Please share your online profiles, such as GitHub, LinkedIn, portfolio, etc.</h2>
-                    {socialMedias?.map((item, key) => (
-                        <div key={key} className='container'>
-                            <input
-                                type="text"
-                                value={item.title}
-                                placeholder="social media"
-                                onChange={(e) => handleTitleChange(e, key)}
-                            />
+                <>
+                    { retrievedSocialMedias.isLoading  && 
+                        <Loading/> 
+                    }
+                
+                    <SocialMediasDiv isDark={isDark}>
+                        <h1>Social Medias</h1>
+                        <h2>Please share your online profiles, such as GitHub, LinkedIn, portfolio, etc.</h2>
+                        {socialMedias?.map((item, key) => (
+                            <div key={key} className='container'>
+                                <input
+                                    type="text"
+                                    value={item.title}
+                                    placeholder="social media"
+                                    onChange={(e) => handleTitleChange(e, key)}
+                                />
 
-                            <input
-                                type="text"
-                                value={item.link}
-                                placeholder="link of social media"
-                                onChange={(e) => handleLinkChange(e, key)}
-                            />
+                                <input
+                                    type="text"
+                                    value={item.link}
+                                    placeholder="link of social media"
+                                    onChange={(e) => handleLinkChange(e, key)}
+                                />
 
-                            <div onClick={() => deleteItem(key)} className='deleteButton'>
-                                Delete
+                                <div onClick={() => deleteItem(key)} className='deleteButton'>
+                                    Delete
+                                </div>
+
                             </div>
+                        ))}
 
+                        <div onClick={addNewItem} className='addItem'>
+                            add new link
                         </div>
-                    ))}
-
-                    <div onClick={addNewItem} className='addItem'>
-                        add new link
-                    </div>
-                </SocialMediasDiv>
+                    </SocialMediasDiv>
+                </>
             }
 
             nextRouter={`../${id}/resume`}

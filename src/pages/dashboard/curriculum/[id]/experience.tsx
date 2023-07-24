@@ -7,6 +7,7 @@ import TextArea from '@/components/textArea/textArea'
 import { useRouter } from 'next/router'
 import { useQueries } from 'react-query'
 import { Cvs } from '@/requests/cvs'
+import { Loading } from '@/components/loading'
 
 type experienceType = {
     business: string
@@ -236,208 +237,214 @@ const Experience = () => {
     return (
         <DashboardLayout
             main={
-                <ExperienceDiv isDark={isDark}>
-                    <h1>Experience</h1>
-
-                    {
-                        experiences?.map((experience, experienceIndex ) => {
-                            return (
-                                <div key={experienceIndex} className='container'>
-                                    <div className='jobInfo'>
-                                        <input 
-                                            type="text" 
-                                            className='jobName' 
-                                            value={experience.jobName}
-                                            onChange={(e) => handleGlobalExperience.handleJobNameChange(e, experienceIndex)}
-                                            placeholder='job name'
-                                        />
-
-                                        <input 
-                                            type="text" 
-                                            className='businessName' 
-                                            value={experience.business}
-                                            onChange={(e) => handleGlobalExperience.handleBusinessNameChange(e, experienceIndex)}
-                                            placeholder='business name'
-                                        />
-
-                                        <input 
-                                            type="text" 
-                                            className='date' 
-                                            value={experience.date}
-                                            onChange={(e) => handleGlobalExperience.handleDateChange(e, experienceIndex)}
-                                            placeholder='working date - ex: 05/18 to 02/21 or 05/18 to today'
-                                        />
-                                    </div>
-
-                                    <br />
-
-                                    <div className='Resume'>
-                                        <h2>Write a RESUME of what you did at work.</h2>
-                                        <br />
-                                        <TextArea
-                                            //TODO: put the initial text from db here
-                                            initialTXT=''
-                                            index={experienceIndex}
-                                            onDataReceived={handleGlobalExperience.handleResumeChange}
-                                        />
-                                    </div>
-
-                                    <br />
-
-                                    <div className='subContainer'>
-                                        <h2>DUTIES, use one line for each duty</h2>
-
-                                        <div>
-
-                                            {
-                                                experience.duties.map((duty, dutyIndex) => {
-                                                    return (
-                                                        <div key={dutyIndex}>
-                                                            <input 
-                                                                type="text" 
-                                                                className='subItemInput'
-                                                                value={duty}
-                                                                placeholder='write a duty here'
-                                                                onChange={(e) => handleDuties.handleDutyChange(experienceIndex, dutyIndex, e) }
-                                                            />
-
-                                                            <div 
-                                                                className='deleteButton deleteSubItem'
-                                                                onClick={() => handleDuties.deleteDuty(experienceIndex, dutyIndex)}
-                                                            >
-                                                                Delete
-                                                            </div>
-                                                        </div>
-                                                    )
-                                                })
-                                            }
-
-                                            <div 
-                                                className='addItem addSubItem' 
-                                                onClick={() => handleDuties.addDuty(experienceIndex)}
-                                            >
-                                                add duty
-                                            </div>
-
-                                        </div>
-        
-                                    </div>
-
-                                    <br />
-
-                                    <div className='subContainer'>
-                                        <h2>ACHIEVEMENTS, use one line for each achievements</h2>
-
-                                        <div>
-
-                                            {
-                                                experience.achievements.map((achievement, achievementsIndex) => {
-                                                    return (
-                                                        <div key={achievementsIndex}>
-                                                            <input 
-                                                                type="text" 
-                                                                className='subItemInput'
-                                                                value={achievement}
-                                                                placeholder='write an achievement here'
-                                                                onChange={(e) => handleAchievements.handleAchievementChange(
-                                                                    experienceIndex, 
-                                                                    achievementsIndex, 
-                                                                    e
-                                                                )}
-                                                            />
-
-                                                            <div 
-                                                                className='deleteButton deleteSubItem'
-                                                                onClick={() => handleAchievements.deleteAchievement(
-                                                                    experienceIndex,
-                                                                    achievementsIndex
-                                                                )}
-                                                            >
-                                                                Delete
-                                                            </div>
-                                                        </div>
-                                                    )
-                                                })
-                                            }
-
-                                            <div 
-                                                className='addItem addSubItem' 
-                                                onClick={() => handleAchievements.addAchievement(experienceIndex)}
-                                            >
-                                                add achievement
-                                            </div>
-
-                                        </div>
-        
-                                    </div>
-
-                                    <br />
-
-                                    <div className='subContainer'>
-                                        <h2>Technologies or abilities used in work: Please use one line for each.</h2>
-
-                                        <div>
-
-                                            {
-                                                experience.appliedTechnologies.map((appliedTechnologie, appliedTechnologieIndex) => {
-                                                    return (
-                                                        <div key={appliedTechnologieIndex}>
-                                                            <input 
-                                                                type="text" 
-                                                                className='subItemInput'
-                                                                value={appliedTechnologie}
-                                                                placeholder='write the technology or ability here '
-                                                                onChange={(e) => handleAppliedTechnologies.handleAppliedTechnologiesChange(
-                                                                    experienceIndex, 
-                                                                    appliedTechnologieIndex, 
-                                                                    e
-                                                                )}
-                                                            />
-
-                                                            <div 
-                                                                className='deleteButton deleteSubItem'
-                                                                onClick={() => handleAppliedTechnologies.deleteAppliedTechnologies(
-                                                                    experienceIndex,
-                                                                    appliedTechnologieIndex
-                                                                )}
-                                                            >
-                                                                Delete
-                                                            </div>
-                                                        </div>
-                                                    )
-                                                })
-                                            }
-
-                                            <div 
-                                                className='addItem addSubItem' 
-                                                onClick={() => handleAppliedTechnologies.addAppliedTechnologies(experienceIndex)}
-                                            >
-                                                add a technology or ability used in work
-                                            </div>
-
-                                        </div>
-        
-                                    </div>
-
-                                    <br />
-
-                                    <div 
-                                        onClick={() => handleGlobalExperience.deleteExperience(experienceIndex)} 
-                                        className='deleteButton'
-                                    >
-                                        Delete
-                                    </div>
-
-                                </div>
-                            )
-                        })
+                <>
+                    { expericenceQuery.isLoading && 
+                        <Loading/> 
                     }
 
-                    <div className='addItem' onClick={handleGlobalExperience.addExperience}>
-                        Add experience
-                    </div>
+                    <ExperienceDiv isDark={isDark}>
+                        <h1>Experience</h1>
 
-                </ExperienceDiv>
+                        {
+                            experiences?.map((experience, experienceIndex ) => {
+                                return (
+                                    <div key={experienceIndex} className='container'>
+                                        <div className='jobInfo'>
+                                            <input 
+                                                type="text" 
+                                                className='jobName' 
+                                                value={experience.jobName}
+                                                onChange={(e) => handleGlobalExperience.handleJobNameChange(e, experienceIndex)}
+                                                placeholder='job name'
+                                            />
+
+                                            <input 
+                                                type="text" 
+                                                className='businessName' 
+                                                value={experience.business}
+                                                onChange={(e) => handleGlobalExperience.handleBusinessNameChange(e, experienceIndex)}
+                                                placeholder='business name'
+                                            />
+
+                                            <input 
+                                                type="text" 
+                                                className='date' 
+                                                value={experience.date}
+                                                onChange={(e) => handleGlobalExperience.handleDateChange(e, experienceIndex)}
+                                                placeholder='working date - ex: 05/18 to 02/21 or 05/18 to today'
+                                            />
+                                        </div>
+
+                                        <br />
+
+                                        <div className='Resume'>
+                                            <h2>Write a RESUME of what you did at work.</h2>
+                                            <br />
+                                            <TextArea
+                                                //TODO: put the initial text from db here
+                                                initialTXT=''
+                                                index={experienceIndex}
+                                                onDataReceived={handleGlobalExperience.handleResumeChange}
+                                            />
+                                        </div>
+
+                                        <br />
+
+                                        <div className='subContainer'>
+                                            <h2>DUTIES, use one line for each duty</h2>
+
+                                            <div>
+
+                                                {
+                                                    experience.duties.map((duty, dutyIndex) => {
+                                                        return (
+                                                            <div key={dutyIndex}>
+                                                                <input 
+                                                                    type="text" 
+                                                                    className='subItemInput'
+                                                                    value={duty}
+                                                                    placeholder='write a duty here'
+                                                                    onChange={(e) => handleDuties.handleDutyChange(experienceIndex, dutyIndex, e) }
+                                                                />
+
+                                                                <div 
+                                                                    className='deleteButton deleteSubItem'
+                                                                    onClick={() => handleDuties.deleteDuty(experienceIndex, dutyIndex)}
+                                                                >
+                                                                    Delete
+                                                                </div>
+                                                            </div>
+                                                        )
+                                                    })
+                                                }
+
+                                                <div 
+                                                    className='addItem addSubItem' 
+                                                    onClick={() => handleDuties.addDuty(experienceIndex)}
+                                                >
+                                                    add duty
+                                                </div>
+
+                                            </div>
+            
+                                        </div>
+
+                                        <br />
+
+                                        <div className='subContainer'>
+                                            <h2>ACHIEVEMENTS, use one line for each achievements</h2>
+
+                                            <div>
+
+                                                {
+                                                    experience.achievements.map((achievement, achievementsIndex) => {
+                                                        return (
+                                                            <div key={achievementsIndex}>
+                                                                <input 
+                                                                    type="text" 
+                                                                    className='subItemInput'
+                                                                    value={achievement}
+                                                                    placeholder='write an achievement here'
+                                                                    onChange={(e) => handleAchievements.handleAchievementChange(
+                                                                        experienceIndex, 
+                                                                        achievementsIndex, 
+                                                                        e
+                                                                    )}
+                                                                />
+
+                                                                <div 
+                                                                    className='deleteButton deleteSubItem'
+                                                                    onClick={() => handleAchievements.deleteAchievement(
+                                                                        experienceIndex,
+                                                                        achievementsIndex
+                                                                    )}
+                                                                >
+                                                                    Delete
+                                                                </div>
+                                                            </div>
+                                                        )
+                                                    })
+                                                }
+
+                                                <div 
+                                                    className='addItem addSubItem' 
+                                                    onClick={() => handleAchievements.addAchievement(experienceIndex)}
+                                                >
+                                                    add achievement
+                                                </div>
+
+                                            </div>
+            
+                                        </div>
+
+                                        <br />
+
+                                        <div className='subContainer'>
+                                            <h2>Technologies or abilities used in work: Please use one line for each.</h2>
+
+                                            <div>
+
+                                                {
+                                                    experience.appliedTechnologies.map((appliedTechnologie, appliedTechnologieIndex) => {
+                                                        return (
+                                                            <div key={appliedTechnologieIndex}>
+                                                                <input 
+                                                                    type="text" 
+                                                                    className='subItemInput'
+                                                                    value={appliedTechnologie}
+                                                                    placeholder='write the technology or ability here '
+                                                                    onChange={(e) => handleAppliedTechnologies.handleAppliedTechnologiesChange(
+                                                                        experienceIndex, 
+                                                                        appliedTechnologieIndex, 
+                                                                        e
+                                                                    )}
+                                                                />
+
+                                                                <div 
+                                                                    className='deleteButton deleteSubItem'
+                                                                    onClick={() => handleAppliedTechnologies.deleteAppliedTechnologies(
+                                                                        experienceIndex,
+                                                                        appliedTechnologieIndex
+                                                                    )}
+                                                                >
+                                                                    Delete
+                                                                </div>
+                                                            </div>
+                                                        )
+                                                    })
+                                                }
+
+                                                <div 
+                                                    className='addItem addSubItem' 
+                                                    onClick={() => handleAppliedTechnologies.addAppliedTechnologies(experienceIndex)}
+                                                >
+                                                    add a technology or ability used in work
+                                                </div>
+
+                                            </div>
+            
+                                        </div>
+
+                                        <br />
+
+                                        <div 
+                                            onClick={() => handleGlobalExperience.deleteExperience(experienceIndex)} 
+                                            className='deleteButton'
+                                        >
+                                            Delete
+                                        </div>
+
+                                    </div>
+                                )
+                            })
+                        }
+
+                        <div className='addItem' onClick={handleGlobalExperience.addExperience}>
+                            Add experience
+                        </div>
+
+                    </ExperienceDiv>
+                </>
             }
 
             previousRouter={`../${id}/skills`}
