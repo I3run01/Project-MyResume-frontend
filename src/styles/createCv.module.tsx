@@ -6,8 +6,6 @@ type props = {
 }
 
 export const CreateCvDiv = styled.div<props>`
-
-
     
     .createCv {
         padding: 10px;
@@ -25,7 +23,5 @@ export const CreateCvDiv = styled.div<props>`
             background-color: #00aeff70;
         }
     }
-
-
 
 `
