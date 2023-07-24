@@ -447,6 +447,7 @@ const Experience = () => {
                 </>
             }
 
+            nextRouter={`../${id}/createCv`}
             previousRouter={`../${id}/skills`}
         />
     )
