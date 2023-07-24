@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import TextArea from '@/components/textArea/textArea'
 import { useRouter } from 'next/router'
+import { useQueries } from 'react-query'
+import { Cvs } from '@/requests/cvs'
 
 type experienceType = {
     business: string
@@ -18,40 +20,88 @@ type experienceType = {
 
 const Experience = () => {
     const isDark = useSelector((state: RootState) => state.theme.isDark)
-    const [experiences, setExperience] = useState<experienceType[]>([])
+    const [experiences, setExperience] = useState<experienceType[] | null>(null)
     const router = useRouter()
     const user = useSelector((state: RootState) => state.user.user);
     const { id } = router.query;
+
+    const [expericenceQuery, sendExperices] = useQueries([
+        {
+            queryKey: 'getExperience',
+            queryFn: async () => {
+
+                const response = await new Cvs().getSpecifFieldOfASpecificCv(
+                    "experinces",
+                    id as string,
+                )
+
+                const json = JSON.parse(response)
+
+                return json
+            },
+        },
+        {
+            queryKey: 'sendExperience',
+            queryFn: async () => {
+                if(experiences == null) return
+
+                const response = await new Cvs().updateCvField(
+                    "experinces",
+                    id as string,
+                    experiences
+                )
+
+                const json = JSON.parse(response)
+
+                return json
+            },
+        },
+    ])
 
     useEffect(() => {
         if(!user) router.push('/middlewarePage')
     }, [])
 
     useEffect(() => {
-        console.log(experiences)
+        if(!expericenceQuery.data) return
+        
+        setExperience(expericenceQuery.data)
+    }, expericenceQuery.data)
+
+    useEffect(() => {
+        if(!experiences) return
+
+        sendExperices.refetch()
     }, [experiences])
+
 
     const handleGlobalExperience = {
         handleJobNameChange: (e: React.ChangeEvent<HTMLInputElement>, experienceIndex: number) => {
+            if(experiences == null) return
+
             const newExperience = [...experiences];
             newExperience[experienceIndex].jobName = e.target.value;
             setExperience(newExperience);
         },
     
         handleBusinessNameChange: (e: React.ChangeEvent<HTMLInputElement>, experienceIndex: number) => {
+            if(experiences == null) return
+
             const newExperience = [...experiences];
             newExperience[experienceIndex].business = e.target.value;
             setExperience(newExperience);
         },
     
         handleDateChange: (e: React.ChangeEvent<HTMLInputElement>, experienceIndex: number) => {
+            if(experiences == null) return
+            
             const newExperience = [...experiences];
             newExperience[experienceIndex].date = e.target.value;
             setExperience(newExperience);
         },
     
         handleResumeChange: (text: string, index?: number) => {
-            if(index === undefined) return;
+            if(index === undefined || experiences == null) return;
     
             const newExperience = [...experiences];
             newExperience[index].jobResume = text;
@@ -59,26 +109,36 @@ const Experience = () => {
         },
     
         addExperience: () => {
-            setExperience(prevState => [...prevState, {
-                business: '',
-                jobName: '',
-                jobResume: '',
-                duties:  [''],
-                achievements: [''],
-                appliedTechnologies: [''],
-                date: ''
-    
-            }]);
+            setExperience(prevState => {
+                if(prevState === null) return null
+
+                return [
+                    ...prevState, 
+                    {
+                        business: '',
+                        jobName: '',
+                        jobResume: '',
+                        duties:  [''],
+                        achievements: [''],
+                        appliedTechnologies: [''],
+                        date: ''
+                    }
+                ]});
         },
     
         deleteExperience: (experienceIndex: number) => {
-            setExperience(prevState => prevState.filter((item, index) => index !== experienceIndex));
+            setExperience(prevState => {
+                if(prevState === null) return null
+
+                return prevState.filter((item, index) => index !== experienceIndex)});
         }
     }
 
     const handleDuties = {
         addDuty: (experienceIndex: number) => {
             setExperience(prevExperiences => {
+                if(prevExperiences === null) return null
+
                 const experiencesCopy = [...prevExperiences]; 
                 experiencesCopy[experienceIndex].duties.push('');
                 return experiencesCopy;
@@ -87,6 +147,8 @@ const Experience = () => {
 
         deleteDuty: (experienceIndex: number, dutyIndex: number) => {
             setExperience(prevExperiences => {
+                if(prevExperiences === null) return null
+
                 const experiencesCopy = [...prevExperiences];
                 experiencesCopy[experienceIndex].duties.splice(dutyIndex, 1);
                 return experiencesCopy;
@@ -95,6 +157,8 @@ const Experience = () => {
 
         handleDutyChange: (experienceIndex: number, dutyIndex: number, e: React.ChangeEvent<HTMLInputElement>) => {
             setExperience(prevExperiences => {
+                if(prevExperiences === null) return null
+
                 const experiencesCopy = [...prevExperiences]; 
                 experiencesCopy[experienceIndex].duties[dutyIndex] = e.target.value;
                 return experiencesCopy;
@@ -106,6 +170,8 @@ const Experience = () => {
     const handleAchievements = {
         addAchievement: (experienceIndex: number) => {
             setExperience(prevExperiences => {
+                if(prevExperiences === null) return null
+
                 const experiencesCopy = [...prevExperiences]; 
                 experiencesCopy[experienceIndex].achievements.push('');
                 return experiencesCopy;
@@ -114,6 +180,8 @@ const Experience = () => {
 
         deleteAchievement: (experienceIndex: number, achievementsIndex: number) => {
             setExperience(prevExperiences => {
+                if(prevExperiences === null) return null
+
                 const experiencesCopy = [...prevExperiences];
                 experiencesCopy[experienceIndex].achievements.splice(achievementsIndex, 1);
                 return experiencesCopy;
@@ -122,6 +190,8 @@ const Experience = () => {
 
         handleAchievementChange: (experienceIndex: number, achievementsIndex: number, e: React.ChangeEvent<HTMLInputElement>) => {
             setExperience(prevExperiences => {
+                if(prevExperiences === null) return null
+
                 const experiencesCopy = [...prevExperiences]; 
                 experiencesCopy[experienceIndex].achievements[achievementsIndex] = e.target.value;
                 return experiencesCopy;
@@ -133,6 +203,8 @@ const Experience = () => {
     const handleAppliedTechnologies = {
         addAppliedTechnologies: (experienceIndex: number) => {
             setExperience(prevExperiences => {
+                if(prevExperiences === null) return null
+
                 const experiencesCopy = [...prevExperiences]; 
                 experiencesCopy[experienceIndex].appliedTechnologies.push('');
                 return experiencesCopy;
@@ -141,6 +213,8 @@ const Experience = () => {
 
         deleteAppliedTechnologies: (experienceIndex: number, AppliedTechnologiesIndex: number) => {
             setExperience(prevExperiences => {
+                if(prevExperiences === null) return null
+
                 const experiencesCopy = [...prevExperiences];
                 experiencesCopy[experienceIndex].appliedTechnologies.splice(AppliedTechnologiesIndex, 1);
                 return experiencesCopy;
@@ -149,6 +223,8 @@ const Experience = () => {
 
         handleAppliedTechnologiesChange: (experienceIndex: number, AppliedTechnologiesIndex: number, e: React.ChangeEvent<HTMLInputElement>) => {
             setExperience(prevExperiences => {
+                if(prevExperiences === null) return null
+
                 const experiencesCopy = [...prevExperiences]; 
                 experiencesCopy[experienceIndex].appliedTechnologies[AppliedTechnologiesIndex] = e.target.value;
                 return experiencesCopy;
@@ -164,7 +240,7 @@ const Experience = () => {
                     <h1>Experience</h1>
 
                     {
-                        experiences.map((experience, experienceIndex ) => {
+                        experiences?.map((experience, experienceIndex ) => {
                             return (
                                 <div key={experienceIndex} className='container'>
                                     <div className='jobInfo'>

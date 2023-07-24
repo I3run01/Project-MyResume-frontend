@@ -1,5 +1,5 @@
 import styled, { keyframes } from 'styled-components';
-import { themes } from '@/styles/Variables.module'
+import { themes } from '@/styles/variables.module'
 
 type props = {
     isDark: boolean
