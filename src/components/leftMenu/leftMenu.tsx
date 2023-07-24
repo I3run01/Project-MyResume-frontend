@@ -15,7 +15,7 @@ export const LeftMenu = () => {
                 <div onClick={() => router.push('/dashboard/curriculum')}>Curriculum</div>
                 <div onClick={() => router.push('/dashboard/project')}>Project</div>
             </div>
-            <div className='settings' onClick={() => router.push('../settings')}>
+            <div className='settings' onClick={() => router.push('/settings')}>
                 <p>Settings</p>
             </div>
         </LeftMenuDiv>
