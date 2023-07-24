@@ -11,6 +11,8 @@ import { Loading } from '@/components/loading'
 const Resume = () => {
     const [resume, setResume] = useState<string | null>(null)
     const [objectives, setObjectives] = useState<string | null>(null)
+    const [initialResume, setInitialResume] = useState<string>('')
+    const [initialObjectives, setInitialObjectives] = useState<string>('')
     const router = useRouter()
     const user = useSelector((state: RootState) => state.user.user);
     const { id } = router.query;
@@ -90,7 +92,18 @@ const Resume = () => {
     }, [])
 
     useEffect(() => {
-    }, [resumeQuery])
+       if(!resumeQuery.data) return
+
+       setInitialResume(String(resumeQuery.data))
+
+    }, [resumeQuery.data])
+
+    useEffect(() => {
+        if(!objectivesQuery.data) return
+ 
+        setInitialObjectives(String(objectivesQuery.data))
+ 
+     }, [objectivesQuery.data])
 
     useEffect(() => {
         sendResume.refetch()
@@ -113,7 +126,7 @@ const Resume = () => {
                                 <h1>Resume</h1>
                                 <h2>Write here a RESUME of your career</h2><br />
                                 <TextArea
-                                    initialTXT={String(resumeQuery.data)}
+                                    initialTXT={initialResume}
                                     onDataReceived={setResume}
                                 />
                             </div>
@@ -121,7 +134,7 @@ const Resume = () => {
                             <div className='objective'>
                                 <h1>Write here your OBJECTIVES</h1><br />
                                 <TextArea
-                                    initialTXT={String(objectivesQuery.data)}
+                                    initialTXT={initialObjectives}
                                     onDataReceived={setObjectives}
                                 />
                             </div>
