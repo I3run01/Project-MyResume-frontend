@@ -5,19 +5,23 @@ export interface ThemeState {
 }
 
 const initialState: ThemeState = {
-  isDark: true,
+  isDark: typeof window !== 'undefined' && window.localStorage.getItem('theme') === 'light' ? false : true,
 }
 
-export const themeSlice = createSlice({
+
+export const counterSlice = createSlice({
   name: 'theme',
   initialState,
   reducers: {
     changeTheme: (state) => {
-      state.isDark = !state.isDark;
+      state.isDark ? state.isDark = false : state.isDark = true
+      if (typeof window !== 'undefined') {
+        window.localStorage.setItem('theme', state.isDark ? 'dark' : 'light')
+      }
     },
   },
 })
 
-export const { changeTheme } = themeSlice.actions
+export const { changeTheme } = counterSlice.actions
 
-export default themeSlice.reducer
+export default counterSlice.reducer
