@@ -47,37 +47,14 @@ export const HomeDiv = styled.div<props>`
         width: 1200px;
             h1 {
                 font-family: 'Dosis';
-                font-family: 48px;
-                color: ${themes.global.colorTheme};
+                font-size: 76px;
+                color: ${props => props.isDark ? themes.dark.fontColor : themes.light.fontColor};
                 font-weight: bolder;
             }
             
             p {
                 margin-top: 20px;
-                font-size: 16px;
+                font-size: 18px;
             }
         }
-
-        .avatar {
-            
-            margin-top: 40px;
-            border: 1px solid ${props => props.isDark ? themes.dark.fontColor : themes.light.fontColor};
-            border-radius: 10px;
-            background-color: ${props => props.isDark ? themes.dark.backgroundTwo : themes.light.backgroundTwo};
-
-            box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.16), -3px -3px 6px rgba(0, 0, 0, 0.23);
-            width: 50%;
-
-            img {
-                width: 80%;
-            }
-        }
-
-    
-
-    
-    
-    
-    
-
 `
