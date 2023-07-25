@@ -21,9 +21,12 @@
     "draft-js": "^0.11.7",
     "eslint": "8.44.0",
     "eslint-config-next": "13.4.9",
+    "filesaver": "^0.0.13",
+    "mammoth": "^1.6.0",
     "next": "13.4.9",
     "next-redux-wrapper": "^8.1.0",
     "officegen": "^0.6.5",
+    "pizzip": "^3.1.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-query": "^3.39.3",
@@ -36,6 +39,8 @@
   },
   "devDependencies": {
     "@types/draft-js": "^0.11.12",
+    "@types/filesaver": "^0.0.30",
+    "@types/pizzip": "^3.0.2",
     "@types/react-query": "^1.2.9",
     "babel-plugin-styled-components": "^2.1.4"
   }

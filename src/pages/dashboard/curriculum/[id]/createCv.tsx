@@ -10,6 +10,7 @@ import { useEffect } from 'react'
 
 const CreateCv = () => {
     const isDark = useSelector((state: RootState) => state.theme.isDark)
+    const user = useSelector((state: RootState) => state.user.user)
     const router = useRouter()
     const { id } = router.query;
 
@@ -19,6 +20,10 @@ const CreateCv = () => {
 
         return json
     })
+
+    useEffect(() => {
+        if(!user) router.push('/middlewarePage')
+    }, [])
 
     useEffect(() => {
         if(!data) return
