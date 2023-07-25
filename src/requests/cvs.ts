@@ -28,6 +28,16 @@ export class Cvs {
         }
     }
 
+    async getSperificCv(cvId: string) {
+        const apiRoute = cvId;
+        try {
+            const response = await api.get(apiRoute);
+            return JSON.stringify(response.data);
+        } catch (error: any) {
+            throw error;
+        }
+    }
+
     async getSpecifFieldOfASpecificCv(field: string, cvId: string) {
         const apiRoute = `/${field}/${cvId}`;
         try {
