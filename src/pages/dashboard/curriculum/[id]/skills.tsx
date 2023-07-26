@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import { useQueries } from 'react-query'
 import { Cvs } from '@/requests/cvs'
 import { Loading } from '@/components/loading'
+import { Components } from '@/styles/components.module'
 
 type collegeType = {
     trainningArea: string
@@ -295,22 +296,26 @@ const Skills = () => {
                             college?.map((item, key) => {
                                 return (
                                     <div key={key} >
-                                        <input type="text"
+                                        <Components.Input type="text"
                                             placeholder='Trainnning area'
-                                            onChange={(e) => collegeHandlers.handleTrainningAreaChange(e, key)}
+                                            onChange={(e: any) => collegeHandlers.handleTrainningAreaChange(e, key)}
                                             value={item.trainningArea}
+                                            isDark={isDark}
+                                            width='600px'
                                         />
 
-                                        <input type="text" 
+                                        <Components.Input type="text" 
                                             placeholder='Education institution'
-                                            onChange={(e) => collegeHandlers.handleCollegeNameChange(e, key)}
+                                            onChange={(e: any) => collegeHandlers.handleCollegeNameChange(e, key)}
                                             value={item.collegeName}
+                                            isDark={isDark}
                                         />
 
-                                        <input type="text" 
+                                        <Components.Input type="text" 
                                             placeholder='Year of graduation'
-                                            onChange={(e) => collegeHandlers.handleGraduationYearChange(e, key)}
+                                            onChange={(e: any) => collegeHandlers.handleGraduationYearChange(e, key)}
                                             value={item.graduationYear}
+                                            isDark={isDark}
                                         />
 
                                         <div onClick={() => collegeHandlers.deleteCollege(key)} className='deleteButton'>
@@ -331,10 +336,11 @@ const Skills = () => {
                             abilities?.map((item, key) => {
                                 return (
                                     <div key={key} >
-                                        <input type="text"
+                                        <Components.Input type="text"
                                             placeholder='abilities or technologies'
-                                            onChange={(e) => abilitiesHandlers.handleAbilityChange(e, key)}
+                                            onChange={(e: any) => abilitiesHandlers.handleAbilityChange(e, key)}
                                             value={item}
+                                            isDark={isDark}
                                         />
                                         <div onClick={() => abilitiesHandlers.deleteAbility(key)} className='deleteButton'>
                                             Delete
@@ -354,16 +360,18 @@ const Skills = () => {
                             languages?.map((item, key) => {
                                 return (
                                     <div key={key} >
-                                        <input type="text"
+                                        <Components.Input type="text"
                                             placeholder='Language'
-                                            onChange={(e) => languageHandlers.handleLanguageName(e, key)}
+                                            onChange={(e: any) => languageHandlers.handleLanguageName(e, key)}
                                             value={item.language}
+                                            isDark={isDark}
                                         />
 
-                                        <input type="text" 
+                                        <Components.Input type="text" 
                                             placeholder='Level'
-                                            onChange={(e) => languageHandlers.handleLanguageLevel(e, key)}
+                                            onChange={(e: any) => languageHandlers.handleLanguageLevel(e, key)}
                                             value={item.level}
+                                            isDark={isDark}
                                         />
 
                                         <div onClick={() => languageHandlers.deleteLanguage(key)}

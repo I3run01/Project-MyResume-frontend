@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import { useQueries } from 'react-query'
 import { Cvs } from '@/requests/cvs'
 import { Loading } from '@/components/loading'
+import { Components } from '@/styles/components.module'
 
 type socialMediasType = {
     title: string
@@ -113,18 +114,21 @@ const SocialMedias = () => {
                         <h2>Please share your online profiles, such as GitHub, LinkedIn, portfolio, etc.</h2>
                         {socialMedias?.map((item, key) => (
                             <div key={key} className='container'>
-                                <input
+                                <Components.Input
                                     type="text"
                                     value={item.title}
                                     placeholder="social media"
-                                    onChange={(e) => handleTitleChange(e, key)}
+                                    onChange={(e: any) => handleTitleChange(e, key)}
+                                    isDark={isDark}
                                 />
 
-                                <input
+                                <Components.Input
                                     type="text"
                                     value={item.link}
                                     placeholder="link of social media"
-                                    onChange={(e) => handleLinkChange(e, key)}
+                                    onChange={(e: any) => handleLinkChange(e, key)}
+                                    isDark={isDark}
+                                    width={'400px'}
                                 />
 
                                 <div onClick={() => deleteItem(key)} className='deleteButton'>

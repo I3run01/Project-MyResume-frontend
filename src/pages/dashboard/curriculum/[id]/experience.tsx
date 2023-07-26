@@ -255,7 +255,7 @@ const Experience = () => {
                                                 className='jobName' 
                                                 value={experience.jobName}
                                                 onChange={(e) => handleGlobalExperience.handleJobNameChange(e, experienceIndex)}
-                                                placeholder='job name'
+                                                placeholder="person's job title"
                                             />
 
                                             <input 

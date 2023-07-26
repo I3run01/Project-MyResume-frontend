@@ -13,18 +13,6 @@ export const SkillsDiv = styled.div<props>`
         font-size: 16px;
     }
 
-    input {
-        margin-top: 10px;
-        background-color: transparent;
-        height: 30px;
-        border: none;
-        width: min-content;
-
-        border-bottom: 2px solid ${props => props.isDark ? themes.dark.fontColor : themes.light.fontColor};
-
-        margin-right: 10px;
-    }
-
     .addItem {
         margin-top: 30px;
         

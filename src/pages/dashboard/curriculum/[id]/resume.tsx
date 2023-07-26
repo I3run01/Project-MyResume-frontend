@@ -9,20 +9,11 @@ import { Cvs } from '@/requests/cvs'
 import { Loading } from '@/components/loading'
 import { styled } from 'styled-components'
 import { themes } from '@/styles/variables.module'
+import { Components } from '@/styles/components.module' 
 
 type props = {
     isDark: boolean
 }
-
-const StyledInput = styled.input<props>`
-  padding: 10px;
-  border-radius: 5px;
-  margin-top: 20px;
-  border: 1px solid ${props => props.isDark ? themes.dark.fontColor : themes.light.fontColor};
-  font-size: 16px;
-
-  background-color: transparent;
-`;
 
 const Resume = () => {
     const [resume, setResume] = useState<string | null>(null)
@@ -128,9 +119,7 @@ const Resume = () => {
 
             }, 
             enabled: false
-        },
-        
-        
+        },       
 ])
 
     useEffect(() => {
@@ -174,7 +163,6 @@ const Resume = () => {
         sendCvTitle.refetch()
     }, [objectives])
 
-
     return (
         <DashboardLayout
             main={
@@ -187,10 +175,12 @@ const Resume = () => {
 
                             <div>
                                 <h2>CV title</h2>
-                                <StyledInput isDark={isDark}
+                                <Components.Input
                                     type="text" 
                                     value={cvTitle ? cvTitle : ''} 
                                     onChange={(e: any) => setCvTitle(e.target.value)}
+                                    isDark={isDark}
+                                    width='800px'
                                 />
 
                             </div>
