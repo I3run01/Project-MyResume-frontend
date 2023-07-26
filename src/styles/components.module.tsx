@@ -24,6 +24,8 @@ export const Components = {
 
         font-family: 'Merriweather';
         font-size: 16px;
+
+        color: ${props => props.isDark ? themes.dark.fontColor : themes.light.fontColor};;
     `,
 
     DeleteButton: styled.div<buttonProps>`
@@ -53,6 +55,8 @@ export const Components = {
         width: 200px;
         border-radius: 4px;
         border: 1px solid ${props => props.isDark ? themes.dark.fontColor : themes.light.fontColor};
+
+        color: ${props => props.isDark ? themes.dark.fontColor : themes.light.fontColor};;
 
         cursor: pointer;
 

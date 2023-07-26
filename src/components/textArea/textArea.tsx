@@ -8,17 +8,26 @@ type props = {
   initialTXT: string
   onDataReceived?: (text: string, index?:number) => void
   index?: number
+  DoesNotReRenderInitialTXT?: boolean
 }
 
-const TextArea = ({initialTXT, onDataReceived, index}: props) => {
+const TextArea = ({initialTXT, onDataReceived, index, DoesNotReRenderInitialTXT}: props) => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const isDark = useSelector((state: RootState) => state.theme.isDark)
+
+  useEffect(() => {
+    if(DoesNotReRenderInitialTXT) return
+
+    const initialContentState = ContentState.createFromText(initialTXT);
+    const initialEditorState = EditorState.createWithContent(initialContentState);
+    setEditorState(initialEditorState);
+  }, [initialTXT]);
 
   useEffect(() => {
     const initialContentState = ContentState.createFromText(initialTXT);
     const initialEditorState = EditorState.createWithContent(initialContentState);
     setEditorState(initialEditorState);
-  }, [initialTXT]);
+  }, []);
   
   const handleChange = (state: EditorState) => {
 

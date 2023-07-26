@@ -6,12 +6,12 @@ import { useSelector } from 'react-redux'
 import { CurriculumDiv } from '@/styles/curriculum.module'
 import { useQueries } from 'react-query'
 import { Cvs } from '@/requests/cvs'
+import { Components } from '@/styles/components.module'
 
 type cvType = {
     name: string
     _id: string
 }
-
 
 const Curriculum = () => {
     const [cvs, setCvs] = useState<cvType[]>([])
@@ -107,23 +107,28 @@ const Curriculum = () => {
 
                     {cvs.map((cv, index) => (
                         <div key={cv._id} className='cvsNamesContainer'>
-                            <input 
+                            <Components.Input
                                 type="" value={cv.name} 
-                                onChange={(e) => changeCvName(index, e.target.value)}
+                                onChange={(e: any) => changeCvName(index, e.target.value)}
                                 className='Cvs'
                                 onDoubleClick={() => router.push(`./curriculum/${cv._id}/personal-datas`)}
+                                isDark={isDark}
                             />
-                            <div className='deleteButton'
+
+                            <Components.DeleteButton
                                 onClick={()=> setDeleteCvid(cv._id)}
+                                isDark={isDark}
+                                scale='80%'
                             >
                                 delete
-                            </div>
+                            </Components.DeleteButton>
+                            
                         </div>
                     ))}
 
-                    <div className='newCV' onClick={() => newCv.refetch()}>
+                    <Components.AddItemButton onClick={() => newCv.refetch()} isDark={isDark}>
                         create a new cv
-                    </div>
+                    </Components.AddItemButton>
 
                 </CurriculumDiv>
             }

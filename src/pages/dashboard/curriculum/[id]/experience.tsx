@@ -39,7 +39,7 @@ const Experience = () => {
                 const json = JSON.parse(response)
 
                 return json
-            },
+            }, enabled: false
         },
         {
             queryKey: 'sendExperience',
@@ -61,13 +61,15 @@ const Experience = () => {
 
     useEffect(() => {
         if(!user) router.push('/middlewarePage')
+
+        expericenceQuery.refetch()
     }, [])
 
     useEffect(() => {
         if(!expericenceQuery.data) return
-        
+
         setExperience(expericenceQuery.data)
-    }, expericenceQuery.data)
+    }, [expericenceQuery.data])
 
     useEffect(() => {
         if(!experiences) return
@@ -281,10 +283,11 @@ const Experience = () => {
                                             <h2>Write a RESUME of what you did at work.</h2>
                                             <br />
                                             <TextArea
-                                                //TODO: put the initial text from db here
-                                                initialTXT=''
+                                                //TODO: check
+                                                initialTXT={expericenceQuery.data[experienceIndex].jobResume}
                                                 index={experienceIndex}
                                                 onDataReceived={handleGlobalExperience.handleResumeChange}
+                                                DoesNotReRenderInitialTXT={true}
                                             />
                                         </div>
 

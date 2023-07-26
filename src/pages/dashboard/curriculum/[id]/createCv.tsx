@@ -59,6 +59,9 @@ const CreateCv = () => {
         <DashboardLayout
             main={
                 <>
+                {getSperificCv.isLoading || createWordCv.isLoading &&
+                    <Loading/>
+                }
                 
                     <CreateCvDiv isDark={isDark}>
                         <h1>Genegate CV</h1>

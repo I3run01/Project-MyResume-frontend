@@ -54,41 +54,6 @@ export const CurriculumDiv = styled.div<props>`
         align-items: start;
     }
 
-    .deleteButton {
-        background-color: #cd030362;
-        color: #d12121b0;
-        padding: 4px;
-
-        width: fit-content;
-        border-radius: 4px;
-
-        margin-top: 10px;
-
-        cursor: pointer;
-        
-        scale: 70%;
-
-        &:hover {
-            background-color: #cd030383;
-        }
-    }
-
-    .newCV {
-        margin-top: 20px;
-
-        padding: 10px;
-
-        width: fit-content;
-
-        border: 1px solid ${props => props.isDark ? themes.dark.fontColor : themes.light.fontColor};
-        border-radius: 4px;
-
-        cursor: pointer;
-
-        &:hover {
-            background-color: #00b7ff73;
-        }
-    }
 
 
 

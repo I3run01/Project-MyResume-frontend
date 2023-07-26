@@ -7,13 +7,7 @@ import { useSelector } from 'react-redux'
 import { useQueries } from 'react-query'
 import { Cvs } from '@/requests/cvs'
 import { Loading } from '@/components/loading'
-import { styled } from 'styled-components'
-import { themes } from '@/styles/variables.module'
 import { Components } from '@/styles/components.module' 
-
-type props = {
-    isDark: boolean
-}
 
 const Resume = () => {
     const [resume, setResume] = useState<string | null>(null)
@@ -38,8 +32,7 @@ const Resume = () => {
             const json = JSON.parse(response)
             return json
 
-          }, 
-          enabled: false
+          }
         },
         {
             queryKey: 'objectivesQuery',
@@ -53,8 +46,7 @@ const Resume = () => {
               console.log(json)
               return json
   
-            }, 
-            enabled: false
+            }
         },
         {
         queryKey: 'sendResume',
@@ -124,10 +116,6 @@ const Resume = () => {
 
     useEffect(() => {
         if(!user) router.push('/middlewarePage')
-
-        resumeQuery.refetch()
-        objectivesQuery.refetch()
-       
     }, [])
 
     useEffect(() => {
