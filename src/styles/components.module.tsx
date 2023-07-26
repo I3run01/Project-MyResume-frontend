@@ -59,5 +59,6 @@ export const Components = {
         &:hover {
             background-color: #498b4975;
         }
-    `
+    `,
+    
 }
