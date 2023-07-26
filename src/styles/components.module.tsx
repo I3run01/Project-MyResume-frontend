@@ -1,13 +1,18 @@
 import { styled } from "styled-components";
 import { themes } from "./variables.module";
 
-type props = {
+type inputProps = {
     isDark: boolean
     width?: string 
 }
 
+type buttonProps = {
+    isDark: boolean
+    scale?: string 
+}
+
 export const Components = {
-    Input: styled.input<props>`
+    Input: styled.input<inputProps>`
         margin-top: 10px;
         background-color: transparent;
         height: 30px;
@@ -19,6 +24,40 @@ export const Components = {
 
         font-family: 'Merriweather';
         font-size: 16px;
+    `,
 
+    DeleteButton: styled.div<buttonProps>`
+        background-color: #cd030362;
+
+        color: red;
+        padding: 4px;
+
+        width: fit-content;
+        border-radius: 4px;
+
+        margin-top: 10px;
+
+        cursor: pointer;
+
+        &:hover {
+            background-color: #cd030383;
+        }
+
+        scale: ${props => props.scale ? props.scale : '100%'};
+    `,
+
+    AddItemButton: styled.div<buttonProps>`
+        margin-top: 30px;
+        
+        padding: 10px;
+        width: 200px;
+        border-radius: 4px;
+        border: 1px solid ${props => props.isDark ? themes.dark.fontColor : themes.light.fontColor};
+
+        cursor: pointer;
+
+        &:hover {
+            background-color: #498b4975;
+        }
     `
 }

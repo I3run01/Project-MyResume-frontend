@@ -41,7 +41,7 @@ export const DashboardLayoutDiv = styled.div<props>`
 
         overflow-y: auto;
 
-        padding-bottom: 20px;
+        padding-bottom: 60px;
 
         .content {
             width: 1200px;
@@ -50,7 +50,7 @@ export const DashboardLayoutDiv = styled.div<props>`
 
     .next, .back {
         position: fixed;
-        bottom: 50px;
+        bottom: 10px;
 
         padding: 10px 20px 10px 20px;
 

@@ -1,6 +1,5 @@
 import {  DashboardLayout } from '@/layouts/dashboardLayout/dashboardLayout'
 import { RootState } from '@/redux/store'
-import { SkillsDiv } from '@/styles/skills.module'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
@@ -288,7 +287,7 @@ const Skills = () => {
                         <Loading/> 
                     }
                 
-                    <SkillsDiv isDark={isDark}>
+                    <main>
                         <h1>Skills</h1>
                         <h2>Academic formation</h2>
 
@@ -318,17 +317,23 @@ const Skills = () => {
                                             isDark={isDark}
                                         />
 
-                                        <div onClick={() => collegeHandlers.deleteCollege(key)} className='deleteButton'>
+                                        <Components.DeleteButton 
+                                            onClick={() => collegeHandlers.deleteCollege(key)}
+                                            isDark={isDark}
+                                        >
                                             Delete
-                                        </div>
+                                        </Components.DeleteButton>
 
                                     </div>
                                 )
                             })
                         }
-                        <div onClick={()=> collegeHandlers.addNewCollege()} className='addItem'>
+                        <Components.AddItemButton 
+                            onClick={()=> collegeHandlers.addNewCollege()}
+                            isDark={isDark}
+                        >
                             Add a new academic formation.
-                        </div>
+                        </Components.AddItemButton>
 
                         <h2>Abilities and technology knowledge</h2>
 
@@ -342,17 +347,23 @@ const Skills = () => {
                                             value={item}
                                             isDark={isDark}
                                         />
-                                        <div onClick={() => abilitiesHandlers.deleteAbility(key)} className='deleteButton'>
+                                        <Components.DeleteButton 
+                                            onClick={() => abilitiesHandlers.deleteAbility(key)}
+                                            isDark={isDark}
+                                        >
                                             Delete
-                                        </div>
+                                        </Components.DeleteButton>
                                     </div>
                                 )
                             })
                         }
 
-                        <div className='addItem' onClick={() => abilitiesHandlers.addNewAbility()}>
+                        <Components.AddItemButton 
+                            onClick={() => abilitiesHandlers.addNewAbility()}
+                            isDark={isDark}
+                        >
                             Add a new ability or technology
-                        </div>
+                        </Components.AddItemButton>
 
                         <h2>Languages</h2>
 
@@ -374,21 +385,25 @@ const Skills = () => {
                                             isDark={isDark}
                                         />
 
-                                        <div onClick={() => languageHandlers.deleteLanguage(key)}
-                                            className='deleteButton'
+                                        <Components.DeleteButton 
+                                            onClick={() => languageHandlers.deleteLanguage(key)}
+                                            isDark={isDark}
                                         >
                                             Delete
-                                        </div>
+                                        </Components.DeleteButton>
 
                                     </div>
                                 )
                             })
                         }
-                        <div onClick={()=> languageHandlers.addLanguage()} className='addItem'>
+                        <Components.AddItemButton 
+                            onClick={()=> languageHandlers.addLanguage()}
+                            isDark={isDark}
+                        >
                             Add a new language
-                        </div>
+                        </Components.AddItemButton>
                         
-                    </SkillsDiv>
+                    </main>
                 </>
             }
 
