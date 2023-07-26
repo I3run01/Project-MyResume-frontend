@@ -7,17 +7,35 @@ import { useSelector } from 'react-redux'
 import { useQueries } from 'react-query'
 import { Cvs } from '@/requests/cvs'
 import { Loading } from '@/components/loading'
+import { styled } from 'styled-components'
+import { themes } from '@/styles/variables.module'
+
+type props = {
+    isDark: boolean
+}
+
+const StyledInput = styled.input<props>`
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 20px;
+  border: 1px solid ${props => props.isDark ? themes.dark.fontColor : themes.light.fontColor};
+  font-size: 16px;
+
+  background-color: transparent;
+`;
 
 const Resume = () => {
     const [resume, setResume] = useState<string | null>(null)
+    const [cvTitle, setCvTitle] = useState<string | null>(null)
     const [objectives, setObjectives] = useState<string | null>(null)
     const [initialResume, setInitialResume] = useState<string>('')
     const [initialObjectives, setInitialObjectives] = useState<string>('')
     const router = useRouter()
     const user = useSelector((state: RootState) => state.user.user);
+    const isDark = useSelector((state: RootState) => state.theme.isDark);
     const { id } = router.query;
 
-    const [resumeQuery, objectivesQuery, sendResume, sendObjectives] = useQueries([
+    const [resumeQuery, objectivesQuery, sendResume, sendObjectives, cvTitleQuery, sendCvTitle] = useQueries([
         {
           queryKey: 'resumeQuery',
           queryFn: async () => {
@@ -46,42 +64,74 @@ const Resume = () => {
   
             }, 
             enabled: false
-          },
-          {
-            queryKey: 'sendResume',
-            queryFn: async () => {
-              if(!resume) return
-  
-              const response = await new Cvs().updateCvField(
-                  "resume", 
-                  id as string, 
-                  resume
-              )
-  
-              const json = JSON.parse(response)
-              return json
-  
-            }, 
-            enabled: false
-          },
-          {
+        },
+        {
+        queryKey: 'sendResume',
+        queryFn: async () => {
+            if(!resume) return
+
+            const response = await new Cvs().updateCvField(
+                "resume", 
+                id as string, 
+                resume
+            )
+
+            const json = JSON.parse(response)
+            return json
+
+        }, 
+        enabled: false
+        },
+        {
             queryKey: 'sendObjectives',
             queryFn: async () => {
-              if(!objectives) return
-  
-              const response = await new Cvs().updateCvField(
-                  "objectives", 
+                if(!objectives) return
+
+                const response = await new Cvs().updateCvField(
+                    "objectives", 
+                    id as string, 
+                    objectives
+                )
+
+                const json = JSON.parse(response)
+                return json
+
+            }, 
+            enabled: false
+        },
+        {
+            queryKey: 'cvTitleQuery',
+            queryFn: async () => {
+              const response = await new Cvs().getSpecifFieldOfASpecificCv(
+                  "cvTitle", 
                   id as string, 
-                  objectives
               )
   
               const json = JSON.parse(response)
               return json
   
+            },
+        },
+        {
+            queryKey: 'sendCvTitle',
+            queryFn: async () => {
+                if(cvTitle === null) return
+
+                const response = await new Cvs().updateCvField(
+                    "cvTitle", 
+                    id as string, 
+                    cvTitle
+                )
+
+                const json = JSON.parse(response)
+                return json
+
             }, 
             enabled: false
-          },
-    ])
+        },
+        
+        
+])
 
     useEffect(() => {
         if(!user) router.push('/middlewarePage')
@@ -99,6 +149,13 @@ const Resume = () => {
     }, [resumeQuery.data])
 
     useEffect(() => {
+        if(!cvTitleQuery.data) return
+ 
+        setCvTitle(String(cvTitleQuery.data))
+ 
+     }, [cvTitleQuery.data])
+
+    useEffect(() => {
         if(!objectivesQuery.data) return
  
         setInitialObjectives(String(objectivesQuery.data))
@@ -113,6 +170,10 @@ const Resume = () => {
         sendObjectives.refetch()
     }, [objectives])
 
+    useEffect(() => {
+        sendCvTitle.refetch()
+    }, [objectives])
+
 
     return (
         <DashboardLayout
@@ -122,8 +183,19 @@ const Resume = () => {
                         <Loading/> 
                     }
                     <div id="resume" className="steps">
+                            <h1>Resume</h1>
+
+                            <div>
+                                <h2>CV title</h2>
+                                <StyledInput isDark={isDark}
+                                    type="text" 
+                                    value={cvTitle ? cvTitle : ''} 
+                                    onChange={(e: any) => setCvTitle(e.target.value)}
+                                />
+
+                            </div>
+
                             <div className='resume'>
-                                <h1>Resume</h1>
                                 <h2>Write here a RESUME of your career</h2><br />
                                 <TextArea
                                     initialTXT={initialResume}
@@ -132,7 +204,7 @@ const Resume = () => {
                             </div>
 
                             <div className='objective'>
-                                <h1>Write here your OBJECTIVES</h1><br />
+                                <h2>Write here your OBJECTIVES</h2><br />
                                 <TextArea
                                     initialTXT={initialObjectives}
                                     onDataReceived={setObjectives}

@@ -4,33 +4,56 @@ import { CreateCvDiv } from '@/styles/createCv.module'
 import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import { Loading } from '@/components/loading'
-import { useQuery } from 'react-query'
+import { useQueries } from 'react-query'
 import { Cvs } from '@/requests/cvs'
-import { useEffect } from 'react'
+import { WordCv } from '@/requests/wordCv'
+import { useEffect, useState } from 'react'
 
 const CreateCv = () => {
     const isDark = useSelector((state: RootState) => state.theme.isDark)
     const user = useSelector((state: RootState) => state.user.user)
     const router = useRouter()
+    const [cvDatas, setCvDatas] = useState<Object | null>(null)
     const { id } = router.query;
+    
+    const [getSperificCv, createWordCv] = useQueries([
+        {
+            queryKey: 'getSpecifCv',
+            queryFn: async () => {
 
-    const {data, error} = useQuery( ['getSpecifCv'], async () => {
-        const response = await new Cvs().getSperificCv(id as string)
-        const json = JSON.parse(response)
+                const response = await new Cvs().getSperificCv(id as string)
+                const json = JSON.parse(response)
 
-        return json
-    })
+                return json
+            },
+        },
+        {
+            queryKey: 'create-word-cv',
+            queryFn: async () => {
+
+                if(!cvDatas) return
+
+                const response = await new WordCv().CreateCv(cvDatas)
+                return {"status": "success"}
+            }, enabled: false
+        },
+    ])
 
     useEffect(() => {
         if(!user) router.push('/middlewarePage')
     }, [])
 
     useEffect(() => {
-        if(!data) return
+        if(!getSperificCv.data) return
 
-        console.log(data)
-    }, [data])
+        setCvDatas(getSperificCv.data)
+    }, [getSperificCv.data])
 
+    useEffect(() => {
+        if(!createWordCv.error) return
+
+        alert(createWordCv.error)
+    }, [createWordCv.error])
 
     return (
         <DashboardLayout
@@ -40,7 +63,7 @@ const CreateCv = () => {
                     <CreateCvDiv isDark={isDark}>
                         <h1>Genegate CV</h1>
 
-                        <div className='createCv'>
+                        <div className='createCv' onClick={() => createWordCv.refetch()}>
                             <p>
                                 Click here to generate CV
                             </p>

@@ -12,6 +12,10 @@ export const DashboardLayoutDiv = styled.div<props>`
     display: flex;
     flex-direction: row;
 
+    * {
+        color: ${props => props.isDark ? themes.dark.fontColor : themes.light.fontColor};
+    }
+
     h1, h2 {
         margin-top: 40px;
         font-family: 'Dosis';
