@@ -1,6 +1,7 @@
 import { DashboardLayout } from '@/layouts/dashboardLayout/dashboardLayout'
 import { RootState } from '@/redux/store'
 import { ExperienceDiv } from '@/styles/experience.module'
+import { ExperienceContainerDiv } from '@/styles/experience.module'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import TextArea from '@/components/textArea/textArea'
@@ -22,6 +23,7 @@ type experienceType = {
 const Experience = () => {
     const isDark = useSelector((state: RootState) => state.theme.isDark)
     const [experiences, setExperience] = useState<experienceType[] | null>(null)
+    const [closedExperienceIndex, setClosetExperienceIndex] = useState<number[]>([])
     const router = useRouter()
     const user = useSelector((state: RootState) => state.user.user);
     const { id } = router.query;
@@ -77,6 +79,20 @@ const Experience = () => {
         sendExperices.refetch()
     }, [experiences])
 
+    const closeOrOpenExperienceDiv = (index: number) => {
+        setClosetExperienceIndex(prevIndex => {
+            // Check if the index is already in the array
+            const foundIndex = prevIndex.indexOf(index);
+    
+            if (foundIndex !== -1) {
+                // If the index is found, remove it from the array
+                return prevIndex.filter(item => item !== index);
+            } else {
+                // If the index is not found, add it to the array
+                return [...prevIndex, index];
+            }
+        });
+    }
 
     const handleGlobalExperience = {
         handleJobNameChange: (e: React.ChangeEvent<HTMLInputElement>, experienceIndex: number) => {
@@ -254,7 +270,16 @@ const Experience = () => {
                         {
                             experiences?.map((experience, experienceIndex ) => {
                                 return (
-                                    <div key={experienceIndex} className='container'>
+                                    <ExperienceContainerDiv 
+                                        key={experienceIndex} isDark={isDark}
+                                        isClosed={closedExperienceIndex.includes(experienceIndex)}
+                                    >
+                                        <div 
+                                        className='closeOrOpen'
+                                        onClick={() => closeOrOpenExperienceDiv(experienceIndex)}>
+                                            {closedExperienceIndex.includes(experienceIndex) ? 'Open' : 'Close'}
+                                        </div>
+
                                         <div className='jobInfo'>
                                             <input 
                                                 type="text" 
@@ -440,7 +465,7 @@ const Experience = () => {
                                             Delete
                                         </div>
 
-                                    </div>
+                                    </ExperienceContainerDiv>
                                 )
                             })
                         }

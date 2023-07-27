@@ -5,6 +5,11 @@ type props = {
     isDark: boolean
 }
 
+type containerProps = {
+    isDark: boolean
+    isClosed: boolean
+}
+
 export const ExperienceDiv = styled.div<props>`
 
     * {
@@ -54,26 +59,6 @@ export const ExperienceDiv = styled.div<props>`
         }
     }
 
-    .container {
-        margin-top: 50px;
-        margin-bottom: 50px;
-        padding: 20px;
-
-        border-left: 1px solid ${props => props.isDark ? themes.dark.fontColor : themes.light.fontColor};
-
-        .jobName, .businessName, .date {
-            font-size: 18px;
-            margin-right: 10px;
-            width: fit-content;
-        }
-
-        .date {
-            width: 450px;
-        }
-
-        
-    }
-
     .subContainer {
         margin-top: 20px;
         margin-left: 20px;
@@ -105,3 +90,46 @@ export const ExperienceDiv = styled.div<props>`
     }
 
 `
+
+export const ExperienceContainerDiv = styled.div<containerProps>`
+    margin-top: 50px;
+    margin-bottom: 50px;
+    padding: 20px;
+
+    height: ${props => props.isClosed ? '120px' : 'auto'};
+
+    overflow-y: hidden;
+
+    border-left: 1px solid ${props => props.isDark ? themes.dark.fontColor : themes.light.fontColor};
+
+    transition: all 0.5s ease-in-out;
+
+    .jobName, .businessName, .date {
+        font-size: 18px;
+        margin-right: 10px;
+        width: fit-content;
+    }
+
+    .date {
+        width: 450px;
+    }  
+
+    .closeOrOpen {
+        border:  1px solid ${props => props.isDark ? themes.dark.fontColor : themes.light.fontColor};
+
+        padding: 5px;
+
+        border-radius: 4px;
+
+        cursor: pointer;
+
+        width: fit-content;
+
+        &:hover {
+            background-color: #00d5ff4f;
+        }
+    }
+
+`
+
+
