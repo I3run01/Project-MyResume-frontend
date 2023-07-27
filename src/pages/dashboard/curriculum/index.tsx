@@ -97,6 +97,14 @@ const Curriculum = () => {
         setCvs(prevCvs => prevCvs.filter(cv => cv._id !== cvId));
     }
 
+    const handleDeleteButton = (cvId: string) => {
+        const confirmDelete = window.confirm("Are you sure you want to delete this CV?");
+
+        if (confirmDelete) {
+            setDeleteCvid(cvId);
+        }
+    }
+
     return (
         <DashboardLayout
             main={
@@ -116,7 +124,7 @@ const Curriculum = () => {
                             />
 
                             <Components.DeleteButton
-                                onClick={()=> setDeleteCvid(cv._id)}
+                                onClick={()=> handleDeleteButton(cv._id)}
                                 isDark={isDark}
                                 scale='80%'
                             >

@@ -130,6 +130,10 @@ const Experience = () => {
         },
     
         deleteExperience: (experienceIndex: number) => {
+            const confirmDelete = window.confirm("Are you sure you want to delete this CV?");
+
+            if(!confirmDelete) return
+
             setExperience(prevState => {
                 if(prevState === null) return null
 
@@ -283,7 +287,6 @@ const Experience = () => {
                                             <h2>Write a RESUME of what you did at work.</h2>
                                             <br />
                                             <TextArea
-                                                //TODO: check
                                                 initialTXT={experience.jobResume}
                                                 index={experienceIndex}
                                                 onDataReceived={handleGlobalExperience.handleResumeChange}
