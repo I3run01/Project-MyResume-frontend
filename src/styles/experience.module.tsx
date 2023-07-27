@@ -96,7 +96,7 @@ export const ExperienceContainerDiv = styled.div<containerProps>`
     margin-bottom: 50px;
     padding: 20px;
 
-    height: ${props => props.isClosed ? '120px' : 'auto'};
+    height: ${props => props.isClosed ? '180px' : 'auto'};
 
     overflow-y: hidden;
 
@@ -114,7 +114,7 @@ export const ExperienceContainerDiv = styled.div<containerProps>`
         width: 450px;
     }  
 
-    .closeOrOpen {
+    .closeOrOpen, .DragAndDrop {
         border:  1px solid ${props => props.isDark ? themes.dark.fontColor : themes.light.fontColor};
 
         padding: 5px;
@@ -124,6 +124,9 @@ export const ExperienceContainerDiv = styled.div<containerProps>`
         cursor: pointer;
 
         width: fit-content;
+        
+        margin-top: 12px;
+        margin-bottom: 12px;
 
         &:hover {
             background-color: #00d5ff4f;

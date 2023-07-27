@@ -21,13 +21,21 @@ type experienceType = {
 }
 
 const Experience = () => {
-    const isDark = useSelector((state: RootState) => state.theme.isDark)
-    const [experiences, setExperience] = useState<experienceType[] | null>(null)
-    const [closedExperienceIndex, setClosetExperienceIndex] = useState<number[]>([])
     const router = useRouter()
+    const isDark = useSelector((state: RootState) => state.theme.isDark)
     const user = useSelector((state: RootState) => state.user.user);
     const { id } = router.query;
 
+    const [experiences, setExperience] = useState<experienceType[] | null>(null)
+    const [closedExperienceIndex, setClosetExperienceIndex] = useState<number[]>(() => {
+        if (typeof window !== 'undefined') {
+            const savedIndex = window.localStorage.getItem(`closedExperienceIndex${id}`);
+            return savedIndex ? JSON.parse(savedIndex) : [];
+        }
+        return [];
+    });
+
+    
     const [expericenceQuery, sendExperices] = useQueries([
         {
             queryKey: 'getExperience',
@@ -68,6 +76,12 @@ const Experience = () => {
     }, [])
 
     useEffect(() => {
+        if (typeof window !== 'undefined') {
+            window.localStorage.setItem(`closedExperienceIndex${id}`, JSON.stringify(closedExperienceIndex));
+        }
+    }, [closedExperienceIndex]);
+
+    useEffect(() => {
         if(!expericenceQuery.data) return
 
         setExperience(expericenceQuery.data)
@@ -93,6 +107,30 @@ const Experience = () => {
             }
         });
     }
+
+    const dragHandlers = {
+        handleDragStart: (index: number, e: React.DragEvent) => {
+            e.dataTransfer.effectAllowed = "move";
+            e.dataTransfer.setData("text/plain", index.toString());
+        },
+    
+        handleDrop: (dropIndex: number, e: React.DragEvent) => {
+            e.preventDefault();
+            const dragIndex = parseInt(e.dataTransfer.getData("text"));
+            if (experiences) {
+                const dragItem = experiences[dragIndex];
+                const newExperiences = [...experiences];
+                newExperiences[dragIndex] = newExperiences[dropIndex];
+                newExperiences[dropIndex] = dragItem;
+                setExperience(newExperiences);
+            }
+        },
+    
+        handleDragOver: (e: React.DragEvent) => {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = "move";
+        }
+    } 
 
     const handleGlobalExperience = {
         handleJobNameChange: (e: React.ChangeEvent<HTMLInputElement>, experienceIndex: number) => {
@@ -265,6 +303,7 @@ const Experience = () => {
                     }
 
                     <ExperienceDiv isDark={isDark}>
+
                         <h1>Experience</h1>
 
                         {
@@ -273,10 +312,23 @@ const Experience = () => {
                                     <ExperienceContainerDiv 
                                         key={experienceIndex} isDark={isDark}
                                         isClosed={closedExperienceIndex.includes(experienceIndex)}
-                                    >
+                                        onDrop={(e: any) => dragHandlers.handleDrop(experienceIndex, e)}
+                                        onDragOver={dragHandlers.handleDragOver}
+                                        >
+
                                         <div 
-                                        className='closeOrOpen'
-                                        onClick={() => closeOrOpenExperienceDiv(experienceIndex)}>
+                                            className='DragAndDrop'
+                                            draggable
+                                            onDragStart={(e) => dragHandlers.handleDragStart(experienceIndex, e)}
+                                            >
+                                            Drag and Drop
+                                        </div>
+                                        
+
+                                        <div 
+                                            className='closeOrOpen'
+                                            onClick={() => closeOrOpenExperienceDiv(experienceIndex)}
+                                            >
                                             {closedExperienceIndex.includes(experienceIndex) ? 'Open' : 'Close'}
                                         </div>
 

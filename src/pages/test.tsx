@@ -1,27 +1,28 @@
-import { useEffect, useState } from "react"
-import { styled } from "styled-components"
+import React, { useEffect, useState } from "react"
+import styled from "styled-components"
 
 export const TestDiv = styled.div`
-    
     height: 100vh;
     width: 100vw;
-
     background-color: #0c698068;
-
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-
     div {
-        height: 20%;
-        width: 10%;
+        height: 30%;
+        width: 20%;
         background-color: #040b11fd;
-
         display: flex;
         justify-content: center;
         align-items: center;
-
+        flex-direction: column;
+        div {
+            background-color: #a7a713;
+            width: fit-content;
+            height: fit-content;
+            cursor: pointer;
+        }
         p {
             font-size: 26px;
         }
@@ -29,48 +30,51 @@ export const TestDiv = styled.div`
 `
 
 const Test = () => {
-    const [divs, setDivs] = useState<any[]>(['item 1', 'item 2', 'item 3'])
-    const [dragIndex, setDragIndex] = useState<number | null>(null)
+    const [experiences, setexperiences] = useState<any[]>(['item 1', 'item 2', 'item 3'])
 
-    const handleDragStart = (index: number) => {
-        setDragIndex(index);
+    const handleDragStart = (index: number, e: React.DragEvent) => {
+        e.dataTransfer.effectAllowed = "move";
+        e.dataTransfer.setData("text/plain", index.toString());
     }
 
-    const handleDrop = (dropIndex: number) => {
-        if (dragIndex === null) {
-            return;
-        }
-        const dragItem = divs[dragIndex];
-        const newDivs = [...divs];
-        newDivs[dragIndex] = newDivs[dropIndex];
-        newDivs[dropIndex] = dragItem;
-        setDivs(newDivs);
-        setDragIndex(null);
+    const handleDrop = (dropIndex: number, e: React.DragEvent) => {
+        e.preventDefault();
+        const dragIndex = parseInt(e.dataTransfer.getData("text"));
+        const dragItem = experiences[dragIndex];
+        const newExperiences = [...experiences];
+        newExperiences[dragIndex] = newExperiences[dropIndex];
+        newExperiences[dropIndex] = dragItem;
+        setexperiences(newExperiences);
+    }
+
+    const handleDragOver = (e: React.DragEvent) => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = "move";
     }
 
     useEffect(() => {
-        console.log(divs)
-    }, [divs])
+        console.log(experiences)
+    }, [experiences])
 
     return (
         <TestDiv>
-            {
-                divs.map((item, index) => {
-                    return (
-                        <div
-                            key={index}
-                            draggable
-                            onDragStart={() => handleDragStart(index)}
-                            onDrop={() => handleDrop(index)}
-                            onDragOver={(e) => e.preventDefault()}
-                        >
-                            <p>{item}</p>
-                        </div>
-                    )
-                })
-            }
+            {experiences.map((item, index) => (
+                <div 
+                    className="container"
+                    onDrop={(e) => handleDrop(index, e)}
+                    onDragOver={handleDragOver}
+                >
+                    <div className="dragButton"
+                        draggable
+                        onDragStart={(e) => handleDragStart(index, e)}
+                    >
+                        Drag Button
+                    </div>
+                    <p>{item}</p>
+                </div>
+            ))}
         </TestDiv>
     )
 }
 
-export default Test
+export default Test;
