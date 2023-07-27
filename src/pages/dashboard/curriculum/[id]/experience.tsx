@@ -284,7 +284,7 @@ const Experience = () => {
                                             <br />
                                             <TextArea
                                                 //TODO: check
-                                                initialTXT={expericenceQuery.data[experienceIndex].jobResume}
+                                                initialTXT={experience.jobResume}
                                                 index={experienceIndex}
                                                 onDataReceived={handleGlobalExperience.handleResumeChange}
                                                 DoesNotReRenderInitialTXT={true}

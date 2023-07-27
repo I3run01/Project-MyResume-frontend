@@ -14,9 +14,11 @@ const CreateCv = () => {
     const user = useSelector((state: RootState) => state.user.user)
     const router = useRouter()
     const [cvDatas, setCvDatas] = useState<Object | null>(null)
+    const [languages, setLanguages] = useState<string[] | null>(null)
+    const [selectedLanguage, setSelectedLanguage] = useState<string>('en-usa')
     const { id } = router.query;
     
-    const [getSperificCv, createWordCv] = useQueries([
+    const [getSperificCv, createWordCv, languagesQuery] = useQueries([
         {
             queryKey: 'getSpecifCv',
             queryFn: async () => {
@@ -33,14 +35,30 @@ const CreateCv = () => {
 
                 if(!cvDatas) return
 
-                const response = await new WordCv().CreateCv(cvDatas)
+                const response = await new WordCv().CreateCv(cvDatas, selectedLanguage)
                 return {"status": "success"}
             }, enabled: false
+        },
+        {
+            queryKey: 'retrieveLanguages',
+            queryFn: async () => {
+
+                const response = await new WordCv().getWordAllowedLanguages()
+
+                let json = JSON.parse(response)
+                
+                return json
+            }
         },
     ])
 
     useEffect(() => {
         if(!user) router.push('/middlewarePage')
+
+        const storedLanguage = localStorage.getItem(`word-language-${id}`);
+        if (storedLanguage) {
+            setSelectedLanguage(storedLanguage);
+        }
     }, [])
 
     useEffect(() => {
@@ -55,6 +73,17 @@ const CreateCv = () => {
         alert(createWordCv.error)
     }, [createWordCv.error])
 
+    useEffect(() => {
+        if(!languagesQuery.data) return
+        
+        setLanguages(languagesQuery.data)
+    }, [languagesQuery.data])
+
+    function handleLanguageChange(language: string) {
+        setSelectedLanguage(language);
+        localStorage.setItem(`word-language-${id}`, language);
+    }
+
     return (
         <DashboardLayout
             main={
@@ -63,8 +92,26 @@ const CreateCv = () => {
                     <Loading/>
                 }
                 
-                    <CreateCvDiv isDark={isDark}>
+                    <CreateCvDiv 
+                        isDark={isDark}
+                    >
                         <h1>Genegate CV</h1>
+
+                        <h2>Select the language</h2>
+
+                        {
+                            languages?.map((language, index) => {
+                                return (
+                                    <div 
+                                        className='selectLanguage'
+                                        key={index} onClick={() => handleLanguageChange(language)}
+                                        style={{ backgroundColor: language === selectedLanguage ? '#00fff235' : 'initial' }}
+                                    >
+                                        {language}
+                                    </div>
+                                )
+                            } )
+                        }
 
                         <div className='createCv' onClick={() => createWordCv.refetch()}>
                             <p>

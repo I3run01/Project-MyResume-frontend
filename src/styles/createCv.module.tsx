@@ -24,4 +24,22 @@ export const CreateCvDiv = styled.div<props>`
         }
     }
 
+    .selectLanguage {
+        color: ${props => props.isDark ? themes.dark.fontColor : themes.light.fontColor};
+        font-size: 16px;
+        border-bottom: 1px solid ${props => props.isDark ? themes.dark.fontColor : themes.light.fontColor};
+        font-family: 'Merriweather';
+
+        width: 300px;
+
+        padding: 3px;
+
+        padding-top: 8px;
+
+        cursor: pointer;
+
+        margin-top: 10px;
+
+    }
+
 `

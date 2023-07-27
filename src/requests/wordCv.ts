@@ -17,8 +17,8 @@ api.interceptors.response.use(function (response) {
 });
 
 export class WordCv {
-    async CreateCv(json: object) {
-        const apiRoute = '';
+    async CreateCv(json: object, language: string) {
+        const apiRoute = `/${language}`;
 
         try {
             const response = await api.post(apiRoute, json, { responseType: 'blob' });
@@ -28,6 +28,19 @@ export class WordCv {
             FileDownload(response.data, 'word-resume.docx');
 
             return JSON.stringify(response)
+
+        } catch (error: any) {
+            throw error;
+        }
+    }
+
+    async getWordAllowedLanguages() {
+        const apiRoute = '/languages';
+
+        try {
+            const response = await api.get(apiRoute);
+
+            return JSON.stringify(response.data)
 
         } catch (error: any) {
             throw error;
