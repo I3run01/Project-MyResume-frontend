@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: process.env.API_BASE_URL || 'http://localhost:4000/api/cvs',
+    baseURL: process.env.NEXT_PUBLIC_CVS_API_BASE_URL,
     withCredentials: true
 });
 
