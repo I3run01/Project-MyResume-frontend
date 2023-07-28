@@ -29,13 +29,13 @@ const MiddlewarePage = () => {
     useEffect(() => {
         if(!userRequest) return
         console.log(user)
-
+    
         const middleware = async () => {
             if(user) return router.back();
             router.push('./signin');
         }
         middleware();
-    }, [userRequest]);
+    }, [userRequest, user, router]);
 
     return (
         <StyledDiv isDark={isDark}>
