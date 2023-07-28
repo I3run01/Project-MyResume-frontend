@@ -2,7 +2,7 @@ import axios from 'axios';
 import FileDownload from 'js-file-download';
 
 const api = axios.create({
-    baseURL: process.env.API_BASE_URL || 'http://127.0.0.1:5000/api/word'
+    baseURL: process.env.API_BASE_URL || 'https://create-word-cv.onrender.com/api/word'
 });
 
 api.interceptors.response.use(function (response) {
