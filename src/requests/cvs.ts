@@ -70,6 +70,10 @@ export class Cvs {
 
     async updateCvField(field: string, cvId: string, body: any) {
         const apiRoute = `/${field}/${cvId}`;
+
+        console.log(field)
+
+
         try {
             const response = await api.post(apiRoute, {body} );
             return JSON.stringify(response.data);
