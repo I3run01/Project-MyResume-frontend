@@ -24,32 +24,38 @@ const EmailConfirmation = () => {
     const { token } = router.query
     const dispatch = useDispatch()
 
-    const { data, error, isFetching } = useQuery(['corfirm-email'], async () => {
+    const { data, error, isFetching } = useQuery(['confirm-email'], async () => {
+        if (!token) {
+            return;
+        }
+
         let response = await new User().confirmationEmail(token as string)
         let json = JSON.parse(response)
         return json
-        },
-        {
-            enabled: !token,
-        }
-    );
-
-    if(isFetching) {
-        return <Loading/>
-    }
+    });
 
     useEffect(() => {
         if(!data) return
+
         dispatch(changeUser(data))
+        
         router.push('./dashboard')
-    }, [data])
+    }, [data, dispatch, router])
 
     useEffect(() => {
         if(!error) return
         alert(error)
     }, [error])
 
-   return <Container isDark={isDark}/>
+   return (
+        <>
+            { isFetching &&
+                <Loading/>
+            }
+            
+            <Container isDark={isDark}/>
+        </>
+   )
 }
 
 export default EmailConfirmation
