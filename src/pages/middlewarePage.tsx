@@ -35,7 +35,7 @@ const MiddlewarePage = () => {
             router.push('./signin');
         }
         middleware();
-    }, [userRequest, user, router]);
+    }, [userRequest]);
 
     return (
         <StyledDiv isDark={isDark}>
