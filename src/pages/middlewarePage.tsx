@@ -15,7 +15,7 @@ const StyledDiv = styled.div<{ isDark: boolean }>`
     background: ${({ isDark }) => (isDark ? '#0f0f0f' : '#cfcfcf')};
 `;
 
-const middlewarePage = () => {
+const MiddlewarePage = () => {
     const dispatch = useDispatch();
     const user = useSelector((state: RootState) => state.user.user);
     const userRequest = useSelector((state: RootState) => state.user.requestState);
@@ -44,4 +44,4 @@ const middlewarePage = () => {
     )
 }
 
-export default middlewarePage;
+export default MiddlewarePage;
