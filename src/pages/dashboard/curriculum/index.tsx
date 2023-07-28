@@ -113,7 +113,7 @@ const Curriculum = () => {
                         Those are your CVs. Please , or <b>single-click to edit its name.</b> <b>double-click to open it</b>
                     </p>
 
-                    {cvs.map((cv, index) => (
+                    {cvs?.map((cv, index) => (
                         <div key={cv._id} className='cvsNamesContainer'>
                             <Components.Input
                                 type="" value={cv.name} 
