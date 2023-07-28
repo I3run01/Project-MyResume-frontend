@@ -31,7 +31,7 @@ const MiddlewarePage = () => {
         console.log(user)
     
         const middleware = async () => {
-            if(user) router.back();
+            if(user) return router.back();
             router.push('./signin');
         }
         middleware();
