@@ -1,7 +1,6 @@
 import { NoSignedLayout } from '@/layouts/noSignedLayout/noSignedLayout'
 import { RootState } from '@/redux/store'
 import { HomeDiv } from '@/styles/home.module'
-import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
 export default function Home() {
