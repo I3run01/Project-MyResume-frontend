@@ -13,7 +13,7 @@ export default function Home() {
         isDark={isDark}
       >
         <div className='container'>
-          <h1>MyResume</h1>
+          <h1>iResume</h1>
           <p>The easiest way to have the best resume and share yours skills</p>
         </div>
       </HomeDiv>
