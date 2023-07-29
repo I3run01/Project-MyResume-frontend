@@ -1,7 +1,5 @@
 import styled from "styled-components";
-
-const fontColorDark = '#ececec'
-const fontColorLight = 'black'
+import { themes } from "./variables.module";
 
 type props = {
     isDark: boolean
@@ -14,7 +12,7 @@ export const SettingsDiv = styled.div<props>`
     justify-content: start;
     align-items: center;
 
-    color: ${props => props.isDark ? fontColorDark : fontColorLight};
+    color: ${props => props.isDark ? themes.dark.fontColor : themes.light.fontColor};
 
     font-size: 18px;
     font-family: 'Dosis';
@@ -31,7 +29,7 @@ export const SettingsDiv = styled.div<props>`
 
         cursor: pointer;
 
-        border: 2px solid ${props => props.isDark ? fontColorDark : fontColorLight};
+        border: 2px solid ${props => props.isDark ? themes.dark.fontColor : themes.light.fontColor};
         border-radius: 5px;
 
         &:hover {
@@ -44,7 +42,7 @@ export const SettingsDiv = styled.div<props>`
         justify-content: center;
 
         padding: 3px;
-        border: 2px solid ${props => props.isDark ? fontColorDark : fontColorLight};
+        border: 2px solid ${props => props.isDark ? themes.dark.fontColor : themes.light.fontColor};
         border-radius: 5px;
 
         margin-top: 30px;
