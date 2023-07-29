@@ -41,13 +41,13 @@ export const SettingsDiv = styled.div<props>`
         display: flex;
         justify-content: center;
 
-        padding: 3px;
+        padding: 6px;
         border: 2px solid ${props => props.isDark ? themes.dark.fontColor : themes.light.fontColor};
         border-radius: 5px;
 
         margin-top: 30px;
 
-        width: 70%;
+        width: 50%;
 
         cursor: pointer;
 
