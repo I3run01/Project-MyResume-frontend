@@ -39,7 +39,7 @@ const EmailConfirmation = () => {
 
         dispatch(changeUser(data))
         
-        router.push('./dashboard')
+        router.push('/dashboard')
     }, [data])
 
     useEffect(() => {
