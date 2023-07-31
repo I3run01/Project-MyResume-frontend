@@ -69,8 +69,11 @@ export class User {
 
     async confirmationEmail(token: string) {
         const apiRoute = `/confirm-email/${token}`;
+        console.log(token)
+
         try {
             const response = await api.get(apiRoute);
+            
             return JSON.stringify(response.data);
         } catch (error) {
             throw error;

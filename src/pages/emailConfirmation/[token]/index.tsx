@@ -25,12 +25,13 @@ const EmailConfirmation = () => {
     const dispatch = useDispatch()
 
     const { data, error, isFetching } = useQuery(['confirm-email'], async () => {
-        if (!token) return
-
         let response = await new User().confirmationEmail(token as string)
+
         let json = JSON.parse(response)
 
         return json
+    }, {
+        enabled: !!token
     });
 
     useEffect(() => {
@@ -44,6 +45,8 @@ const EmailConfirmation = () => {
     useEffect(() => {
         if(!error) return
         alert(error)
+
+        router.push('/')
     }, [error])
 
    return (
