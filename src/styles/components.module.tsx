@@ -25,7 +25,7 @@ export const Components = {
         font-family: 'Merriweather';
         font-size: 16px;
 
-        color: ${props => props.isDark ? themes.dark.fontColor : themes.light.fontColor};;
+        color: ${props => props.isDark ? themes.dark.fontColor : themes.light.fontColor};
     `,
 
     DeleteButton: styled.div<buttonProps>`
