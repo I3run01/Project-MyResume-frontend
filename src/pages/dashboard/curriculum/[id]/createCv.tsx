@@ -88,7 +88,7 @@ const CreateCv = () => {
         <DashboardLayout
             main={
                 <>
-                {getSperificCv.isLoading || createWordCv.isLoading &&
+                {(getSperificCv.isLoading || createWordCv.isLoading || languagesQuery.isLoading) &&
                     <Loading/>
                 }
                 
