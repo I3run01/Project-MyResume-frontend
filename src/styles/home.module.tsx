@@ -57,4 +57,12 @@ export const HomeDiv = styled.div<props>`
                 font-size: 18px;
             }
         }
+
+        .freeText {
+            font-size: 36px;
+            color: #08ca088a;
+            font-weight: bolder;
+            color: ${props => props.isDark ? '#00ff00b5' : '#0a330ac5'};
+            filter: drop-shadow(10px 10px px rgba(0, 0, 0, 0.5));
+        }
 `
