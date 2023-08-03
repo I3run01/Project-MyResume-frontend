@@ -22,6 +22,14 @@ export const TopMenu = () => {
         setTheme(isDark ? 'light' : 'dark'); 
     }, [isDark]);
 
+    const changeLanguage = (lng: string) => {
+        i18n.changeLanguage(lng);
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('i18nextLng', lng);
+        }
+      };
+      
+
     return (
         <TopMenuDiv
             isDark={isDark}
@@ -31,10 +39,10 @@ export const TopMenu = () => {
                     <div className='theme' onClick={() => dispatch(changeTheme())}>
                         {theme}
                     </div>
-                    <div onClick={() => i18n.changeLanguage('pt')}>
+                    <div onClick={() => changeLanguage('pt')}>
                         pt-br
                     </div>
-                    <div onClick={() => i18n.changeLanguage('en')}>
+                    <div onClick={() => changeLanguage('en')}>
                         en-us
                     </div>
                 </div>
