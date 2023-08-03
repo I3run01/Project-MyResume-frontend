@@ -5,7 +5,8 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import { store } from '../redux/store';
 import Head from 'next/head';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import '@/i18n/i18n';
+import i18n from '@/i18n/i18n';
+import { I18nextProvider } from 'react-i18next';
 
 export default function App({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();
@@ -18,7 +19,9 @@ export default function App({ Component, pageProps }: AppProps) {
                 <link href='https://fonts.googleapis.com/css2?family=Merriweather:wght@300&display=swap' rel='stylesheet' />
                 <link href='https://fonts.googleapis.com/css2?family=Dosis:wght@700&display=swap' rel='stylesheet' />
           </Head>
-          <Component {...pageProps} />
+          <I18nextProvider i18n={i18n}>
+            <Component {...pageProps} />
+          </I18nextProvider>
         </GoogleOAuthProvider>
       </Provider>
     </QueryClientProvider>
