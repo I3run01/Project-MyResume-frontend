@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { themes } from '@/styles/variables.module'
 
+
 type Props = {
     isDark: boolean
 }

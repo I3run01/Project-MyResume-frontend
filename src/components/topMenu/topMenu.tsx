@@ -5,12 +5,14 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { TopMenuDiv } from './topMenuDiv.module'
 import { changeTheme } from '@/redux/slice/themeSlice';
+import { useTranslation } from 'react-i18next';
 
 export const TopMenu = () => {
     const isDark = useSelector((state: RootState) => state.theme.isDark);
     const user = useSelector((state: RootState) => state.user.user);
     const [theme, setTheme] = useState('');
     const dispatch = useDispatch();
+    const { i18n } = useTranslation();
 
     useEffect(() => {
         dispatch(fetchUser());
@@ -29,10 +31,10 @@ export const TopMenu = () => {
                     <div className='theme' onClick={() => dispatch(changeTheme())}>
                         {theme}
                     </div>
-                    <div>
+                    <div onClick={() => i18n.changeLanguage('pt')}>
                         pt-br
                     </div>
-                    <div>
+                    <div onClick={() => i18n.changeLanguage('en')}>
                         en-us
                     </div>
                 </div>
