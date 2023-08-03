@@ -3,6 +3,8 @@ import { RootState } from '@/redux/store'
 import { HomeDiv } from '@/styles/home.module'
 import { useSelector } from 'react-redux'
 import Head from 'next/head';
+import { useTranslation } from 'react-i18next';
+
 
 function SEO() {
   return (
@@ -30,6 +32,7 @@ function SEO() {
 
 export default function Home() {
   const isDark = useSelector((state: RootState) => state.theme.isDark)
+  const { t } = useTranslation();
 
   return (
     <NoSignedLayout>
@@ -41,6 +44,7 @@ export default function Home() {
         >
           <div className='container'>
             <h1>iResume</h1>
+            <h1>{t('greeting')}</h1>
             <p>
               The easiest way to have the best resume and share yours skills.<br /> 
               <span className='freeText'>

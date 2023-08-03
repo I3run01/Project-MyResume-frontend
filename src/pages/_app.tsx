@@ -5,6 +5,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import { store } from '../redux/store';
 import Head from 'next/head';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import '@/i18n/i18n';
 
 export default function App({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();
