@@ -7,9 +7,18 @@ import Head from 'next/head';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import i18n from '@/i18n/i18n';
 import { I18nextProvider } from 'react-i18next';
+import { useEffect } from 'react';
 
 export default function App({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();
+
+  useEffect(() => {
+    const currentLanguage = typeof window !== 'undefined' ? localStorage.getItem('i18nextLng') : null;
+
+    if(currentLanguage) i18n.changeLanguage(currentLanguage);
+  }, [])
+
+  
 
   return (
     <QueryClientProvider client={queryClient}>
