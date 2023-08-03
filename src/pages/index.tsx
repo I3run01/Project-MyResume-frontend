@@ -44,7 +44,6 @@ export default function Home() {
         >
           <div className='container'>
             <h1>iResume</h1>
-            <h1>{t('greeting')}</h1>
             <p>
               The easiest way to have the best resume and share yours skills.<br /> 
               <span className='freeText'>
