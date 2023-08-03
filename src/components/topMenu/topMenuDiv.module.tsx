@@ -16,6 +16,27 @@ export const TopMenuDiv = styled.div<Props>`
         text-decoration: none;
     }
 
+    .leftContainer {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        div {
+            margin-right: 10px;
+
+            padding: 5px;
+            margin-left: 20px;
+            border: 1px solid transparent; 
+            transition: all 0.5s ease-in-out;
+
+            &:hover {
+                border-color: ${themes.global.colorTheme};
+                border-radius: 6px;
+                cursor: pointer;
+            }
+        }
+    }
+
     #topMenuContainer {
         position: fixed;
         top: 0;
@@ -31,19 +52,6 @@ export const TopMenuDiv = styled.div<Props>`
         border-bottom: 1px solid black;
 
         height: 60px;
-
-        .theme {
-            padding: 5px;
-            margin-left: 20px;
-            border: 1px solid transparent; 
-            transition: all 0.5s ease-in-out;
-        }
-
-        .theme:hover {
-            border-color: ${themes.global.colorTheme};
-            border-radius: 6px;
-            cursor: pointer;
-        }
 
         .options {
           display: flex ;
