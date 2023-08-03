@@ -18,8 +18,6 @@ export default function App({ Component, pageProps }: AppProps) {
     if(currentLanguage) i18n.changeLanguage(currentLanguage);
   }, [])
 
-  
-
   return (
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
