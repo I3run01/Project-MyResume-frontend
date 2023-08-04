@@ -10,12 +10,14 @@ import { useQuery } from 'react-query';
 import { Loading } from '@/components/loading'
 import { useDispatch } from 'react-redux';
 import { changeUser } from '@/redux/slice/userSlice'
+import { useTranslation } from 'react-i18next';
 
 const SignIn = () => {
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const router = useRouter()
     const dispatch = useDispatch()
+    const { t } = useTranslation();
 
     const { data, error, refetch, isFetching } = useQuery(['signin'], async () => {
         let response = await new User().signIn(email, password)
