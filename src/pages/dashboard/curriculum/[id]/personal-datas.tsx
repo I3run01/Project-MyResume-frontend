@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import { useQueries } from 'react-query'
 import { Cvs } from '@/requests/cvs'
 import { Loading } from '@/components/loading'
+import { useTranslation } from 'react-i18next';
 
 type personalDatasType = {
     fullName: string,
@@ -20,6 +21,7 @@ const PersonalDatasPage = () => {
     const router = useRouter()
     const user = useSelector((state: RootState) => state.user.user);
     const { id } = router.query;
+    const { t } = useTranslation();
 
     const [personalDatas, setPersonalData] = useState<personalDatasType | null>(null)
 
@@ -89,7 +91,7 @@ const PersonalDatasPage = () => {
 
                     <PersonalDatasDiv id="personalDatas" className="steps" isDark={isDark}>
 
-                        <h1>Personal datas</h1>
+                        <h1>{t("personal_data")}</h1>
 
                         <div>
                             <label>Your <b>full name</b>: </label>

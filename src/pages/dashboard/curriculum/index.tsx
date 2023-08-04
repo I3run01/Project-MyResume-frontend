@@ -7,6 +7,7 @@ import { CurriculumDiv } from '@/styles/curriculum.module'
 import { useQueries } from 'react-query'
 import { Cvs } from '@/requests/cvs'
 import { Components } from '@/styles/components.module'
+import { useTranslation } from 'react-i18next';
 
 type cvType = {
     name: string
@@ -20,6 +21,7 @@ const Curriculum = () => {
     const user = useSelector((state: RootState) => state.user.user)
     const isDark = useSelector((state: RootState) => state.theme.isDark)
     const router = useRouter()
+    const { t } = useTranslation();
 
     const [getCvs, newCv, deleteCv, setCvName] = useQueries([
         {
@@ -110,7 +112,8 @@ const Curriculum = () => {
             main={
                 <CurriculumDiv isDark={isDark}>
                     <p className='text'>
-                        Those are your CVs. Please , or <b>single-click to edit its name.</b> <b>double-click to open it</b>
+                        {t("curriculum_text")}. 
+                        <b> {t("curriculum_text_highlight")}</b>
                     </p>
 
                     {cvs?.map((cv, index) => (
@@ -135,7 +138,7 @@ const Curriculum = () => {
                     ))}
 
                     <Components.AddItemButton onClick={() => newCv.refetch()} isDark={isDark}>
-                        create a new cv
+                        {t("create_new_cv")}
                     </Components.AddItemButton>
 
                 </CurriculumDiv>
