@@ -88,7 +88,7 @@ const Settings = () => {
         <DashboardLayout
             main={
                 <SettingsDiv isDark={isDark}>
-                    <div className='back' onClick={() => router.back()}>Back</div>
+                    <div className='back' onClick={() => router.back()}>{t("back")}</div>
                     <div className='clickable' onClick={() => dispatch(changeTheme())}>
                         <p>{t("change_theme")}</p>
                     </div>
@@ -100,7 +100,7 @@ const Settings = () => {
                     </div>
                     <h1>{t("change_language")}</h1>
                     <div className='clickable' onClick={() => changeLanguage('pt')}>pt-br</div>
-                    <div className='clickable' onClick={() => changeLanguage('en')}>en-br</div>
+                    <div className='clickable' onClick={() => changeLanguage('en')}>en-us</div>
                 </SettingsDiv>
             }
         />

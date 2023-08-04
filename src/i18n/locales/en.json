@@ -55,7 +55,17 @@
     "sign_out": "Sign out",
     "delete_account": "Delete account",
     "change_language": "Change language",
-    "coming_soon": "Coming Soon"
+    "coming_soon": "Coming Soon",
+    "submit": "Submit",
+    "forgot_password": "I forgot my password",
+    "email": "Email",
+    "password": "Password",
+    "confirm_password": "Confirm password",
+    "password_match": "Password match",
+    "passwords_not_match": "Passwords do not match",
+    "email_correct": "Email is correct",
+    "email_incorrect": "Email is incorrect",
+    "continue_with_google": "Continue with Google"
     
     
 

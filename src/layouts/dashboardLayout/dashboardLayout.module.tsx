@@ -47,10 +47,20 @@ export const DashboardLayoutDiv = styled.div<props>`
             width: 1200px;
         }
     }
-
-    .next, .back {
+    
+    .backNext {
         position: fixed;
         bottom: 10px;
+        right: 0;
+        left: 0;
+
+
+        display: flex;
+        justify-content: end;
+    }
+
+    .next, .back {
+        margin-right: 20px;
 
         padding: 10px 20px 10px 20px;
 
@@ -68,16 +78,6 @@ export const DashboardLayoutDiv = styled.div<props>`
             background-color: #23758590;
         }
     }
-
-    .next {
-        right: 50px;
-    }
-
-    .back {
-        right: 150px;
-    }
-
-    
 
     @media screen and (max-width: 1400px) {
         .children > .content {

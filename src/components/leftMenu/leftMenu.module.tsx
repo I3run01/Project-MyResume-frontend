@@ -9,6 +9,8 @@ export const LeftMenuDiv = styled.div<props>`
     width: 200px;
     height: 100vh;
 
+    z-index: 10;
+
     display: flex;
     flex-direction: column;
     justify-content: space-between;

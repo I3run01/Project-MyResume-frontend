@@ -9,11 +9,13 @@ import { useQuery } from 'react-query';
 import { Loading } from '@/components/loading'
 import { useDispatch } from 'react-redux';
 import { changeUser } from '@/redux/slice/userSlice';
+import { useTranslation } from 'react-i18next';
 
 export const GoogleButton = () => {
     const [ user, setUser ] = useState<any>();
     const router = useRouter()
     const dispatch = useDispatch()
+    const { t } = useTranslation();
 
     const login = useGoogleLogin({
         onSuccess: (codeResponse: any) => setUser(codeResponse),
@@ -58,7 +60,7 @@ export const GoogleButton = () => {
 
                     className='googleLogo'
                 />
-                <p>Continue with google</p>
+                <p>{t("continue_with_google")}</p>
             </GoogleButtonDiv>  
         </>
         

@@ -72,19 +72,19 @@ const SignUp = () => {
                         />
                     </Link>
 
-                    <input type="text" placeholder='Email' name='Email'               onChange={(event)=>{setEmail(event.target.value)}}/>
-                    <p className='corretEmail'>{corretEmail ? 'Email is correct' : 'Email is incorrect'}</p>
+                    <input type="text" placeholder={t("email")} name='Email'               onChange={(event)=>{setEmail(event.target.value)}}/>
+                    <p className='corretEmail'>{corretEmail ? t("email_correct") : t("email_incorrect")}</p>
 
-                    <input type="password" placeholder='Password' 
+                    <input type="password" placeholder={t("password")} 
                     onChange={(event)=>{setPassword(event.target.value)}}/>
-                    <p className='mathPassword'>{mathPassword ? "Password match" : "Passwords do not match"}</p>
+                    <p className='mathPassword'>{mathPassword ? t("password_match") : t("passwords_not_match")}</p>
 
 
-                    <input type="password" placeholder='Confirm password' 
+                    <input type="password" placeholder={t("confirm_password")}
                     onChange={(event)=>{setConfirmPassword(event.target.value)}}/>
-                    <p className='mathPassword'>{mathPassword ? "Password match" : "Passwords do not match"}</p>
+                    <p className='mathPassword'>{mathPassword ? t("password_match") : t("passwords_not_match")}</p>
 
-                    <div id='submit' onClick={() => refetch()}>Submit</div>
+                    <div id='submit' onClick={() => refetch()}>{t("submit")}</div>
                     
                     <GoogleButton/>
 

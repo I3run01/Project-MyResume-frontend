@@ -53,15 +53,15 @@ const SignIn = () => {
                         />
                     </Link>
 
-                    <input type="text" placeholder='Email' name='Email'
+                    <input type="text" placeholder={t("email")} name='Email'
                     onChange={(event)=>{setEmail(event.target.value)}}/>
 
-                    <input type="password" placeholder='Password' 
+                    <input type="password" placeholder={t("password")}
                     onChange={(event)=>{setPassword(event.target.value)}}/>
 
-                    <div id='submit' onClick={() => refetch()}>Submit</div>
+                    <div id='submit' onClick={() => refetch()}>{t("submit")}</div>
 
-                    <p id='forgetPassword' onClick={() => (router.push('/forgot-password'))}>I forgot my password</p>
+                    <p id='forgetPassword' onClick={() => (router.push('/forgot-password'))}>{t("forgot_password")}</p>
                     
                     <GoogleButton/>
                 </form>

@@ -1,4 +1,4 @@
-import { ReactElement } from "react"
+import { Fragment, ReactElement } from "react"
 import { LeftMenu } from '@/components/leftMenu/leftMenu'
 import { DashboardLayoutDiv } from './dashboardLayout.module'
 import { useSelector } from "react-redux"
@@ -33,17 +33,20 @@ export const DashboardLayout = ({main, bottomMenu, nextRouter, previousRouter}: 
                 bottomMenu
             }
 
-            { previousRouter &&
-                <div className="back" onClick={() => router.push(previousRouter)}>
-                    {t("back")}
-                </div>
-            }
+            <div className="backNext"> 
+                { previousRouter &&
+                    <div className="back" onClick={() => router.push(previousRouter)}>
+                        {t("back")}
+                    </div>
+                }
 
-            { nextRouter &&
-                <div className="next" onClick={() => router.push(nextRouter)}>
-                    {t("next")}
-                </div>
-            }
+                { nextRouter &&
+                    <div className="next" onClick={() => router.push(nextRouter)}>
+                        {t("next")}
+                    </div>
+                }
+            </div>
+
 
             
             
