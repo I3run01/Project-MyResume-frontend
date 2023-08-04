@@ -4,6 +4,7 @@ import { DashboardLayoutDiv } from './dashboardLayout.module'
 import { useSelector } from "react-redux"
 import { RootState } from "@/redux/store"
 import { useRouter } from "next/router"
+import { useTranslation } from 'react-i18next';
 
 type props = {
     main: ReactElement
@@ -15,6 +16,7 @@ type props = {
 export const DashboardLayout = ({main, bottomMenu, nextRouter, previousRouter}: props) => {
     const isDark = useSelector((state: RootState) => state.theme.isDark)
     const router = useRouter()
+    const { t } = useTranslation();
 
     return (
         <DashboardLayoutDiv
@@ -33,13 +35,13 @@ export const DashboardLayout = ({main, bottomMenu, nextRouter, previousRouter}: 
 
             { previousRouter &&
                 <div className="back" onClick={() => router.push(previousRouter)}>
-                    back
+                    {t("back")}
                 </div>
             }
 
             { nextRouter &&
                 <div className="next" onClick={() => router.push(nextRouter)}>
-                    next
+                    {t("next")}
                 </div>
             }
 

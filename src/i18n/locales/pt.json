@@ -45,5 +45,16 @@
     "select_the_language": "Selecione o Idioma",
     "click_here_to_generate_the_cv": "Clique Aqui para Gerar o CV",
     "next": "Próximo",
-    "back": "Voltar"
+    "back": "Voltar",
+    "add_new_academic_formation": "Adicionar uma nova formação acadêmica",
+    "add_ability_or_technology": "Adicione uma nova habilidade ou tecnologia",
+    "write_work_resume": "Escreva um RESUMO do que você fez no trabalho.",
+    "new_duties_instruction_pt": "DEVERES, use uma linha para cada dever",
+    "click_here_to_generate_cv": "Clique aqui para gerar CV",
+    "change_theme": "Alterar tema",
+    "sign_out": "Sair",
+    "delete_account": "Excluir conta",
+    "change_language": "Alterar idioma",
+    "coming_soon": "Em breve"
+
 }

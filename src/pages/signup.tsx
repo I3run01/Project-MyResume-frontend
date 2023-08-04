@@ -7,6 +7,7 @@ import Image from 'next/image'
 import backButton from '../../public/images/icons/backButton.svg'
 import { useQuery } from 'react-query';
 import { Loading } from '@/components/loading'
+import { useTranslation } from 'react-i18next';
 
 const SignUp = () => {
     const [email, setEmail] = useState<string>('')
@@ -14,9 +15,11 @@ const SignUp = () => {
     const [confirmPassword, setConfirmPassword] = useState<string>('')
     const [corretEmail, setCorrectEmail] = useState<boolean>(false)
     const [mathPassword, setMathPassword] = useState<boolean>(false)
+    const { t } = useTranslation();
 
     const { data, error, refetch, isFetching } = useQuery(['signin'], async () => {
         if(!corretEmail && !mathPassword) return
+        
         
         let response = await new User().signUp(email, password)
         let json = JSON.parse(response)
@@ -29,7 +32,7 @@ const SignUp = () => {
 
     useEffect(() => {
         if(!data) return
-        alert('A link to confirm your email has been sent to your inbox.')
+        alert(t("coming_soon"))
     }, [data])
 
     useEffect(() => {

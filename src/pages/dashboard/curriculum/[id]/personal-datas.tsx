@@ -94,22 +94,22 @@ const PersonalDatasPage = () => {
                         <h1>{t("personal_data")}</h1>
 
                         <div>
-                            <label>Your <b>full name</b>: </label>
+                            <label>{t("your_full_name")}</label>
                             <input type="text" name="fullName" value={personalDatas?.fullName} onChange={handleInputChange} /> <br /><br />
                         </div>
 
                         <div>
-                            <label>Your <b>birthday</b>: </label>
+                            <label>{t("your_birthday")}</label>
                             <input type="date" name="birthday" value={personalDatas?.birthday} onChange={handleInputChange} /> <br /><br />
                         </div>
 
                         <div>
-                            <label><b>City, state or province, and country</b> where you live: </label>
+                            <label>{t("where_you_live")}</label>
                             <input type="text" name="location" value={personalDatas?.location} onChange={handleInputChange} />  <br /><br />
                         </div>
 
                         <div>
-                            <label>Contact <b>number</b>: </label>
+                            <label>{t("contact_number")}</label>
                             <input type="tel" name="phone" value={personalDatas?.phone} onChange={handleInputChange} />  <br /><br />
                         </div>
                     </PersonalDatasDiv>

@@ -7,12 +7,15 @@ import { changeTheme } from '@/redux/slice/themeSlice';
 import { useQueries } from "react-query";
 import { User } from '@/requests/user'
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const Settings = () => {
     const isDark = useSelector((state: RootState) => state.theme.isDark);
     const user = useSelector((state: RootState) => state.user.user)
     const router = useRouter();
     const dispatch = useDispatch();
+    const { t } = useTranslation();
+    const { i18n } = useTranslation();
 
     const [logout, deleteUser] = useQueries([
         {
@@ -74,20 +77,30 @@ const Settings = () => {
         return
     }
 
+    const changeLanguage = (lng: string) => {
+        i18n.changeLanguage(lng);
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('i18nextLng', lng);
+        }
+    };
+
     return (
         <DashboardLayout
             main={
                 <SettingsDiv isDark={isDark}>
                     <div className='back' onClick={() => router.back()}>Back</div>
                     <div className='clickable' onClick={() => dispatch(changeTheme())}>
-                        <p>Change theme</p>
+                        <p>{t("change_theme")}</p>
                     </div>
                     <div className='clickable' onClick={() => {logout.refetch()}}>
-                        <p>Sign out</p>
+                        <p>{t("sign_out")}</p>
                     </div>
                     <div className='clickable' onClick={deleteAccount}>
-                        <p>Delete account</p>
+                        <p>{t("delete_account")}</p>
                     </div>
+                    <h1>{t("change_language")}</h1>
+                    <div className='clickable' onClick={() => changeLanguage('pt')}>pt-br</div>
+                    <div className='clickable' onClick={() => changeLanguage('en')}>en-br</div>
                 </SettingsDiv>
             }
         />

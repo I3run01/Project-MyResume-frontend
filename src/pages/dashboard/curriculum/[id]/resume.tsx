@@ -7,7 +7,8 @@ import { useSelector } from 'react-redux'
 import { useQueries } from 'react-query'
 import { Cvs } from '@/requests/cvs'
 import { Loading } from '@/components/loading'
-import { Components } from '@/styles/components.module' 
+import { Components } from '@/styles/components.module'
+import { useTranslation } from 'react-i18next';
 
 const Resume = () => {
     const [resume, setResume] = useState<string | null>(null)
@@ -19,6 +20,7 @@ const Resume = () => {
     const user = useSelector((state: RootState) => state.user.user);
     const isDark = useSelector((state: RootState) => state.theme.isDark);
     const { id } = router.query;
+    const { t } = useTranslation();
 
     const [resumeQuery, objectivesQuery, sendResume, sendObjectives, cvTitleQuery, sendCvTitle] = useQueries([
         {
@@ -159,10 +161,10 @@ const Resume = () => {
                         <Loading/> 
                     }
                     <div id="resume" className="steps">
-                            <h1>Resume</h1>
+                            <h1>{t("resume")}</h1>
 
                             <div>
-                                <h2>CV title</h2>
+                                <h2>{t("cv_title")}</h2>
                                 <Components.Input
                                     type="text" 
                                     value={cvTitle ? cvTitle : ''} 
@@ -174,7 +176,7 @@ const Resume = () => {
                             </div>
 
                             <div className='resume'>
-                                <h2>Write here a RESUME of your career</h2><br />
+                                <h2>{t("write_resume")}</h2>
                                 <TextArea
                                     initialTXT={initialResume}
                                     onDataReceived={setResume}
@@ -182,7 +184,7 @@ const Resume = () => {
                             </div>
 
                             <div className='objective'>
-                                <h2>Write here your OBJECTIVES</h2><br />
+                                <h2>{t("write_objectives")}</h2><br />
                                 <TextArea
                                     initialTXT={initialObjectives}
                                     onDataReceived={setObjectives}

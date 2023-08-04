@@ -9,6 +9,7 @@ import { useRouter } from 'next/router'
 import { useQueries } from 'react-query'
 import { Cvs } from '@/requests/cvs'
 import { Loading } from '@/components/loading'
+import { useTranslation } from 'react-i18next';
 
 type experienceType = {
     business: string
@@ -25,6 +26,7 @@ const Experience = () => {
     const isDark = useSelector((state: RootState) => state.theme.isDark)
     const user = useSelector((state: RootState) => state.user.user);
     const { id } = router.query;
+    const { t } = useTranslation();
 
     const [experiences, setExperience] = useState<experienceType[] | null>(null)
     const [closedExperienceIndex, setClosetExperienceIndex] = useState<number[]>(() => {
@@ -304,7 +306,7 @@ const Experience = () => {
 
                     <ExperienceDiv isDark={isDark}>
 
-                        <h1>Experience</h1>
+                        <h1>{t('experience')}</h1>
 
                         {
                             experiences?.map((experience, experienceIndex ) => {
@@ -321,7 +323,7 @@ const Experience = () => {
                                             draggable
                                             onDragStart={(e) => dragHandlers.handleDragStart(experienceIndex, e)}
                                             >
-                                            Drag and Drop
+                                            {t('drag_and_drop')}
                                         </div>
                                         
 
@@ -329,7 +331,7 @@ const Experience = () => {
                                             className='closeOrOpen'
                                             onClick={() => closeOrOpenExperienceDiv(experienceIndex)}
                                             >
-                                            {closedExperienceIndex.includes(experienceIndex) ? 'Open' : 'Close'}
+                                            {closedExperienceIndex.includes(experienceIndex) ? t('open') : t('close')}
                                         </div>
 
                                         <div className='jobInfo'>
@@ -361,7 +363,7 @@ const Experience = () => {
                                         <br />
 
                                         <div className='Resume'>
-                                            <h2>Write a RESUME of what you did at work.</h2>
+                                            <h2>{t('write_work_resume')}</h2>
                                             <br />
                                             <TextArea
                                                 initialTXT={experience?.jobResume}
@@ -374,8 +376,7 @@ const Experience = () => {
                                         <br />
 
                                         <div className='subContainer'>
-                                            <h2>DUTIES, use one line for each duty</h2>
-
+                                            <h2>{t("work_duties")}</h2>
                                             <div>
 
                                                 {
@@ -405,7 +406,7 @@ const Experience = () => {
                                                     className='addItem addSubItem' 
                                                     onClick={() => handleDuties.addDuty(experienceIndex)}
                                                 >
-                                                    add duty
+                                                    {t("add_duty")}
                                                 </div>
 
                                             </div>
@@ -415,8 +416,7 @@ const Experience = () => {
                                         <br />
 
                                         <div className='subContainer'>
-                                            <h2>ACHIEVEMENTS, use one line for each achievements</h2>
-
+                                            <h2>{t("work_achievements")}</h2>
                                             <div>
 
                                                 {
@@ -453,7 +453,7 @@ const Experience = () => {
                                                     className='addItem addSubItem' 
                                                     onClick={() => handleAchievements.addAchievement(experienceIndex)}
                                                 >
-                                                    add achievement
+                                                    {t("add_achievement")}
                                                 </div>
 
                                             </div>
@@ -463,10 +463,9 @@ const Experience = () => {
                                         <br />
 
                                         <div className='subContainer'>
-                                            <h2>Technologies or abilities used in work: Please use one line for each.</h2>
+                                            <h2>{t("work_abilities_and_technologies")}</h2>
 
                                             <div>
-
                                                 {
                                                     experience.appliedTechnologies.map((appliedTechnologie, appliedTechnologieIndex) => {
                                                         return (
@@ -501,7 +500,7 @@ const Experience = () => {
                                                     className='addItem addSubItem' 
                                                     onClick={() => handleAppliedTechnologies.addAppliedTechnologies(experienceIndex)}
                                                 >
-                                                    add a technology or ability used in work
+                                                    {t("work_abilities_and_technologies")}
                                                 </div>
 
                                             </div>
@@ -523,7 +522,7 @@ const Experience = () => {
                         }
 
                         <div className='addItem' onClick={handleGlobalExperience.addExperience}>
-                            Add experience
+                            {t("add_experience")}
                         </div>
 
                     </ExperienceDiv>

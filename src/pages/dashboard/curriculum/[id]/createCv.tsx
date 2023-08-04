@@ -8,6 +8,8 @@ import { useQueries } from 'react-query'
 import { Cvs } from '@/requests/cvs'
 import { WordCv } from '@/requests/wordCv'
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next';
+
 
 const CreateCv = () => {
     const isDark = useSelector((state: RootState) => state.theme.isDark)
@@ -17,6 +19,7 @@ const CreateCv = () => {
     const [languages, setLanguages] = useState<string[] | null>(null)
     const [selectedLanguage, setSelectedLanguage] = useState<string>('en-usa')
     const { id } = router.query;
+    const { t } = useTranslation();
     
     const [getSperificCv, createWordCv, languagesQuery] = useQueries([
         {
@@ -95,9 +98,9 @@ const CreateCv = () => {
                     <CreateCvDiv 
                         isDark={isDark}
                     >
-                        <h1>Genegate CV</h1>
+                        <h1>{t("generate_cv")}</h1>
 
-                        <h2>Select the language</h2>
+                        <h2>{t("select_the_language")}</h2>
 
                         {
                             languages?.map((language, index) => {
@@ -115,7 +118,7 @@ const CreateCv = () => {
 
                         <div className='createCv' onClick={() => createWordCv.refetch()}>
                             <p>
-                                Click here to generate CV
+                                {t("click_here_to_generate_cv")}
                             </p>
                         </div>
                     </CreateCvDiv>

@@ -29,7 +29,6 @@ export const TopMenu = () => {
           localStorage.setItem('i18nextLng', lng);
         }
       };
-      
 
     return (
         <TopMenuDiv
@@ -51,10 +50,10 @@ export const TopMenu = () => {
                     {!user &&
                         <>
                             <div className='signin'>
-                                <Link href={'/signin'}>{t('sigin')}</Link>
+                                <Link href={'/signin'}>{t('sign_in')}</Link>
                             </div>
                             <div className='signup'>
-                                <Link href={'/signup'}>{t('signup')} {user}</Link>
+                                <Link href={'/signup'}>{t('sign_up')} {user}</Link>
                             </div>
                         </>
                     }

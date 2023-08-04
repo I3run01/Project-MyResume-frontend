@@ -7,6 +7,7 @@ import { useQueries } from 'react-query'
 import { Cvs } from '@/requests/cvs'
 import { Loading } from '@/components/loading'
 import { Components } from '@/styles/components.module'
+import { useTranslation } from 'react-i18next';
 
 type collegeType = {
     trainningArea: string
@@ -27,6 +28,8 @@ const Skills = () => {
     const user = useSelector((state: RootState) => state.user.user);
     const router = useRouter()
     const { id } = router.query;
+    const { t } = useTranslation();
+    
 
     const [ 
         collegeQuery, 
@@ -288,8 +291,8 @@ const Skills = () => {
                     }
                 
                     <main>
-                        <h1>Skills</h1>
-                        <h2>Academic formation</h2>
+                        <h1>{t("skills")}</h1>
+                        <h2>{t("academic_formation")}</h2>
 
                         {
                             college?.map((item, key) => {
@@ -332,10 +335,10 @@ const Skills = () => {
                             onClick={()=> collegeHandlers.addNewCollege()}
                             isDark={isDark}
                         >
-                            Add a new academic formation.
+                            {t('add_new_academic_formation')}
                         </Components.AddItemButton>
 
-                        <h2>Abilities and technology knowledge</h2>
+                        <h2>{t('abilities_and_technology_knowledge')}</h2>
 
                         {
                             abilities?.map((item, key) => {
@@ -362,10 +365,10 @@ const Skills = () => {
                             onClick={() => abilitiesHandlers.addNewAbility()}
                             isDark={isDark}
                         >
-                            Add a new ability or technology
+                            {t('add_ability_or_technology')}
                         </Components.AddItemButton>
 
-                        <h2>Languages</h2>
+                        <h2>{t('languages')}</h2>
 
                         {
                             languages?.map((item, key) => {
@@ -400,7 +403,7 @@ const Skills = () => {
                             onClick={()=> languageHandlers.addLanguage()}
                             isDark={isDark}
                         >
-                            Add a new language
+                            {t('add_a_new_language')}
                         </Components.AddItemButton>
                         
                     </main>

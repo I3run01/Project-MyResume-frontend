@@ -45,5 +45,21 @@
     "select_the_language": "Select the Language",
     "click_here_to_generate_the_cv": "Click Here to Generate the CV",
     "next": "Next",
-    "back": "Back"
+    "back": "Back",
+    "add_new_academic_formation": "Add a new academic formation.",
+    "add_ability_or_technology": "Add a new ability or technology",
+    "write_work_resume": "Write a RESUME of what you did at work.",
+    "new_duties_instruction": "DUTIES, use one line for each duty",
+    "click_here_to_generate_cv": "Click here to generate CV",
+    "change_theme": "Change theme",
+    "sign_out": "Sign out",
+    "delete_account": "Delete account",
+    "change_language": "Change language",
+    "coming_soon": "Coming Soon"
+    
+    
+
+
+
+
 }

@@ -8,6 +8,7 @@ import { useQueries } from 'react-query'
 import { Cvs } from '@/requests/cvs'
 import { Loading } from '@/components/loading'
 import { Components } from '@/styles/components.module'
+import { useTranslation } from 'react-i18next';
 
 type socialMediasType = {
     title: string
@@ -20,6 +21,7 @@ const SocialMedias = () => {
     const user = useSelector((state: RootState) => state.user.user);
     const router = useRouter()
     const { id } = router.query;
+    const { t } = useTranslation();
 
     const [changeSocialMedias, retrievedSocialMedias] = useQueries([
         {
@@ -110,8 +112,8 @@ const SocialMedias = () => {
                     }
                 
                     <SocialMediasDiv isDark={isDark}>
-                        <h1>Social Medias</h1>
-                        <h2>Please share your online profiles, such as GitHub, LinkedIn, portfolio, etc.</h2>
+                        <h1>{t("social_medias")}</h1>
+                        <h2>{t("social_medias_title")}</h2>
                         {socialMedias?.map((item, key) => (
                             <div key={key} className='container'>
                                 <Components.Input
@@ -139,7 +141,7 @@ const SocialMedias = () => {
                         ))}
 
                         <div onClick={addNewItem} className='addItem'>
-                            add new link
+                            {t("add_new_link")}
                         </div>
                     </SocialMediasDiv>
                 </>
