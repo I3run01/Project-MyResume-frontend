@@ -13,13 +13,14 @@ export const TopMenu = () => {
     const [theme, setTheme] = useState('');
     const dispatch = useDispatch();
     const { i18n } = useTranslation();
+    const { t } = useTranslation();
 
     useEffect(() => {
         dispatch(fetchUser());
     }, []);
 
     useEffect(() => {
-        setTheme(isDark ? 'light' : 'dark'); 
+        setTheme(isDark ? `${t('light')}` : `${t('dark')}`); 
     }, [isDark]);
 
     const changeLanguage = (lng: string) => {
@@ -50,10 +51,10 @@ export const TopMenu = () => {
                     {!user &&
                         <>
                             <div className='signin'>
-                                <Link href={'/signin'}>Sign In</Link>
+                                <Link href={'/signin'}>{t('sigin')}</Link>
                             </div>
                             <div className='signup'>
-                                <Link href={'/signup'}>Sign Up {user}</Link>
+                                <Link href={'/signup'}>{t('signup')} {user}</Link>
                             </div>
                         </>
                     }

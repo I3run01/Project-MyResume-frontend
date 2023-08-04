@@ -1,3 +1,10 @@
 {
-    "greeting": "hello, world"
+    "index": "The easiest way to have the best resume and share yours skills.",
+    "index_highloght": "completely FREE.",
+    "light": "light",
+    "dark": "dark",
+    "sigin":"sign In",
+    "signup": "sign Up"
+
+
 }

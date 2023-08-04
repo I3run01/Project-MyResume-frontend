@@ -45,9 +45,9 @@ export default function Home() {
           <div className='container'>
             <h1>iResume</h1>
             <p>
-              The easiest way to have the best resume and share yours skills.<br /> 
+              {t("index")}<br /> 
               <span className='freeText'>
-                completely FREE.
+                {t("index")}
               </span> 
             </p>
           </div>
