@@ -47,7 +47,7 @@ export default function Home() {
             <p>
               {t("index")}<br /> 
               <span className='freeText'>
-                {t("index")}
+                {t("index_highlight")}
               </span> 
             </p>
           </div>
