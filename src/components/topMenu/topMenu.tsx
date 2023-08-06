@@ -45,6 +45,9 @@ export const TopMenu = () => {
                     <div onClick={() => changeLanguage('en')}>
                         en-us
                     </div>
+                    <div onClick={() => changeLanguage('es')}>
+                        es-sa
+                    </div>
                 </div>
                 <div className='options'>
                     {!user &&
