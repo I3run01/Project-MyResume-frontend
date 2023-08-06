@@ -101,7 +101,7 @@ const Settings = () => {
                     <h1>{t("change_language")}</h1>
                     <div className='clickable' onClick={() => changeLanguage('pt')}>pt-br</div>
                     <div className='clickable' onClick={() => changeLanguage('en')}>en-us</div>
-                    <div className='clickable' onClick={() => changeLanguage('es')}>en-us</div>
+                    <div className='clickable' onClick={() => changeLanguage('es')}>es-sa</div>
                 </SettingsDiv>
             }
         />
