@@ -65,11 +65,8 @@
     "passwords_not_match": "Passwords do not match",
     "email_correct": "Email is correct",
     "email_incorrect": "Email is incorrect",
-    "continue_with_google": "Continue with Google"
-    
-    
+    "continue_with_google": "Continue with Google",
 
-
-
-
+    "create_new_project": "create a new project",
+    "Are you sure you want to delete this Project?": "Are you sure you want to delete this Project?"
 }
