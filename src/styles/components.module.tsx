@@ -81,6 +81,20 @@ export const Components = {
         line-height: 32px;
 
         width: 80%;
-    `
+    `,
+
+    label: styled.label<props>`
+        color: ${props => props.isDark ? themes.dark.fontColor : themes.light.fontColor};
+        font-family: 'Merriweather';
+        font-weight: lighter;
+        font-size: 18px;
+
+        margin-top: 20px;
+        margin-left: 20px;
+
+        line-height: 32px;
+
+        width: 80%;
+`
     
 }

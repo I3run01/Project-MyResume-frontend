@@ -110,14 +110,15 @@ const ProjectsIndex = () => {
     return (
         <DashboardLayout
             main={
-                <CurriculumDiv isDark={isDark}>
-                    <p className='text'>
+                <>
+                    <h1>
                         {t("These are your projects. Please. Single-click to edit its name. Double-click to open it")}. 
                         <b> {t("curriculum_text_highlight")}</b>
-                    </p>
+                    </h1>
 
                     {projects?.map((project, index) => (
                         <div key={project._id} className='projectsNamesContainer'>
+
                             <Components.Input
                                 type="" value={project.name} 
                                 onChange={(e: any) => changeProjectName(index, e.target.value)}
@@ -142,7 +143,7 @@ const ProjectsIndex = () => {
                         {t("create_new_project")}
                     </Components.AddItemButton>
 
-                </CurriculumDiv>
+                </>
             }
         />
     )
