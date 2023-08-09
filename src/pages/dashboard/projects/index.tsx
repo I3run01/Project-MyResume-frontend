@@ -112,7 +112,7 @@ const ProjectsIndex = () => {
             main={
                 <CurriculumDiv isDark={isDark}>
                     <p className='text'>
-                        {t("curriculum_text")}. 
+                        {t("These are your projects. Please. Single-click to edit its name. Double-click to open it")}. 
                         <b> {t("curriculum_text_highlight")}</b>
                     </p>
 

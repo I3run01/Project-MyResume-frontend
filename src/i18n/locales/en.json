@@ -68,5 +68,6 @@
     "continue_with_google": "Continue with Google",
 
     "create_new_project": "create a new project",
-    "Are you sure you want to delete this Project?": "Are you sure you want to delete this Project?"
+    "Are you sure you want to delete this Project?": "Are you sure you want to delete this Project?",
+    "These are your projects. Please. Single-click to edit its name. Double-click to open it": "These are your projects. Please. Single-click to edit its name. Double-click to open it"
 }

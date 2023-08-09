@@ -15,7 +15,7 @@ export const LeftMenu = () => {
         >
             <div className='options'>         
                 <div onClick={() => router.push('/dashboard/curriculum')}>{t("curriculum")}</div>
-                <div onClick={() => router.push('/dashboard/project')}>{t("project")}</div>
+                <div onClick={() => router.push('/dashboard/projects')}>{t("project")}</div>
             </div>
             <div className='settings' onClick={() => router.push('/settings')}>
                 <p>{t("settings")}</p>

@@ -11,6 +11,10 @@ type buttonProps = {
     scale?: string 
 }
 
+type props = {
+    isDark: boolean
+}
+
 export const Components = {
     Input: styled.input<inputProps>`
         margin-top: 10px;
@@ -64,5 +68,19 @@ export const Components = {
             background-color: #498b4975;
         }
     `,
+
+    paragraph: styled.p<props>`
+        color: ${props => props.isDark ? themes.dark.fontColor : themes.light.fontColor};
+        font-family: 'Merriweather';
+        font-weight: lighter;
+        font-size: 18px;
+
+        margin-top: 20px;
+        margin-left: 20px;
+
+        line-height: 32px;
+
+        width: 80%;
+    `
     
 }

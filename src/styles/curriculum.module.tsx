@@ -11,7 +11,6 @@ export const CurriculumDiv = styled.div<props>`
         color: ${props => props.isDark ? themes.dark.fontColor : themes.light.fontColor};
         font-family: 'Merriweather';
         font-weight: lighter;
-        
     }
 
     b {
