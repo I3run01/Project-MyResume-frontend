@@ -152,7 +152,7 @@ const Project = () => {
                                     key={key} 
                                     content={item} 
                                     index={key} 
-                                    onDataReceived={() => {}}/>
+                                    onDataReceived={handleContentChanges.replaceContent}/>
                                 
                                     <Components.DeleteButton
                                     isDark={isDark}

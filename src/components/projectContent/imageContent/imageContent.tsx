@@ -10,7 +10,7 @@ import { imageCode64 } from './initialImgCode64'
 type props = {
     content: contentImage,
     index: number
-    onDataReceived: () => void
+    onDataReceived: (index:number, content: contentImage) => void
 }
 
 export const ImageContent = ({content, index, onDataReceived}: props) => {
@@ -22,59 +22,79 @@ export const ImageContent = ({content, index, onDataReceived}: props) => {
         setContentState(content)
     }, [])
 
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        
-        const file = e.target.files ? e.target.files[0] : null;
+    useEffect(() => {
+        if(!contentState) return
 
+        onDataReceived(index, contentState)
+    }, [contentState])
+
+    const handleImageChanges = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files ? e.target.files[0] : null;
+    
         if(file) {
             const reader = new FileReader();
-        
-            reader.onloadend = function() {
-                // Set the image data in your contentState (or wherever you need it)
-                const base64String = reader.result;
-                // Here, update your state or whatever you want to do with base64String
-            };
-        
-            reader.readAsDataURL(file);
-
-        }
     
+            reader.onloadend = () => {
+                if (typeof reader.result === 'string') {
+                    const base64String = reader.result;
+
+                    if(!contentState) return
+    
+                    const updatedContentImage: contentImage = {
+                        ...contentState,
+                        image: base64String
+                    };
+                    setContentState(updatedContentImage);
+
+                } 
+            };
+    
+            reader.readAsDataURL(file);
+        }
+    }
+
+    const setTitle = (newTitle: string) => {
+        setContentState(prevState => prevState ? { ...prevState, title: newTitle } : null);
     }
     
-     
+    const setText = (newText: string) => {
+        setContentState(prevState => prevState ? { ...prevState, text: newText } : null);
+    }
+    
     return (
         <ImageContentDiv>
 
             <Fragment>
                 <Components.label
                 isDark={isDark}>
-                    {t("content title")}
+                    {t("content title")}:
                 </Components.label>
 
                 <Components.Input
-                    isDark={isDark}
-                    type='text'
-                    value={content.title}/>
+                isDark={isDark}
+                type='text'
+                value={contentState?.title}
+                onChange={(e: any) => { setTitle(e.target.value)}}/>
 
                 <br />
-
+                
                 <Components.Input
-    isDark={isDark}
-    type="file"
-    accept="image/jpg, image/jpeg, image/png"
-    onChange={handleFileChange}>
-    {t("change image")}
-</Components.Input>
+                isDark={isDark}
+                type="file"
+                accept="image/jpg, image/jpeg, image/png"
+                onChange={handleImageChanges}/>
 
 
                 <div className='contentContainer'>
 
-                    <img src={imageCode64} alt="" />
+                    <img src={contentState?.image ? contentState.image : imageCode64} alt="" />
 
                     <TextArea
-                        initialTXT={content.text}
-                        width="400px"
+                    initialTXT={content.text}
+                    width="400px"
+                    onDataReceived={setText}
                     />
+
                 </div>
             </Fragment>
 
