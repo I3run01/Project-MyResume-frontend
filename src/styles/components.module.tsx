@@ -95,6 +95,23 @@ export const Components = {
         line-height: 32px;
 
         width: 80%;
-`
+    `,
+
+    button: styled.button<buttonProps>`
+
+        margin-top: 10px;
+        
+        padding: 7px;
+        border-radius: 4px;
+        border: 1px solid ${props => props.isDark ? themes.dark.fontColor : themes.light.fontColor};
+
+        color: ${props => props.isDark ? themes.dark.fontColor : themes.light.fontColor};;
+
+        cursor: pointer;
+
+        &:hover {
+            background-color: #498b4975;
+        }
+    `
     
 }

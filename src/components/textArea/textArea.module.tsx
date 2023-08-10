@@ -3,6 +3,7 @@ import { themes } from '@/styles/variables.module'
 
 type Props = {
     isDark: boolean
+    width?: string | null
 }
 
 export const MyEditorContainer = styled.div<Props>`
@@ -26,7 +27,7 @@ export const MyEditorContainer = styled.div<Props>`
     .public-DraftEditor-content {       
         min-height: 30px;
         border: 1px solid ${ props => props.isDark ? themes.dark.fontColor : themes.light.fontColor};
-        width: 900px;
+        width: ${props => props.width ? props.width : "900px"};
         transition: all 0.5s ease-in-out;
         padding: 20px;
         text-align: justify;

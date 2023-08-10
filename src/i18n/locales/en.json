@@ -75,5 +75,9 @@
     "content": "content",
     "project information": "project information",
     "resume of the project": "resume of the project",
-    "dates": "dates"
+    "dates": "dates",
+    "add new content": "add new content",
+    "content title":"content title",
+    "delete content": "delete content",
+    "change image": "change image"
 }

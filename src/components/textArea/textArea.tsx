@@ -9,9 +9,10 @@ type props = {
   onDataReceived?: (text: string, index?:number) => void
   index?: number
   DoesNotReRenderInitialTXT?: boolean
+  width?: string
 }
 
-const TextArea = ({initialTXT, onDataReceived, index, DoesNotReRenderInitialTXT}: props) => {
+const TextArea = ({initialTXT, onDataReceived, index, DoesNotReRenderInitialTXT, width}: props) => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const isDark = useSelector((state: RootState) => state.theme.isDark)
 
@@ -39,7 +40,7 @@ const TextArea = ({initialTXT, onDataReceived, index, DoesNotReRenderInitialTXT}
   }  
 
   return (
-    <MyEditorContainer isDark={isDark}>
+    <MyEditorContainer isDark={isDark} width={width ? width : null}>
       <Editor editorState={editorState} onChange={handleChange} />
     </MyEditorContainer>
   );
