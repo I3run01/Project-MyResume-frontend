@@ -6,6 +6,7 @@ import TextArea from "@/components/textArea/textArea"
 import { ImageContentDiv } from './imageContent.module'
 import { useTranslation } from "next-i18next"
 import { imageCode64 } from './initialImgCode64'
+import { Loading } from '@/components/loading'
 
 type props = {
     content: contentImage,
@@ -15,12 +16,9 @@ type props = {
 
 export const ImageContent = ({content, index, onDataReceived}: props) => {
     const isDark = useSelector((state: RootState) => state.theme.isDark)
-    const [contentState, setContentState] = useState<contentImage | null>(null)
+    const [contentState, setContentState] = useState<contentImage | null>(content);
+    const [isLoading, setIsLoading] = useState<boolean>(false)
     const { t } = useTranslation()
-
-    useEffect(() => {
-        setContentState(content)
-    }, [])
 
     useEffect(() => {
         if(!contentState) return
@@ -28,12 +26,16 @@ export const ImageContent = ({content, index, onDataReceived}: props) => {
         onDataReceived(index, contentState)
     }, [contentState])
 
+    useEffect(() => {
+        setContentState(content);
+    }, [content]);
+
     const handleImageChanges = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files ? e.target.files[0] : null;
     
         if(file) {
             const reader = new FileReader();
-    
+        
             reader.onloadend = () => {
                 if (typeof reader.result === 'string') {
                     const base64String = reader.result;
@@ -48,7 +50,8 @@ export const ImageContent = ({content, index, onDataReceived}: props) => {
 
                 } 
             };
-    
+            
+
             reader.readAsDataURL(file);
         }
     }
@@ -63,6 +66,9 @@ export const ImageContent = ({content, index, onDataReceived}: props) => {
     
     return (
         <ImageContentDiv>
+            { isLoading && 
+                <Loading/> 
+            }
 
             <Fragment>
                 <Components.label
@@ -93,6 +99,7 @@ export const ImageContent = ({content, index, onDataReceived}: props) => {
                     initialTXT={content.text}
                     width="400px"
                     onDataReceived={setText}
+                    DoesNotReRenderInitialTXT={true}
                     />
 
                 </div>

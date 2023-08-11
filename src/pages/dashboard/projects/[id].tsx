@@ -26,7 +26,7 @@ const Project = () => {
 
             const json: projectType = {
                 about: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur amet fugit quaerat natus, eos, commodi explicabo atque quas eum recusandae repudiandae omnis blanditiis veritatis, nam in nemo odit consequatur obcaecati.',
-                start: '2023-9-11',
+                start: '2023-09-11',
                 end: '2024-10-10',
                 content: [
                     {
@@ -47,10 +47,25 @@ const Project = () => {
 
         setProject(getProject.data)
 
-        console.log(getProject)
-
     }, [getProject])
 
+    useEffect(() => {
+        console.log(project)
+
+    }, [project])
+
+    const setAbout = (text: string) => updateProjectProperty('about', text)
+
+    const updateProjectProperty = (property: "about" | "start" | "end", value: string) => {
+        if (project) {
+            setProject(prev => {
+                if (!prev) return null;
+    
+                return { ...prev, [property]: value };
+            });
+        }
+    }
+    
     const handleContentChanges = {
         addContent: (index: number) => {
             const content: contentImage = {
@@ -79,7 +94,6 @@ const Project = () => {
                 if (index === -1) {
                     updatedProject.content.pop();
                 } else {
-                    alert(index)
                     updatedProject.content.splice(index, 1);
                 }
     
@@ -103,8 +117,6 @@ const Project = () => {
         }
     }
 
-       
-
     return (
         <DashboardLayout
             main={ 
@@ -121,6 +133,7 @@ const Project = () => {
                         type='date'
                         value={project?.start}
                         isDark={isDark}
+                        onChange={(e:any) => updateProjectProperty('start', e.target.value)}
                     />
 
                     <br />
@@ -133,12 +146,15 @@ const Project = () => {
                         type='date'
                         value={project?.end}
                         isDark={isDark}
+                        onChange={(e:any) => updateProjectProperty('end', e.target.value)} 
                     />
 
                     <div className='textArea'>
                        <h2>{t('resume of the project')}</h2>
                         <TextArea
                             initialTXT={project?.about ? project.about : ''}
+                            onDataReceived={setAbout}
+                            DoesNotReRenderInitialTXT={true}
                         />
                     </div>
 
@@ -147,7 +163,7 @@ const Project = () => {
                     {
                         project?.content.map((item, key) => {
                             return (
-                                <>
+                                <Fragment key={key}>
                                     <ImageContent 
                                     key={key} 
                                     content={item} 
@@ -159,7 +175,7 @@ const Project = () => {
                                     onClick={() => handleContentChanges.deleteContent(key)}>
                                         {t("delete content")}
                                     </Components.DeleteButton>
-                                </>
+                                </Fragment>
                             )
                         })
                     }
