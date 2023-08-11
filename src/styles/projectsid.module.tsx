@@ -6,5 +6,10 @@ export const ProjectIdDiv = styled.div`
         padding-top: 20px;
     }
 
+    .stillWorking {
+        margin-left: 10px;
+        scale: 130%;
+    }
+
 
 `

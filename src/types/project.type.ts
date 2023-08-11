@@ -7,6 +7,6 @@ type contentImage = {
 type projectType  = {
     about: string
     start: string
-    end:string
+    end:string | null
     content: contentImage[]
 }

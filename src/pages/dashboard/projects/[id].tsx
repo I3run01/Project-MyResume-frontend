@@ -142,12 +142,23 @@ const Project = () => {
                         {t('end')}:
                     </Components.label>
 
-                    <Components.Input
-                        type='date'
-                        value={project?.end}
-                        isDark={isDark}
-                        onChange={(e:any) => updateProjectProperty('end', e.target.value)} 
-                    />
+                    { project?.end &&
+
+                        <Components.Input
+                            type='date'
+                            value={project?.end}
+                            isDark={isDark}
+                            onChange={(e:any) => updateProjectProperty('end', e.target.value)} 
+                        />
+                    }
+
+                    <br />
+
+                    <Components.label isDark={isDark}>
+                        {t('still working?')}:
+                    </Components.label>
+
+                    <input type="checkbox" placeholder='still working?' className='stillWorking'/>
 
                     <div className='textArea'>
                        <h2>{t('resume of the project')}</h2>
