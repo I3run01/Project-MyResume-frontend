@@ -65,6 +65,14 @@ const Project = () => {
             });
         }
     }
+
+    const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.checked) {
+            setProject(prevState => prevState ? { ...prevState, end: null } : null);
+        } else {
+            setProject(prevState => prevState ? { ...prevState, end: 'not-ended' } : null);
+        }
+    }
     
     const handleContentChanges = {
         addContent: (index: number) => {
@@ -117,6 +125,8 @@ const Project = () => {
         }
     }
 
+
+
     return (
         <DashboardLayout
             main={ 
@@ -158,7 +168,12 @@ const Project = () => {
                         {t('still working?')}:
                     </Components.label>
 
-                    <input type="checkbox" placeholder='still working?' className='stillWorking'/>
+                    <input 
+                    type="checkbox"
+                    placeholder='still working?' 
+                    className='stillWorking'
+                    checked={project?.end === null}
+                    onChange={handleCheckboxChange}/>
 
                     <div className='textArea'>
                        <h2>{t('resume of the project')}</h2>
