@@ -56,11 +56,6 @@ const Project = () => {
 
     }, [getProject])
 
-    useEffect(() => {
-        console.log(project)
-
-    }, [project])
-
     const setAbout = (text: string) => updateProjectProperty('about', text)
 
     const updateProjectProperty = (property: "about" | "start" | "end", value: string) => {
