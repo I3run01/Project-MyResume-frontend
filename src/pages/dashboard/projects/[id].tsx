@@ -9,6 +9,7 @@ import { ProjectIdDiv } from '@/styles/projectsid.module'
 import TextArea from '@/components/textArea/textArea'
 import { useTranslation } from 'react-i18next';
 import { ImageContent } from '@/components/projectContent/imageContent/imageContent'
+import { ProjectGroup } from '@/components/projectContent/projectGroup/projectGroup'
 
 
 const Project = () => {
@@ -34,6 +35,12 @@ const Project = () => {
                         image: '',
                         text: ''
                     }
+                ],
+                group: [
+                    'group 1',
+                    'group 2',
+                    'group 3',
+                    'group 4',
                 ]
             }
 
@@ -208,6 +215,12 @@ const Project = () => {
                     isDark={isDark} onClick={() => handleContentChanges.addContent(-1)}>
                         {t("add new content")}
                     </Components.AddItemButton>
+
+                    <h1>{t('groups')}</h1>
+
+                    <ProjectGroup
+                        projectGroup={project?.group ? project?.group : null}
+                    />
 
                 </ProjectIdDiv>
             }

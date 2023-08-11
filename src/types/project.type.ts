@@ -9,4 +9,5 @@ type projectType  = {
     start: string
     end:string | null
     content: contentImage[]
+    group: string[]
 }
