@@ -90,9 +90,8 @@ export const ImageContent = ({content, index, onDataReceived}: props) => {
                 accept="image/jpg, image/jpeg, image/png"
                 onChange={handleImageChanges}/>
 
-
                 <div className='contentContainer'>
-
+                    
                     <img src={contentState?.image ? contentState.image : imageCode64} alt="" />
 
                     <TextArea
