@@ -112,8 +112,8 @@ const ProjectsIndex = () => {
             main={
                 <>
                     <h1>
-                        {t("These are your projects. Please. Single-click to edit its name. Double-click to open it")}. 
-                        <b> {t("curriculum_text_highlight")}</b>
+                        {t("These are your projects group. Please. Single-click to edit its name. Double-click to open it")}. 
+
                     </h1>
 
                     {projects?.map((project, index) => (
