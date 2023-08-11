@@ -4,7 +4,6 @@ export const ImageContentDiv = styled.div`
     
     .contentContainer {
         display: flex;
-        width: 1000px;
         height: auto;
 
         justify-content: space-around;
@@ -12,6 +11,8 @@ export const ImageContentDiv = styled.div`
         flex-wrap: wrap;
 
         img {
+            margin-top: 20px;
+            margin-bottom: 20px;
             width: 50%;
         }
         
