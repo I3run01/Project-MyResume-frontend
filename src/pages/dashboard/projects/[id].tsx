@@ -36,12 +36,6 @@ const Project = () => {
                         text: ''
                     }
                 ],
-                group: [
-                    'group 1',
-                    'group 2',
-                    'group 3',
-                    'group 4',
-                ]
             }
 
             return json;
@@ -212,10 +206,6 @@ const Project = () => {
                     </Components.AddItemButton>
 
                     <h1>{t('groups')}</h1>
-
-                    <ProjectGroup
-                        projectGroup={project?.group ? project?.group : null}
-                    />
 
                 </ProjectIdDiv>
             }
