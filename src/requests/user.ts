@@ -49,18 +49,8 @@ export class User {
     }
 
     async user() {
-        //TODO: change this part
-        let response = {
-            data: {
-                _id: 'anyId',
-                email: 'testEmail@gmail.com',
-                name:'myName',
-            }
-        }
-
         try {
-            //TODO:discoment this
-            // const response = await api.get('');
+            const response = await api.get('');
             return JSON.stringify(response.data);
         } catch (error) {
             throw error;
