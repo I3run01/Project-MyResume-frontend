@@ -6,15 +6,15 @@ const api = axios.create({
 });
 
 api.interceptors.response.use(function (response) {
-    return response;
-}, function (error) {
-    console.log(error)
-    if (error.response) throw error.response.data.message;
+        return response;
+    }, function (error) {
+        console.log(error)
+        if (error.response) throw error.response.data.message;
 
-    if (error.message) throw error.message;
-    
-    throw error;
-});
+        if (error.message) throw error.message;
+        
+        throw error;
+    });
 
 
 export class User {
@@ -49,8 +49,18 @@ export class User {
     }
 
     async user() {
+        //TODO: change this part
+        let response = {
+            data: {
+                _id: 'anyId',
+                email: 'testEmail@gmail.com',
+                name:'myName',
+            }
+        }
+
         try {
-            const response = await api.get('');
+            //TODO:discoment this
+            // const response = await api.get('');
             return JSON.stringify(response.data);
         } catch (error) {
             throw error;

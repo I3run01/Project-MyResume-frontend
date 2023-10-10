@@ -5,7 +5,8 @@ export interface ThemeState {
 }
 
 const initialState: ThemeState = {
-  isDark: typeof window !== 'undefined' && window.localStorage.getItem('theme') === 'light' ? false : true,
+  isDark: typeof window !== 'undefined' && window.localStorage.getItem('theme') !== 'light'
+
 }
 
 
