@@ -9,17 +9,33 @@ import i18n from '@/i18n/i18n';
 import { I18nextProvider } from 'react-i18next';
 import { useEffect } from 'react';
 import { WordCv } from '@/requests/wordCv'
+import { changeTheme, setDark, setLight } from '@/redux/slice/themeSlice'
+import { useDispatch } from 'react-redux';
 
 export default function App({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();
 
-  useEffect(() => {
-    const currentLanguage = typeof window !== 'undefined' ? localStorage.getItem('i18nextLng') : null;
+  function AppContent() {
+    const dispatch = useDispatch();
+  
+    useEffect(() => {
+      const currentLanguage = typeof window !== 'undefined' ? localStorage.getItem('i18nextLng') : null;
+  
+      if(currentLanguage) i18n.changeLanguage(currentLanguage);
+  
+      new WordCv().getWordAllowedLanguages();
+  
+      
+      const getTheme = typeof window !== 'undefined' ? localStorage.getItem('theme') : null;
+      if (getTheme) {
+        if(getTheme === 'dark') dispatch(setDark())
 
-    if(currentLanguage) i18n.changeLanguage(currentLanguage);
-
-    new WordCv().getWordAllowedLanguages()
-  }, [])
+        else dispatch(setLight())
+      }
+    }, []);
+  
+    return <Component {...pageProps} />;
+  }
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -30,10 +46,10 @@ export default function App({ Component, pageProps }: AppProps) {
                 <link href='https://fonts.googleapis.com/css2?family=Dosis:wght@700&display=swap' rel='stylesheet' />
           </Head>
           <I18nextProvider i18n={i18n}>
-            <Component {...pageProps} />
+            <AppContent />
           </I18nextProvider>
         </GoogleOAuthProvider>
       </Provider>
     </QueryClientProvider>
-  )
+  );
 }
