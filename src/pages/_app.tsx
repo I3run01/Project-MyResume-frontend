@@ -9,7 +9,7 @@ import i18n from '@/i18n/i18n';
 import { I18nextProvider } from 'react-i18next';
 import { useEffect } from 'react';
 import { WordCv } from '@/requests/wordCv'
-import { changeTheme, setDark, setLight } from '@/redux/slice/themeSlice'
+import { setDark, setLight } from '@/redux/slice/themeSlice'
 import { useDispatch } from 'react-redux';
 
 export default function App({ Component, pageProps }: AppProps) {
