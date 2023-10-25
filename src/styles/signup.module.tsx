@@ -4,6 +4,7 @@ import styled, { keyframes } from 'styled-components';
 type props = {
     correctEmail: boolean
     mathPassword: boolean
+    isDark: boolean
 }
 
 const Gradient = keyframes`
@@ -31,7 +32,10 @@ export const SignupDiv = styled.div<props>`
 
     height: 100vh;
 
-    background: linear-gradient(-45deg, #000428, #013b6d, #021661, #570091);
+    background: ${props => props.isDark ? 
+    'linear-gradient(-45deg, #000428, #013b6d, #021661, #570091)' : 
+    'linear-gradient(-45deg, #E0EAFC, #CFDEF3, #E0C3FC, #B4ACFF)'
+    };
     background-size: 400% 400%;
     animation: ${Gradient} 10s ease infinite;
 

@@ -11,10 +11,13 @@ import { Loading } from '@/components/loading'
 import { useDispatch } from 'react-redux';
 import { changeUser } from '@/redux/slice/userSlice'
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
 
 const SignIn = () => {
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
+    const isDark = useSelector((state: RootState) => state.theme.isDark)
     const router = useRouter()
     const dispatch = useDispatch()
     const { t } = useTranslation();
@@ -44,7 +47,7 @@ const SignIn = () => {
         <>
             {isFetching && <Loading/>}
 
-            <SigninDiv>
+            <SigninDiv isDark={isDark}>
                 <form id='container'>
                     <Link href={'/'} className='backButton'>
                         <Image
